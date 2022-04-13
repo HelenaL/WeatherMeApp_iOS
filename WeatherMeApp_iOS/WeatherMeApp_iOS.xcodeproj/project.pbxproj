@@ -48,7 +48,6 @@
 				D1DF0AB5B8981854440BE402 /* Pods-WeatherMeApp_iOS.debug.xcconfig */,
 				5D09800A8E2243F2A2DE9C35 /* Pods-WeatherMeApp_iOS.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -103,6 +102,7 @@
 				1437A26328065934007DA783 /* Sources */,
 				1437A26428065934007DA783 /* Frameworks */,
 				1437A26528065934007DA783 /* Resources */,
+				14A8280C280664670062BE42 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -160,6 +160,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		14A8280C280664670062BE42 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
 		E3D5B962C301881D52997822 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
