@@ -10,6 +10,8 @@ import MapKit
 
 class CitiesListVC: UIViewController {
 
+    // MARK: - VC Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -21,10 +23,10 @@ class CitiesListVC: UIViewController {
                 self.storyboard?.instantiateViewController(withIdentifier: "CitySearchResultVC") as? CitySearchResultVC
         
         let searchController = UISearchController(searchResultsController: resultsTableController)
-        searchController.delegate = self
-        searchController.searchResultsUpdater = self
-        searchController.searchBar.delegate = self // Monitor when the search button is tapped.
-        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.delegate = resultsTableController
+        searchController.searchResultsUpdater = resultsTableController
+        searchController.searchBar.delegate = resultsTableController // Monitor when the search button is tapped.
+        searchController.obscuresBackgroundDuringPresentation = true
         
         // Place the search bar in the navigation bar.
         navigationItem.searchController = searchController
@@ -34,6 +36,8 @@ class CitiesListVC: UIViewController {
     }
 
 }
+
+// MARK: - Collection View Extensions
 
 extension CitiesListVC: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -81,55 +85,5 @@ extension CitiesListVC: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: 8, left: 8, bottom: 0, right: 8)
-    }
-}
-
-extension CitiesListVC: UISearchControllerDelegate {
-    
-}
-
-extension CitiesListVC: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        //print("textDidChange \(searchText)")
-        searchCityByName(name: searchText)
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //print("searchBarSearchButtonClicked")
-        searchCityByName(name: searchBar.text ?? " ")
-    }
-}
-
-extension CitiesListVC: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-        //print(text)
-        //searchCityByName(name: text)
-    }
-}
-
-extension CitiesListVC {
-    func searchCityByName(name: String) {
-        let searchText = name
-        let searchRequest = MKLocalSearch.Request()
-        searchRequest.naturalLanguageQuery = searchText
-        
-        let localSearch = MKLocalSearch(request: searchRequest)
-        localSearch.start { (response, error) in
-            guard let coordinate = response?.mapItems[0].placemark.coordinate else {
-                            return
-                        }
-
-                        guard let name = response?.mapItems[0].name else {
-                            return
-                        }
-
-                        let lat = coordinate.latitude
-                        let lon = coordinate.longitude
-
-                        print(lat)
-                        print(lon)
-                        print(name)
-        }
     }
 }
