@@ -11,14 +11,21 @@ import MapKit
 class CitySearchResultVC: UITableViewController {
     
     // MARK: - Properties
+        
+    // Create a seach completer object
+    var searchCompleter = MKLocalSearchCompleter()
     
-    var matchingItems: [MKMapItem] = []
+    // These are the results that are returned from the searchCompleter & what we are displaying
+    // on the searchResultsTable
+    var searchResults = [MKLocalSearchCompletion]()
     
     // MARK: - VC Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        searchCompleter.delegate = self
+        searchCompleter.resultTypes = .address
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,26 +40,43 @@ class CitySearchResultVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return matchingItems.count
+        return searchResults.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
 
-        var secondaryTextArray: [String] = []
-        if let area = matchingItems[indexPath.row].placemark.administrativeArea {
-            secondaryTextArray.append(area)
-        }
-        
-        if let country = matchingItems[indexPath.row].placemark.country {
-            secondaryTextArray.append(country)
-        }
+        let item = searchResults[indexPath.row]
         
         var content = cell.defaultContentConfiguration()
-        content.text = matchingItems[indexPath.row].placemark.name
-        content.secondaryText = secondaryTextArray.joined(separator: ", ")
+        content.text = item.title
+        content.secondaryText = item.subtitle
         cell.contentConfiguration = content
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let result = searchResults[indexPath.row]
+        let searchRequest = MKLocalSearch.Request(completion: result)
+        
+        let search = MKLocalSearch(request: searchRequest)
+        search.start { (response, error) in
+            guard let coordinate = response?.mapItems[0].placemark.coordinate else {
+                 return
+            }
+
+            guard let name = response?.mapItems[0].name else {
+                 return
+            }
+            
+            let lat = coordinate.latitude
+            let lon = coordinate.longitude
+
+            print("\(name) \(lat) \(lon)")
+
+        }
     }
     
     /*
@@ -115,31 +139,20 @@ extension CitySearchResultVC: UISearchBarDelegate {
 //    }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchCityByName(name: searchBar.text ?? " ")
+        searchCompleter.queryFragment = searchBar.text ?? " "
     }
 }
 
 extension CitySearchResultVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let text = searchController.searchBar.text else { return }
-        searchCityByName(name: text)
+        searchCompleter.queryFragment = text
     }
 }
 
-extension CitySearchResultVC {
-    func searchCityByName(name: String) {
-        let searchText = name
-
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = searchText
-        
-        let search = MKLocalSearch(request: request)
-        search.start { (response, error) in
-                guard let response = response else {
-                    return
-                }
-                self.matchingItems = response.mapItems
-                self.tableView.reloadData()
-            }
+extension CitySearchResultVC: MKLocalSearchCompleterDelegate {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        searchResults = completer.results
+        tableView.reloadData()
     }
 }
