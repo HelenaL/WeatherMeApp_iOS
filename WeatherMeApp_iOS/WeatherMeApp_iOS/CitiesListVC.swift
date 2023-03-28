@@ -7,18 +7,30 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class CitiesListVC: UIViewController {
-
+    
+    // MARK: - Properties
+    var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
+    
     // MARK: - VC Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        // Setup VC title
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Weather"
         
+        // Setup Core Data
+        guard container != nil else {
+                    fatalError("This view needs a persistent container.")
+        }
+        
+        let list = City.fetchRequest()
+        
+        // Setup Search Controller
         let resultsTableController =
                 self.storyboard?.instantiateViewController(withIdentifier: "CitySearchResultVC") as? CitySearchResultVC
         
