@@ -113,12 +113,11 @@ class CitySearchResultVC: UITableViewController {
         return true
     }
     */
-
     
 // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "openNewCityWeather", // openNewCityWeather
+        if segue.identifier == "openNewCityWeather",
             let nav = segue.destination as? UINavigationController,
             let vc = nav.viewControllers.first as? CityWeatherViewController {
             vc.cityNAme = "Set City Name"

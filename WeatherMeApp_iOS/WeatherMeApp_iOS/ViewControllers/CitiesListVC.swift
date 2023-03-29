@@ -13,6 +13,7 @@ class CitiesListVC: UIViewController {
     
     // MARK: - Properties
     var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
+    @IBOutlet weak var collectionView: UICollectionView!
     
     // MARK: - VC Life Cycle
     
@@ -45,6 +46,18 @@ class CitiesListVC: UIViewController {
             
         // Make the search bar always visible.
         navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    // MARK: - Navigation
+    // openCityWeather
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? CityWeatherViewController {
+            if let indexPath = collectionView.indexPathsForSelectedItems?.first {
+                //vc.shoppingList = fetchedResultsController.object(at: indexPath)
+                //vc.dataController = dataController
+                
+            }
+        }
     }
 
 }

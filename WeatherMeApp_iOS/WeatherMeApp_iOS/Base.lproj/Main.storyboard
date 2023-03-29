@@ -83,6 +83,7 @@
                                         <connections>
                                             <outlet property="cityNameLabel" destination="9dd-aP-fro" id="rV8-tb-fpm"/>
                                             <outlet property="tempValueLabel" destination="S9X-25-xGX" id="2DF-GH-C0C"/>
+                                            <segue destination="fVz-pe-cRd" kind="show" id="y7R-6T-tDE"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -102,6 +103,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ixn-6Z-PQX"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Qmf-hr-dpZ" id="eVQ-Ob-Uaf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -112,11 +116,11 @@
             <objects>
                 <viewController storyboardIdentifier="CityWeatherViewController" id="fVz-pe-cRd" customClass="CityWeatherViewController" customModule="WeatherMeApp_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Y9-A4-WUq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mz9-Q3-yAg">
-                                <rect key="frame" x="0.0" y="48" width="414" height="790"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aao-jV-f6O">
                                     <size key="itemSize" width="128" height="128"/>
@@ -171,6 +175,7 @@
                             <constraint firstItem="Mz9-Q3-yAg" firstAttribute="top" secondItem="tDE-TO-RVa" secondAttribute="top" id="yNZ-oy-o1f"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Bsp-zu-lFU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="m4F-34-LxA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -208,6 +213,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="fVz-pe-cRd" kind="presentation" identifier="openNewCityWeather" id="abg-pu-kgp"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -215,15 +223,15 @@
                             <outlet property="delegate" destination="5ER-Og-fln" id="4ej-D4-i3s"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <segue destination="fVz-pe-cRd" kind="presentation" identifier="openNewCityWeather" id="x3a-3a-CpK"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QTV-Gt-4k0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-178" y="651"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="y7R-6T-tDE"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
