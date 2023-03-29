@@ -114,16 +114,23 @@ class CitySearchResultVC: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
+    
+// MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+        if segue.identifier == "openNewCityWeather", // openNewCityWeather
+            let nav = segue.destination as? UINavigationController,
+            let vc = nav.viewControllers.first as? CityWeatherViewController {
+            vc.cityNAme = "Set City Name"
+        }
 
+//        if let vc = segue.destination as? ShoppingItemsViewController {
+//            if let indexPath = tableView.indexPathForSelectedRow {
+//                vc.shoppingList = fetchedResultsController.object(at: indexPath)
+//                vc.dataController = dataController
+//            }
+//        }
+    }
 }
 
 // MARK: - Search Controller Extensions

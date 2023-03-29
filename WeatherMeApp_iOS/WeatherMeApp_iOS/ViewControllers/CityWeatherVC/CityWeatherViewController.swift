@@ -8,6 +8,8 @@
 import UIKit
 
 class CityWeatherViewController: UIViewController {
+    
+    var cityNAme: String = "My City Name"
 
     override func viewDidLoad() {
         super.viewDidLoad()
