@@ -55,7 +55,8 @@ class CitiesListVC: UIViewController {
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
                 //vc.shoppingList = fetchedResultsController.object(at: indexPath)
                 //vc.dataController = dataController
-                
+                //vc.cityNAme = "City \(indexPath.row)"
+                vc.isTopButtonHidden = true
             }
         }
     }

@@ -117,18 +117,25 @@ class CitySearchResultVC: UITableViewController {
 // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "openNewCityWeather",
-            let nav = segue.destination as? UINavigationController,
-            let vc = nav.viewControllers.first as? CityWeatherViewController {
-            vc.cityNAme = "Set City Name"
-        }
-
-//        if let vc = segue.destination as? ShoppingItemsViewController {
-//            if let indexPath = tableView.indexPathForSelectedRow {
-//                vc.shoppingList = fetchedResultsController.object(at: indexPath)
-//                vc.dataController = dataController
-//            }
+//        if segue.identifier == "openNewCityWeather",
+//            let nav = segue.destination as? UINavigationController,
+//            let vc = nav.viewControllers.first as? CityWeatherViewController {
+//            vc.cityNAme = "Set City Name"
 //        }
+
+        if let vc = segue.destination as? CityWeatherViewController {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let item = searchResults[indexPath.row]
+                //vc.cityNAme = item.title
+                //vc.city = item.
+                vc.isTopButtonHidden = false
+                
+                //let item = searchResults[0]
+                //vc.cityNAme = item.title
+                //vc.shoppingList = fetchedResultsController.object(at: indexPath)
+                //vc.dataController = dataController
+            }
+        }
     }
 }
 
@@ -140,7 +147,6 @@ extension CitySearchResultVC: UISearchControllerDelegate {
 
 extension CitySearchResultVC: UISearchBarDelegate {
 //    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        //print("textDidChange \(searchText)")
 //        //searchCityByName(name: searchText)
 //    }
     

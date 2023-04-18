@@ -8,11 +8,14 @@
 import UIKit
 
 class CityWeatherViewController: UIViewController {
-    
-    var cityNAme: String = "My City Name"
+
+    var city: (name: String, lat: Double, long: Double) = ("Passaic", 40.86, -74.12)
+    var isTopButtonHidden = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
 
         // Do any additional setup after loading the view.
     }
@@ -59,6 +62,9 @@ extension CityWeatherViewController: UICollectionViewDataSource {
         case Section.top.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopWeatherCell", for: indexPath) as! TopWeatherCell
                 // cell.cityNameLabel.text = String("City \(indexPath.row + 1)")
+            cell.delegate = self
+            cell.cityNameLabel.text = city.name
+            cell.isTopButtonHidden = isTopButtonHidden
             return cell
         case Section.hourly.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
@@ -73,6 +79,23 @@ extension CityWeatherViewController: UICollectionViewDataSource {
                 // cell.cityNameLabel.text = String("City \(indexPath.row + 1)")
             return cell
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == Section.daily.rawValue {
+             return CGSizeMake(self.view.bounds.width, 36)
+        } else {
+            return CGSizeZero
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "WeatherHeaderCollectionReusableView", for: indexPath) as? WeatherHeaderCollectionReusableView {
+            sectionHeader.sectionLabel.text = "10-DAY FORECAST"
+            return sectionHeader
+        }
+        return UICollectionReusableView()
     }
     
 }
@@ -113,6 +136,17 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.init(top: 8, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets.init(top: 0, left: 8, bottom: 0, right: 8)
+    }
+}
+
+extension CityWeatherViewController: TopWeatherCellDelegate {
+    func cancelAction() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func addNewCityToWeatherList() {
+        print("ADDD City")
+        dismiss(animated: true, completion: nil)
     }
 }
