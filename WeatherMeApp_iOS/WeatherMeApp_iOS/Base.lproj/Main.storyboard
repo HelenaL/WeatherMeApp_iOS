@@ -194,9 +194,47 @@
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5sR-F3-TjJ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3 pm" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDF-CN-lKK">
+                                                    <rect key="frame" x="8" y="8" width="398" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+8" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7g9-Do-nij">
+                                                    <rect key="frame" x="8" y="108" width="398" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T59-Y7-xgC">
+                                                    <rect key="frame" x="177" y="40" width="60" height="60"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="60" id="9JW-fW-PMF"/>
+                                                        <constraint firstAttribute="width" constant="60" id="AfI-hp-KRD"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="T59-Y7-xgC" firstAttribute="centerY" secondItem="5sR-F3-TjJ" secondAttribute="centerY" id="0Or-AU-d1t"/>
+                                                <constraint firstAttribute="trailing" secondItem="yDF-CN-lKK" secondAttribute="trailing" constant="8" id="0dx-Zf-mfV"/>
+                                                <constraint firstItem="yDF-CN-lKK" firstAttribute="leading" secondItem="5sR-F3-TjJ" secondAttribute="leading" constant="8" id="3o3-dz-Jvr"/>
+                                                <constraint firstItem="yDF-CN-lKK" firstAttribute="top" secondItem="5sR-F3-TjJ" secondAttribute="top" constant="8" id="82z-gq-PRX"/>
+                                                <constraint firstItem="T59-Y7-xgC" firstAttribute="centerX" secondItem="5sR-F3-TjJ" secondAttribute="centerX" id="FjK-11-czm"/>
+                                                <constraint firstItem="7g9-Do-nij" firstAttribute="top" secondItem="T59-Y7-xgC" secondAttribute="bottom" constant="8" id="PzR-oU-8IJ"/>
+                                                <constraint firstItem="T59-Y7-xgC" firstAttribute="top" secondItem="yDF-CN-lKK" secondAttribute="bottom" constant="8" id="T0J-yy-XyE"/>
+                                                <constraint firstItem="7g9-Do-nij" firstAttribute="leading" secondItem="5sR-F3-TjJ" secondAttribute="leading" constant="8" id="j5x-D1-2be"/>
+                                                <constraint firstAttribute="trailing" secondItem="7g9-Do-nij" secondAttribute="trailing" constant="8" id="jRZ-IJ-bD6"/>
+                                                <constraint firstAttribute="bottom" secondItem="7g9-Do-nij" secondAttribute="bottom" constant="8" id="zeT-hi-SdP"/>
+                                            </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                         <size key="customSize" width="414" height="140"/>
+                                        <connections>
+                                            <outlet property="hourLabel" destination="yDF-CN-lKK" id="Dgi-yq-a1v"/>
+                                            <outlet property="tempLabel" destination="7g9-Do-nij" id="gb0-O4-30z"/>
+                                            <outlet property="weatherImageView" destination="T59-Y7-xgC" id="h33-hG-0sV"/>
+                                        </connections>
                                     </collectionViewCell>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DailyWeatherCell" id="bCT-5j-w6S" customClass="DailyWeatherCell" customModule="WeatherMeApp_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="610" width="414" height="80"/>
