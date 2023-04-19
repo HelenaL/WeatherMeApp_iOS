@@ -22,6 +22,7 @@
 		148FECB729D3EAB800CCE158 /* DailyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FECB629D3EAB800CCE158 /* DailyWeatherCell.swift */; };
 		14A8280E28066BCA0062BE42 /* CitiesListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8280D28066BCA0062BE42 /* CitiesListCollectionViewCell.swift */; };
 		14E7F4CC29EE4E250036D099 /* WeatherHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E7F4CB29EE4E240036D099 /* WeatherHeaderCollectionReusableView.swift */; };
+		14E7F4CE29EE5C300036D099 /* HourlyWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E7F4CD29EE5C300036D099 /* HourlyWeatherView.swift */; };
 		DC2CEBBD3AE99F4B9ACF67E2 /* libPods-WeatherMeApp_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CA8CEBE1764CC77DA7ACCB /* libPods-WeatherMeApp_iOS.a */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		14A8280D28066BCA0062BE42 /* CitiesListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListCollectionViewCell.swift; sourceTree = "<group>"; };
 		14A8280F280674BA0062BE42 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		14E7F4CB29EE4E240036D099 /* WeatherHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		14E7F4CD29EE5C300036D099 /* HourlyWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherView.swift; sourceTree = "<group>"; };
 		5D09800A8E2243F2A2DE9C35 /* Pods-WeatherMeApp_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherMeApp_iOS.release.xcconfig"; path = "Target Support Files/Pods-WeatherMeApp_iOS/Pods-WeatherMeApp_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		87CA8CEBE1764CC77DA7ACCB /* libPods-WeatherMeApp_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeatherMeApp_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1DF0AB5B8981854440BE402 /* Pods-WeatherMeApp_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherMeApp_iOS.debug.xcconfig"; path = "Target Support Files/Pods-WeatherMeApp_iOS/Pods-WeatherMeApp_iOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				148FECB229D3EA5500CCE158 /* TopWeatherCell.swift */,
 				148FECB429D3EA9500CCE158 /* HourlyWeatherCell.swift */,
 				148FECB629D3EAB800CCE158 /* DailyWeatherCell.swift */,
+				14E7F4CD29EE5C300036D099 /* HourlyWeatherView.swift */,
 			);
 			path = CityWeatherVC;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				148FECB329D3EA5500CCE158 /* TopWeatherCell.swift in Sources */,
+				14E7F4CE29EE5C300036D099 /* HourlyWeatherView.swift in Sources */,
 				148FECB529D3EA9500CCE158 /* HourlyWeatherCell.swift in Sources */,
 				148FEC9829CFF9BC00CCE158 /* CoreDataStack.swift in Sources */,
 				143680B22819EE8A0063306F /* WeatherDataModel.xcdatamodeld in Sources */,

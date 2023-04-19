@@ -9,13 +9,15 @@ import UIKit
 
 class CityWeatherViewController: UIViewController {
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     var city: (name: String, lat: Double, long: Double) = ("Passaic", 40.86, -74.12)
     var isTopButtonHidden = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        collectionView.collectionViewLayout = createCollectionViewLayout()
 
         // Do any additional setup after loading the view.
     }
@@ -49,7 +51,7 @@ extension CityWeatherViewController: UICollectionViewDataSource {
         case Section.top.rawValue:
             return 1
         case Section.hourly.rawValue:
-            return 1
+            return 20
         case Section.daily.rawValue:
             return 10
         default:
@@ -69,6 +71,7 @@ extension CityWeatherViewController: UICollectionViewDataSource {
         case Section.hourly.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
             // cell.cityNameLabel.text = String("City \(indexPath.row + 1)")
+            cell.cellConfigurate()
             return cell
         case Section.daily.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DailyWeatherCell", for: indexPath) as! DailyWeatherCell
@@ -97,7 +100,6 @@ extension CityWeatherViewController: UICollectionViewDataSource {
         }
         return UICollectionReusableView()
     }
-    
 }
 
 extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
@@ -138,6 +140,106 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: 0, left: 8, bottom: 0, right: 8)
     }
+    
+    func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
+            if section == 0 {
+                let item = NSCollectionLayoutItem(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+                              
+                // group
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(400)
+                    ),
+                    subitem: item,
+                    count: 1
+                )
+                group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                              
+                // section
+                let section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+                              
+                // return
+                return section
+                
+            } else if section == 1 {
+                let item = NSCollectionLayoutItem(
+                        layoutSize: NSCollectionLayoutSize(
+                          widthDimension: .fractionalWidth(1),
+                          heightDimension: .fractionalHeight(1)
+                        )
+                      )
+                item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 2)
+                              
+                // group
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(140)
+                    ),
+                    subitem: item,
+                    count: 5
+                )
+                group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                      
+                // section
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .continuous
+                section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 8, bottom: 5, trailing: 8)
+                      
+                // return
+                return section
+                
+            } else if section == 2 {
+                let item = NSCollectionLayoutItem(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(50)
+                    )
+                )
+                
+                item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 2, trailing: 0)
+                                
+                // group
+                let group = NSCollectionLayoutGroup.vertical(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(50)
+                    ),
+                    subitem: item,
+                    count: 1
+                )
+                
+                group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                                
+                  // section
+                let section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+                
+                // add header section layout
+                let footerHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1),
+                                                                        heightDimension: .absolute(36))
+                let header = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: footerHeaderSize,
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top)
+                           
+                section.boundarySupplementaryItems = [header]
+                
+                // return
+                return section
+            }
+            return nil
+        }
+    }
+    
 }
 
 extension CityWeatherViewController: TopWeatherCellDelegate {

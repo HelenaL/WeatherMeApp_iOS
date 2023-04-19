@@ -9,4 +9,8 @@ import UIKit
 
 class HourlyWeatherCell: UICollectionViewCell {
     
+    
+    func cellConfigurate () {
+
+    }
 }
