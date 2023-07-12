@@ -71,7 +71,7 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
 
         if let vc = segue.destination as? CityWeatherViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
-                vc.isTopButtonHidden = false
+               // vc.isTopButtonHidden = false
                 
                 let result = searchResults[indexPath.row]
                 let searchRequest = MKLocalSearch.Request(completion: result)
@@ -96,7 +96,9 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                     
                     // TODO: check that the city exist in list of saved city
                     //if exist isTopButtonHidden = true else false
-                    vc.isTopButtonHidden = false
+                    
+                    vc.isTopButtonHidden = CoreDataStack.shared.isContainCity(name: name)
+                    
                 }
 
             }

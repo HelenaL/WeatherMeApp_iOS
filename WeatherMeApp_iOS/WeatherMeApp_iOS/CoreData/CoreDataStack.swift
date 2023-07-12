@@ -79,4 +79,21 @@ extension CoreDataStack {
         
         return []
     }
+    
+    func isContainCity(name: String) -> Bool {
+        let context = persistentContainer.viewContext
+        let fetchRequest =
+            NSFetchRequest<City>(entityName: "City")
+        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \City.name, ascending: true)]
+        
+        do {
+            let cities = try context.fetch(fetchRequest)
+            return !cities.isEmpty
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+       return false
+    }
 }
