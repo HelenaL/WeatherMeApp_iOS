@@ -2,7 +2,7 @@
 //  City+CoreDataProperties.swift
 //  
 //
-//  Created by Lenochka on 3/26/23.
+//  Created by Lenochka on 7/11/23.
 //
 //
 
@@ -16,6 +16,8 @@ extension City {
         return NSFetchRequest<City>(entityName: "City")
     }
 
+    @NSManaged public var lat: Double
+    @NSManaged public var long: Double
     @NSManaged public var name: String?
 
 }

@@ -36,3 +36,47 @@ class CoreDataStack {
     }
     
 }
+
+extension CoreDataStack {
+    func addNewCity(name: String, lat: Double, long: Double) {
+        let context = persistentContainer.viewContext
+        let city = City(context: context)
+        city.name = name
+        city.lat = lat
+        city.long = long
+        
+        do {
+            try context.save()
+        }
+        catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func deleteCity(city: City) {
+        let context = persistentContainer.viewContext
+        context.delete(city)
+        
+        do {
+            try context.save()
+        }
+        catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    func getCitiesList() -> [City] {
+        let context = persistentContainer.viewContext
+        let fetchRequest =
+            NSFetchRequest<City>(entityName: "City")
+        
+        do {
+            let cities = try context.fetch(fetchRequest)
+            return cities
+        } catch let error as NSError {
+          print("Could not fetch. \(error), \(error.userInfo)")
+        }
+        
+        return []
+    }
+}

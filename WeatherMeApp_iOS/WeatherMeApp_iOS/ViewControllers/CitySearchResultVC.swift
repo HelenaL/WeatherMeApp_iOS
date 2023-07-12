@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-class CitySearchResultVC: UITableViewController {
+class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
     
     // MARK: - Properties
         
@@ -58,61 +58,7 @@ class CitySearchResultVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let result = searchResults[indexPath.row]
-        let searchRequest = MKLocalSearch.Request(completion: result)
-        
-        let search = MKLocalSearch(request: searchRequest)
-        search.start { (response, error) in
-            guard let coordinate = response?.mapItems[0].placemark.coordinate else {
-                 return
-            }
-
-            guard let name = response?.mapItems[0].name else {
-                 return
-            }
-            
-            let lat = coordinate.latitude
-            let lon = coordinate.longitude
-
-            print("\(name) \(lat) \(lon)")
-
-        }
     }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
 // MARK: - Navigation
 
@@ -125,17 +71,42 @@ class CitySearchResultVC: UITableViewController {
 
         if let vc = segue.destination as? CityWeatherViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let item = searchResults[indexPath.row]
-                //vc.cityNAme = item.title
-                //vc.city = item.
                 vc.isTopButtonHidden = false
                 
-                //let item = searchResults[0]
-                //vc.cityNAme = item.title
-                //vc.shoppingList = fetchedResultsController.object(at: indexPath)
-                //vc.dataController = dataController
+                let result = searchResults[indexPath.row]
+                let searchRequest = MKLocalSearch.Request(completion: result)
+                
+                let search = MKLocalSearch(request: searchRequest)
+                search.start { (response, error) in
+                    guard let coordinate = response?.mapItems[0].placemark.coordinate else {
+                         return
+                    }
+
+                    guard let name = response?.mapItems[0].name else {
+                         return
+                    }
+                    
+                    let lat = coordinate.latitude
+                    let lon = coordinate.longitude
+
+                    print("Selected City: \(name) \(lat) \(lon)")
+                    
+                    vc.city = (name, lat, lon)
+                    vc.searchDelegate = self
+                    
+                    // TODO: check that the city exist in list of saved city
+                    //if exist isTopButtonHidden = true else false
+                    vc.isTopButtonHidden = false
+                }
+
             }
         }
+    }
+    
+// MARK: - CitySearchResultVC Delegate implementation
+    
+    func dismissCitySearchResultVC() {
+        dismiss(animated: true, completion: nil)
     }
 }
 

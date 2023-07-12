@@ -7,11 +7,24 @@
 
 import UIKit
 
+protocol CitySearchResultVCDelegate: AnyObject {
+    func dismissCitySearchResultVC ()
+}
+
 class CityWeatherViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var city: (name: String, lat: Double, long: Double) = ("Passaic", 40.86, -74.12)
+    weak var searchDelegate: CitySearchResultVCDelegate?
+    
+    var city: (name: String, lat: Double, long: Double) = ("MyCity", 40.86, -74.12) {
+        didSet {
+            if (collectionView != nil) {
+                collectionView.reloadData()
+            }
+        }
+    }
+    
     var isTopButtonHidden = true
 
     override func viewDidLoad() {
@@ -142,7 +155,7 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
+        return UICollectionViewCompositionalLayout { [self] (section, _) -> NSCollectionLayoutSection? in
             if section == 0 {
                 let item = NSCollectionLayoutItem(
                     layoutSize: NSCollectionLayoutSize(
@@ -182,10 +195,10 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
                 let group = NSCollectionLayoutGroup.horizontal(
                     layoutSize: NSCollectionLayoutSize(
                         widthDimension: .fractionalWidth(1),
-                        heightDimension: .absolute(140)
+                        heightDimension: .absolute(120)
                     ),
                     subitem: item,
-                    count: 5
+                    count: 6
                 )
                 group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
                       
@@ -249,6 +262,8 @@ extension CityWeatherViewController: TopWeatherCellDelegate {
     
     func addNewCityToWeatherList() {
         print("ADDD City")
+        CoreDataStack.shared.addNewCity(name: city.name, lat: city.lat, long: city.long)
+        self.searchDelegate?.dismissCitySearchResultVC()
         dismiss(animated: true, completion: nil)
     }
 }

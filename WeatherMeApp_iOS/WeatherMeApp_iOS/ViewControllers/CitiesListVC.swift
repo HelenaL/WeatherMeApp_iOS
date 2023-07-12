@@ -14,6 +14,7 @@ class CitiesListVC: UIViewController {
     // MARK: - Properties
     var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
     @IBOutlet weak var collectionView: UICollectionView!
+    var cities: [City] = []
     
     // MARK: - VC Life Cycle
     
@@ -29,7 +30,8 @@ class CitiesListVC: UIViewController {
                     fatalError("This view needs a persistent container.")
         }
         
-        let list = City.fetchRequest()
+        //let list = City.fetchRequest()
+        cities = CoreDataStack.shared.getCitiesList()
         
         // Setup Search Controller
         let resultsTableController =
@@ -53,9 +55,8 @@ class CitiesListVC: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? CityWeatherViewController {
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
-                //vc.shoppingList = fetchedResultsController.object(at: indexPath)
-                //vc.dataController = dataController
-                //vc.cityNAme = "City \(indexPath.row)"
+                let city = cities[indexPath.row]
+                vc.city = (city.name ?? "", city.lat, city.long)
                 vc.isTopButtonHidden = true
             }
         }
@@ -71,12 +72,13 @@ extension CitiesListVC: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return cities.count
     }
      
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CitiesListCollectionViewCell", for: indexPath) as! CitiesListCollectionViewCell
-        cell.cityNameLabel.text = String("City \(indexPath.row + 1)")
+        
+        cell.cityNameLabel.text = cities[indexPath.row].name
         return cell
     }
 }
