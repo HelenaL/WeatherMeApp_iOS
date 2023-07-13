@@ -86,18 +86,20 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                          return
                     }
                     
+                    guard let placemarkTitle = response?.mapItems[0].placemark.title else {
+                         return
+                    }
+                    
                     let lat = coordinate.latitude
                     let lon = coordinate.longitude
 
-                    print("Selected City: \(name) \(lat) \(lon)")
+                    print("Selected City: \(name) \(placemarkTitle) \(lat) \(lon)")
                     
-                    vc.city = (name, lat, lon)
+                    vc.city = (name, placemarkTitle, lat, lon)
                     vc.searchDelegate = self
                     
-                    // TODO: check that the city exist in list of saved city
-                    //if exist isTopButtonHidden = true else false
-                    
-                    vc.isTopButtonHidden = (cancel: false, add: CoreDataStack.shared.isContainCity(name: name))
+                    //check that the city exist in list of saved city, if exist need to hide add button
+                    vc.isTopButtonHidden = (cancel: false, add: CoreDataStack.shared.isContainCity(placemarkTitle: placemarkTitle))
                     
                     
                 }

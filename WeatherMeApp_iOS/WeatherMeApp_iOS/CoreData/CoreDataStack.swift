@@ -38,10 +38,11 @@ class CoreDataStack {
 }
 
 extension CoreDataStack {
-    func addNewCity(name: String, lat: Double, long: Double) {
+    func addNewCity(name: String, placemarkTitle: String, lat: Double, long: Double) {
         let context = persistentContainer.viewContext
         let city = City(context: context)
         city.name = name
+        city.placemarkTitle = placemarkTitle
         city.lat = lat
         city.long = long
         
@@ -80,11 +81,11 @@ extension CoreDataStack {
         return []
     }
     
-    func isContainCity(name: String) -> Bool {
+    func isContainCity(placemarkTitle: String) -> Bool {
         let context = persistentContainer.viewContext
         let fetchRequest =
             NSFetchRequest<City>(entityName: "City")
-        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
+        fetchRequest.predicate = NSPredicate(format: "placemarkTitle == %@", placemarkTitle)
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \City.name, ascending: true)]
         
         do {

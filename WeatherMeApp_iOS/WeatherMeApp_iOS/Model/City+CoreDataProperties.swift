@@ -2,7 +2,7 @@
 //  City+CoreDataProperties.swift
 //  
 //
-//  Created by Lenochka on 7/11/23.
+//  Created by Lenochka on 7/13/23.
 //
 //
 
@@ -19,5 +19,6 @@ extension City {
     @NSManaged public var lat: Double
     @NSManaged public var long: Double
     @NSManaged public var name: String?
+    @NSManaged public var placemarkTitle: String?
 
 }

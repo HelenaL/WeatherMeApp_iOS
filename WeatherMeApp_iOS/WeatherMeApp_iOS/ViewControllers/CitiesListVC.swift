@@ -56,7 +56,7 @@ class CitiesListVC: UIViewController {
         if let vc = segue.destination as? CityWeatherViewController {
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
                 let city = cities[indexPath.row]
-                vc.city = (city.name ?? "", city.lat, city.long)
+                vc.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long)
                 vc.isTopButtonHidden = (cancel: true, add: true)
             }
         }
