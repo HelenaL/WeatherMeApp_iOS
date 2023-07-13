@@ -97,7 +97,8 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                     // TODO: check that the city exist in list of saved city
                     //if exist isTopButtonHidden = true else false
                     
-                    vc.isTopButtonHidden = CoreDataStack.shared.isContainCity(name: name)
+                    vc.isTopButtonHidden = (cancel: false, add: CoreDataStack.shared.isContainCity(name: name))
+                    
                     
                 }
 

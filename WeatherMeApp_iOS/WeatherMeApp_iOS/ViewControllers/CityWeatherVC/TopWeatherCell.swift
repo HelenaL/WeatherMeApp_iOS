@@ -14,10 +14,10 @@ protocol TopWeatherCellDelegate: AnyObject {
 
 class TopWeatherCell: UICollectionViewCell {
     
-    var isTopButtonHidden: Bool = true {
+    var isTopButtonHidden: (cancel: Bool, add: Bool) = (cancel: true, add: true) {
         didSet {
-            cancelButton.isHidden = isTopButtonHidden
-            addButton.isHidden = isTopButtonHidden
+            cancelButton.isHidden = isTopButtonHidden.cancel
+            addButton.isHidden = isTopButtonHidden.add
         }
     }
     weak var delegate: TopWeatherCellDelegate?

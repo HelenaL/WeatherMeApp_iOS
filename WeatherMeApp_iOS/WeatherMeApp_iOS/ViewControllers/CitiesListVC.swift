@@ -57,7 +57,7 @@ class CitiesListVC: UIViewController {
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
                 let city = cities[indexPath.row]
                 vc.city = (city.name ?? "", city.lat, city.long)
-                vc.isTopButtonHidden = true
+                vc.isTopButtonHidden = (cancel: true, add: true)
             }
         }
     }

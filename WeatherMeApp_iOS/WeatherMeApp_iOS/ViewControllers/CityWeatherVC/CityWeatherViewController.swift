@@ -25,7 +25,7 @@ class CityWeatherViewController: UIViewController {
         }
     }
     
-    var isTopButtonHidden = true
+    var isTopButtonHidden: (cancel: Bool, add: Bool) = (cancel: true, add: true)
 
     override func viewDidLoad() {
         super.viewDidLoad()
