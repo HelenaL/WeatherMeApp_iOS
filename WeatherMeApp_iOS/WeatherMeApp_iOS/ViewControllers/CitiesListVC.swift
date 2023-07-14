@@ -12,12 +12,13 @@ import CoreData
 class CitiesListVC: UIViewController {
     
     // MARK: - Properties
-    var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
     var cities: [City] = []
     
     // MARK: - VC Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +30,10 @@ class CitiesListVC: UIViewController {
         guard container != nil else {
                     fatalError("This view needs a persistent container.")
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(newCityAdded(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
+
+        
         
         //let list = City.fetchRequest()
         cities = CoreDataStack.shared.getCitiesList()
@@ -48,6 +53,11 @@ class CitiesListVC: UIViewController {
             
         // Make the search bar always visible.
         navigationItem.hidesSearchBarWhenScrolling = false
+    }
+    
+    @objc func newCityAdded(_ notification: Notification) {
+        cities = CoreDataStack.shared.getCitiesList()
+        self.collectionView.reloadData()
     }
     
     // MARK: - Navigation

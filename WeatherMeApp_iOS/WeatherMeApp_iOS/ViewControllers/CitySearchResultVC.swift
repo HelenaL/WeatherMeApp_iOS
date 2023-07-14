@@ -11,7 +11,7 @@ import MapKit
 class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
     
     // MARK: - Properties
-        
+            
     // Create a seach completer object
     var searchCompleter = MKLocalSearchCompleter()
     
@@ -100,8 +100,7 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                     
                     //check that the city exist in list of saved city, if exist need to hide add button
                     vc.isTopButtonHidden = (cancel: false, add: CoreDataStack.shared.isContainCity(placemarkTitle: placemarkTitle))
-                    
-                    
+                
                 }
 
             }
