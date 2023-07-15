@@ -32,8 +32,6 @@ class CitiesListVC: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(newCityAdded(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
-
-        
         
         //let list = City.fetchRequest()
         cities = CoreDataStack.shared.getCitiesList()
