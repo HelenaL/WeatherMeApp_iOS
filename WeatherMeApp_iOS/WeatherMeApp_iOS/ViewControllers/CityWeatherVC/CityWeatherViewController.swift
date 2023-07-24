@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import CoreLocation
+import WeatherKit
 
 protocol CitySearchResultVCDelegate: AnyObject {
     func dismissCitySearchResultVC ()
@@ -16,12 +18,30 @@ class CityWeatherViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     weak var searchDelegate: CitySearchResultVCDelegate?
+    var weather: Weather?
     
     var city: (name: String, placemarkTitle: String, lat: Double, long: Double) = ("MyCity", "placemarkTitle", 40.86, -74.12) {
         didSet {
+            WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: city.lat, longitude: city.long)) { result in
+                print(result)
+                switch result {
+                case .success(let weather) :
+                    self.weather = weather
+                    //self.hey(weather: weather)
+                case .failure(let error) :
+                    print(error)
+                }
+            }
+            
             if (collectionView != nil) {
                 collectionView.reloadData()
             }
+        }
+    }
+    
+    func hey(weather: Weather) {
+        for item in weather.hourlyForecast {
+            print("hey: \(item.condition.rawValue)")
         }
     }
     
