@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WeatherKit
 
 class HourlyWeatherCell: UICollectionViewCell {
     
@@ -13,7 +14,7 @@ class HourlyWeatherCell: UICollectionViewCell {
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
     
-    func cellConfigurate () {
-
+    func cellConfigurate (hWeather: HourWeather) {
+        tempLabel.text = hWeather.temperature.formatted()
     }
 }

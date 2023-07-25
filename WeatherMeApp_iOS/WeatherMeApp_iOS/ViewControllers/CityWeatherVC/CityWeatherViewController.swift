@@ -19,6 +19,9 @@ class CityWeatherViewController: UIViewController {
     
     weak var searchDelegate: CitySearchResultVCDelegate?
     var weather: Weather?
+    var hourlyForecast: [HourWeather] = []
+    var dailyForecast: [DayWeather] = []
+    
     
     var city: (name: String, placemarkTitle: String, lat: Double, long: Double) = ("MyCity", "placemarkTitle", 40.86, -74.12) {
         didSet {
@@ -27,7 +30,7 @@ class CityWeatherViewController: UIViewController {
                 switch result {
                 case .success(let weather) :
                     self.weather = weather
-                    //self.hey(weather: weather)
+                    self.parse(weather: weather)
                 case .failure(let error) :
                     print(error)
                 }
@@ -39,9 +42,18 @@ class CityWeatherViewController: UIViewController {
         }
     }
     
-    func hey(weather: Weather) {
-        for item in weather.hourlyForecast {
-            print("hey: \(item.condition.rawValue)")
+    func parse(weather: Weather) {
+        for i in 0...25 {
+            let item = weather.hourlyForecast[i]
+            hourlyForecast.append(item)
+        }
+        
+        for item in weather.dailyForecast {
+            dailyForecast.append(item)
+        }
+        
+        if (collectionView != nil) {
+            collectionView.reloadData()
         }
     }
     
@@ -84,9 +96,9 @@ extension CityWeatherViewController: UICollectionViewDataSource {
         case Section.top.rawValue:
             return 1
         case Section.hourly.rawValue:
-            return 20
+            return hourlyForecast.count
         case Section.daily.rawValue:
-            return 10
+            return dailyForecast.count
         default:
             return 1
         }
@@ -104,7 +116,7 @@ extension CityWeatherViewController: UICollectionViewDataSource {
         case Section.hourly.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
             // cell.cityNameLabel.text = String("City \(indexPath.row + 1)")
-            cell.cellConfigurate()
+            cell.cellConfigurate(hWeather: hourlyForecast[indexPath.row])
             return cell
         case Section.daily.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DailyWeatherCell", for: indexPath) as! DailyWeatherCell

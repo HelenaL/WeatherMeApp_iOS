@@ -15,19 +15,19 @@ class WeatherDataCenter {
     var weather: Weather?
     
     func getWeatherForLocation(location: CLLocation, completion: @escaping (_ result: Result<Weather, Error>) -> Void) {
-
         Task {
             do {
                 let weather = try await weatherService.weather(for: location)
-                completion(.success(weather))
+                DispatchQueue.main.async {
+                    completion(.success(weather))
+                }
+                
             } catch {
-                completion(.failure(error))
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    completion(.failure(error))
+                }
             }
         }
-
     }
-    
-    
     
 }
