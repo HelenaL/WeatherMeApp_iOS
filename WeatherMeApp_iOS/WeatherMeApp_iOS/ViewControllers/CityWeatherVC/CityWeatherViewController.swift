@@ -115,16 +115,14 @@ extension CityWeatherViewController: UICollectionViewDataSource {
             return cell
         case Section.hourly.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
-            // cell.cityNameLabel.text = String("City \(indexPath.row + 1)")
             cell.cellConfigurate(hWeather: hourlyForecast[indexPath.row])
             return cell
         case Section.daily.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DailyWeatherCell", for: indexPath) as! DailyWeatherCell
-                // cell.cityNameLabel.text = String("City \(indexPath.row + 1)")
+            cell.cellConfigurate(dWeather: dailyForecast[indexPath.row])
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopWeatherCell", for: indexPath) as! TopWeatherCell
-                // cell.cityNameLabel.text = String("City \(indexPath.row + 1)")
             return cell
         }
     }

@@ -16,5 +16,21 @@ class HourlyWeatherCell: UICollectionViewCell {
     
     func cellConfigurate (hWeather: HourWeather) {
         tempLabel.text = hWeather.temperature.formatted()
+        hourLabel.text = currentHourString(timeInterval: hWeather.date.timeIntervalSince1970)
+        weatherImageView.image = UIImage(systemName: hWeather.symbolName) 
+        
+        //hourLabel.text = hWeather.date.formatted(date: .omitted, time: .shortened)
+        print("Date HOURLY \(hWeather.date.formatted(date: .omitted, time: .shortened))")
+        print("----  \(currentHourString(timeInterval: hWeather.date.timeIntervalSince1970))")
+        
+    }
+    
+    func currentHourString(timeInterval: TimeInterval) -> String {
+        let date = Date(timeIntervalSince1970: timeInterval)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH a"
+        dateFormatter.timeZone = TimeZone(identifier: "GMT+3")
+
+        return dateFormatter.string(from: date)
     }
 }
