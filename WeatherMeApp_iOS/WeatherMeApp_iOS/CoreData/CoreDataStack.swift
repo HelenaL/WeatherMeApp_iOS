@@ -38,13 +38,14 @@ class CoreDataStack {
 }
 
 extension CoreDataStack {
-    func addNewCity(name: String, placemarkTitle: String, lat: Double, long: Double) {
+    func addNewCity(name: String, placemarkTitle: String, lat: Double, long: Double, timeZone: String) {
         let context = persistentContainer.viewContext
         let city = City(context: context)
         city.name = name
         city.placemarkTitle = placemarkTitle
         city.lat = lat
         city.long = long
+        city.timeZone = timeZone
         
         do {
             try context.save()

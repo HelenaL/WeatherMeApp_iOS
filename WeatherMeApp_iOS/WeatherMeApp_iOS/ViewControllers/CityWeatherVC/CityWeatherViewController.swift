@@ -23,7 +23,7 @@ class CityWeatherViewController: UIViewController {
     var dailyForecast: [DayWeather] = []
     
     
-    var city: (name: String, placemarkTitle: String, lat: Double, long: Double) = ("MyCity", "placemarkTitle", 40.86, -74.12) {
+    var city: (name: String, placemarkTitle: String, lat: Double, long: Double, timeZone: String) = ("MyCity", "placemarkTitle", 40.86, -74.12, "EST") {
         didSet {
             WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: city.lat, longitude: city.long)) { result in
                 print(result)
@@ -115,11 +115,11 @@ extension CityWeatherViewController: UICollectionViewDataSource {
             return cell
         case Section.hourly.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
-            cell.cellConfigurate(hWeather: hourlyForecast[indexPath.row])
+            cell.cellConfigurate(hWeather: hourlyForecast[indexPath.row], timeZone: city.timeZone)
             return cell
         case Section.daily.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DailyWeatherCell", for: indexPath) as! DailyWeatherCell
-            cell.cellConfigurate(dWeather: dailyForecast[indexPath.row])
+            cell.cellConfigurate(dWeather: dailyForecast[indexPath.row], timeZone: city.timeZone)
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopWeatherCell", for: indexPath) as! TopWeatherCell
@@ -292,7 +292,7 @@ extension CityWeatherViewController: TopWeatherCellDelegate {
     
     func addNewCityToWeatherList() {
         print("ADDD City")
-        CoreDataStack.shared.addNewCity(name: city.name, placemarkTitle: city.placemarkTitle, lat: city.lat, long: city.long)
+        CoreDataStack.shared.addNewCity(name: city.name, placemarkTitle: city.placemarkTitle, lat: city.lat, long: city.long, timeZone: city.timeZone)
         self.searchDelegate?.dismissCitySearchResultVC()
         dismiss(animated: true, completion: nil)
     }

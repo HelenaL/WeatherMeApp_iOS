@@ -28,7 +28,8 @@ class CitiesListVC: UIViewController {
         
         // Setup Core Data
         guard container != nil else {
-                    fatalError("This view needs a persistent container.")
+           // return
+            fatalError("This view needs a persistent container.")
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(newCityAdded(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
@@ -64,7 +65,7 @@ class CitiesListVC: UIViewController {
         if let vc = segue.destination as? CityWeatherViewController {
             if let indexPath = collectionView.indexPathsForSelectedItems?.first {
                 let city = cities[indexPath.row]
-                vc.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long)
+                vc.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long, city.timeZone ?? "EST")
                 vc.isTopButtonHidden = (cancel: true, add: true)
             }
         }

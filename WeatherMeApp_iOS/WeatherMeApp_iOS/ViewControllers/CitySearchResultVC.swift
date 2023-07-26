@@ -90,12 +90,16 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                          return
                     }
                     
+                    guard let timeZone = response?.mapItems[0].timeZone?.abbreviation() else {
+                        return
+                    }
+                    
                     let lat = coordinate.latitude
                     let lon = coordinate.longitude
 
-                    print("Selected City: \(name) \(placemarkTitle) \(lat) \(lon)")
+                    print("Selected City: \(name) \(placemarkTitle) \(lat) \(lon) \(timeZone)")
                     
-                    vc.city = (name, placemarkTitle, lat, lon)
+                    vc.city = (name, placemarkTitle, lat, lon, timeZone)
                     vc.searchDelegate = self
                     
                     //check that the city exist in list of saved city, if exist need to hide add button
