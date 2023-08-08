@@ -143,8 +143,7 @@
 		148FECAE29D3E7DC00CCE158 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1437A26E28065935007DA783 /* CitiesListVC.swift */,
-				14A8280D28066BCA0062BE42 /* CitiesListCollectionViewCell.swift */,
+				14E162F52A81A62400CF6814 /* CitiesListVC */,
 				143680AA2815F97E0063306F /* CitySearchResultVC.swift */,
 				148FECB129D3EA1200CCE158 /* CityWeatherVC */,
 			);
@@ -162,6 +161,15 @@
 				14E7F4CD29EE5C300036D099 /* HourlyWeatherView.swift */,
 			);
 			path = CityWeatherVC;
+			sourceTree = "<group>";
+		};
+		14E162F52A81A62400CF6814 /* CitiesListVC */ = {
+			isa = PBXGroup;
+			children = (
+				1437A26E28065935007DA783 /* CitiesListVC.swift */,
+				14A8280D28066BCA0062BE42 /* CitiesListCollectionViewCell.swift */,
+			);
+			path = CitiesListVC;
 			sourceTree = "<group>";
 		};
 		23606373FF63D0513F6E9D63 /* Frameworks */ = {

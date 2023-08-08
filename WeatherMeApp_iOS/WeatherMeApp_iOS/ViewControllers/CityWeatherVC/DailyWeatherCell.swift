@@ -17,8 +17,11 @@ class DailyWeatherCell: UICollectionViewCell {
     
     func cellConfigurate (dWeather: DayWeather, timeZone: String) {
         weatherImageView.image = UIImage(systemName: dWeather.symbolName)
-        nightTempLabel.text = dWeather.lowTemperature.formatted()
-        dayTempLabel.text = dWeather.highTemperature.formatted()
+//        let formatter = MeasurementFormatter()
+//                formatter.unitStyle = .medium
+//                formatter.numberFormatter.maximumFractionDigits = 0
+        nightTempLabel.text = dWeather.lowTemperature.formatted(.measurement(width: .narrow))
+        dayTempLabel.text = dWeather.highTemperature.formatted(.measurement(width: .wide))
         weekDayLabel.text = currentDayString(date: dWeather.date, timeZone: timeZone)
         
         //print("Date name \(currentDayString(timeInterval: dWeather.date.timeIntervalSince1970, timeZone: timeZone))")

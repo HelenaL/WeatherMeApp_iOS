@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import CoreData
+import WeatherKit
 
 class CitiesListVC: UIViewController {
     
@@ -16,6 +17,7 @@ class CitiesListVC: UIViewController {
     
     var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
     var cities: [City] = []
+    var weathersDict: [String:Weather] = [:]
     
     // MARK: - VC Life Cycle
 
@@ -34,7 +36,6 @@ class CitiesListVC: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(newCityAdded(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
         
-        //let list = City.fetchRequest()
         cities = CoreDataStack.shared.getCitiesList()
         
         // Setup Search Controller
@@ -58,6 +59,39 @@ class CitiesListVC: UIViewController {
         cities = CoreDataStack.shared.getCitiesList()
         self.collectionView.reloadData()
     }
+        
+    func getWeatherForCity(_ city: City, completion: @escaping () -> Void) {
+        if needToReload(city) {
+            WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: city.lat, longitude: city.long)) { result in
+                switch result {
+                case .success(let weather) :
+                    if let key = city.placemarkTitle {
+                        self.weathersDict[key] = weather
+                        completion()
+                    }
+                case .failure(let error) :
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func needToReload(_ city: City) -> Bool {
+        var wDate: Date?
+        var nowDate = Date.now
+        var diff = 0
+        
+        if let key = city.placemarkTitle {
+            wDate = self.weathersDict[key]?.currentWeather.date
+        }
+        if let wd = wDate {
+            diff = Int(nowDate.timeIntervalSince1970 - wd.timeIntervalSince1970)
+        } else {
+            return true
+        }
+        
+        return diff > 600
+    }
     
     // MARK: - Navigation
     // openCityWeather
@@ -70,7 +104,6 @@ class CitiesListVC: UIViewController {
             }
         }
     }
-
 }
 
 // MARK: - Collection View Extensions
@@ -86,8 +119,15 @@ extension CitiesListVC: UICollectionViewDataSource {
      
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CitiesListCollectionViewCell", for: indexPath) as! CitiesListCollectionViewCell
+        let city = cities[indexPath.row]
+        cell.cityNameLabel.text = city.name
         
-        cell.cityNameLabel.text = cities[indexPath.row].name
+        getWeatherForCity(city) {
+            if let key = city.placemarkTitle {
+                cell.tempValueLabel.text = self.weathersDict[key]?.currentWeather.temperature.formatted()
+            }
+        }
+        
         return cell
     }
 }
