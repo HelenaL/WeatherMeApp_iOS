@@ -124,7 +124,7 @@ extension CitiesListVC: UICollectionViewDataSource {
         
         getWeatherForCity(city) {
             if let key = city.placemarkTitle {
-                cell.tempValueLabel.text = self.weathersDict[key]?.currentWeather.temperature.formatted()
+                cell.tempValueLabel.attributedText = String.tempFormattedString(value: self.weathersDict[key]?.currentWeather.temperature.value ?? 0, unit: (self.weathersDict[key]?.currentWeather.temperature.unit)!, bFontSize: 36, sFontSize: 26)
             }
         }
         

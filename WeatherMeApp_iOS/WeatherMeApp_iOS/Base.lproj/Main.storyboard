@@ -116,11 +116,11 @@
             <objects>
                 <viewController storyboardIdentifier="CityWeatherViewController" id="fVz-pe-cRd" customClass="CityWeatherViewController" customModule="WeatherMeApp_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Y9-A4-WUq">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mz9-Q3-yAg">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="886"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="aao-jV-f6O">
                                     <size key="itemSize" width="128" height="128"/>
@@ -260,7 +260,7 @@
                                                         <constraint firstAttribute="width" constant="44" id="MWO-md-vmC"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ 20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdv-9b-BqX" userLabel="DayTempLabel">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ 20" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zdv-9b-BqX" userLabel="DayTempLabel">
                                                     <rect key="frame" x="324" y="10" width="70" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="70" id="pZj-cC-gjZ"/>
@@ -269,7 +269,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ 15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MRO-wN-0dQ" userLabel="NightTempLabel">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+ 15" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MRO-wN-0dQ" userLabel="NightTempLabel">
                                                     <rect key="frame" x="254" y="16" width="50" height="54"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="eF6-dr-sCS"/>
@@ -398,7 +398,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="abg-pu-kgp"/>
+        <segue reference="y7R-6T-tDE"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">
