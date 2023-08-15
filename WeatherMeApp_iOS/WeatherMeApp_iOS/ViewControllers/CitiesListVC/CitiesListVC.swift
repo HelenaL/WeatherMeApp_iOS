@@ -71,8 +71,11 @@ class CitiesListVC: UIViewController {
                     }
                 case .failure(let error) :
                     print(error)
+                    completion()
                 }
             }
+        } else {
+            completion()
         }
     }
     
@@ -120,11 +123,11 @@ extension CitiesListVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CitiesListCollectionViewCell", for: indexPath) as! CitiesListCollectionViewCell
         let city = cities[indexPath.row]
-        cell.cityNameLabel.text = city.name
-        
         getWeatherForCity(city) {
             if let key = city.placemarkTitle {
-                cell.tempValueLabel.attributedText = String.tempFormattedString(value: self.weathersDict[key]?.currentWeather.temperature.value ?? 0, unit: (self.weathersDict[key]?.currentWeather.temperature.unit)!, bFontSize: 36, sFontSize: 26)
+                if let weather = self.weathersDict[key] {
+                    cell.fillWeatherCell(with: city, and: weather)
+                }
             }
         }
         
