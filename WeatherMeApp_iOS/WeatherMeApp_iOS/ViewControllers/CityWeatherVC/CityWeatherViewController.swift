@@ -112,6 +112,7 @@ extension CityWeatherViewController: UICollectionViewDataSource {
             cell.delegate = self
             cell.cityNameLabel.text = city.name
             cell.isTopButtonHidden = isTopButtonHidden
+            cell.dateLabel.text = weather?.currentWeather.date.formatted(date: .abbreviated, time: .shortened)
             return cell
         case Section.hourly.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
