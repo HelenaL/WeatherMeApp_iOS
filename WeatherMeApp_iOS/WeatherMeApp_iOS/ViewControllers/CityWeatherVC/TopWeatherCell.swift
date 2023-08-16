@@ -30,9 +30,12 @@ class TopWeatherCell: UICollectionViewCell {
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
+    @IBOutlet weak var feelsLikeLabel: UILabel!
+    @IBOutlet weak var tempRangeLabel: UILabel!
     @IBOutlet weak var conditionLabel: UILabel!
     @IBOutlet weak var lineImageView: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
+    
     @IBAction func cancelButtonAction(_ sender: Any) {
         self.delegate?.cancelAction()
     }
@@ -56,6 +59,12 @@ class TopWeatherCell: UICollectionViewCell {
         } else {
             conditionLabel.text = weather.currentWeather.condition.description
         }
+        
+        if let dayWeather = weather.dailyForecast.first {
+            tempRangeLabel.text = "H:" + String(format: "%.0f", dayWeather.highTemperature.value) + "º L:" + String(format: "%.0f", dayWeather.lowTemperature.value) + "º"
+        }
+        
+        feelsLikeLabel.text = "Feels like " + String(format: "%.0f", weather.currentWeather.apparentTemperature.value) + "º"
         
     }
 
