@@ -17,10 +17,14 @@ class HourlyWeatherCell: UICollectionViewCell {
     func cellConfigurate (hWeather: HourWeather, timeZone: String) {
         //tempLabel.attributedText = String.tempFormattedString(value: hWeather.temperature.value, unit: hWeather.temperature.unit, bFontSize: 14, sFontSize: 10)
         tempLabel.text = String(format: "%.0f", hWeather.temperature.value) + "º"
-        
-        hourLabel.text = currentHourString(date: hWeather.date, timeZone: timeZone)
         weatherImageView.image = UIImage(systemName: hWeather.symbolName)
+        //hourLabel.text = Date.utcToLocal(date: hWeather.date, timezone: timeZone, with: "HH a")
+        hourLabel.text = currentHourString(date: hWeather.date, timeZone: timeZone)
         
+        //let str = Date.utcToLocal(date: hWeather.date, timezone: timeZone, with: "HH a")
+        //let str = curToLocal(date: hWeather.date, timezone: timeZone, with: "HH a")
+       // hourLabel.text = curToLocal(date: hWeather.date, timezone: timeZone, with: "HH a")
+       // print("🥵🥵🥵🥵🥵date: \(hWeather.date) TZ: \(timeZone) --- \(str ?? "nun")")
        // print("----  \(currentHourString(date: hWeather.date, timeZone: timeZone)) ----- TZ \(timeZone)")
         
     }

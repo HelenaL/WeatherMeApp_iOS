@@ -10,16 +10,15 @@ import WeatherKit
 import UIKit
 
 extension String {
-    static public func tempFormattedString(value: Double, unit: UnitTemperature, bFontSize: Double, sFontSize: Double) -> NSMutableAttributedString {
+    static public func tempFormattedString(value: Double, unit: UnitTemperature, bFontSize: Double, sFontSize: Double, weight: UIFont.Weight) -> NSMutableAttributedString {
         var tempString: NSMutableAttributedString = NSMutableAttributedString()
         let tStr = String(format: "%.0f", value)
         let uStr: String  = unit.symbol
         
-        let tAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: bFontSize)]
-        let uAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: sFontSize)]
+        let tAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: bFontSize, weight: weight)]
+        let uAttributes: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: sFontSize, weight: weight)]
         tempString.append(NSAttributedString(string: tStr, attributes: tAttributes))
         tempString.append(NSAttributedString(string: uStr, attributes: uAttributes))
-        
 
         return tempString
     }

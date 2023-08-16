@@ -108,11 +108,13 @@ extension CityWeatherViewController: UICollectionViewDataSource {
         switch indexPath.section {
         case Section.top.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopWeatherCell", for: indexPath) as! TopWeatherCell
-                // cell.cityNameLabel.text = String("City \(indexPath.row + 1)")
             cell.delegate = self
-            cell.cityNameLabel.text = city.name
             cell.isTopButtonHidden = isTopButtonHidden
-            cell.dateLabel.text = weather?.currentWeather.date.formatted(date: .abbreviated, time: .shortened)
+            
+            if let w = weather {
+                cell.cellConfigurate(weather: w, timezone: city.timeZone, cityName: city.name)
+            }
+            
             return cell
         case Section.hourly.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyWeatherCell", for: indexPath) as! HourlyWeatherCell

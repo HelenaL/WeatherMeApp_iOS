@@ -18,7 +18,7 @@ class CitiesListCollectionViewCell: UICollectionViewCell {
     func fillWeatherCell(with city:City, and weather: Weather) {
         cityNameLabel.text = city.name
         
-        tempValueLabel.attributedText = String.tempFormattedString(value: weather.currentWeather.temperature.value, unit: weather.currentWeather.temperature.unit, bFontSize: 36, sFontSize: 26)
+        tempValueLabel.attributedText = String.tempFormattedString(value: weather.currentWeather.temperature.value, unit: weather.currentWeather.temperature.unit, bFontSize: 36, sFontSize: 26, weight: .semibold)
         
         if let alerts = weather.weatherAlerts {
             if let alertText = alerts.first?.summary {
@@ -27,13 +27,12 @@ class CitiesListCollectionViewCell: UICollectionViewCell {
         } else {
             conditionLabel.text = weather.currentWeather.condition.description
         }
-         ///TODO: time accorting to ti,ezone
-        timeLabel.text = weather.currentWeather.date.formatted(date: .omitted, time: .shortened)
-        
-       
+
+        if let tz = city.timeZone {
+            timeLabel.text = Date.utcToLocal(date: weather.currentWeather.date, timezone: tz, with: "h:mm a")
+        }
         
         if let dayWeather = weather.dailyForecast.first {
-            
             tempRangeLabel.text = "H:" + String(format: "%.0f", dayWeather.highTemperature.value) + "º L:" + String(format: "%.0f", dayWeather.lowTemperature.value) + "º"
         }
 //        tempRangeLabel.text = "H: " + (weather.dailyForecast.forecast.first?.highTemperature.formatted ?? "--") + "L: " + (weather.dailyForecast.forecast.first?.lowTemperature.formatted() ?? "--")
