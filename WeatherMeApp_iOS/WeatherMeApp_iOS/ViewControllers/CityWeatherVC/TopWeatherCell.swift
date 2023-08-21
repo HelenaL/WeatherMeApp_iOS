@@ -7,6 +7,7 @@
 
 import UIKit
 import WeatherKit
+import MeshKit
 
 protocol TopWeatherCellDelegate: AnyObject {
     func cancelAction ()
@@ -23,6 +24,7 @@ class TopWeatherCell: UICollectionViewCell {
         }
     }
     weak var delegate: TopWeatherCellDelegate?
+    var mesh: MeshView?
     
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var cancelButton: UIButton!
@@ -42,6 +44,15 @@ class TopWeatherCell: UICollectionViewCell {
     
     @IBAction func addButtonAction(_ sender: Any) {
         self.delegate?.addNewCityToWeatherList()
+    }
+    ///TODO: gradient test
+    //@IBOutlet weak var gradientView: WeatherGradientView!
+    
+    
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        mesh?.frame = self.bounds
     }
     
     func cellConfigurate(weather: Weather, timezone: String, cityName: String) {
@@ -65,6 +76,39 @@ class TopWeatherCell: UICollectionViewCell {
         }
         
         feelsLikeLabel.text = "Feels like " + String(format: "%.0f", weather.currentWeather.apparentTemperature.value) + "º"
+        
+        if (mesh != nil) {
+            return;
+        }
+        
+        let meshView = MeshView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
+        
+        mesh = meshView
+        //view.addSubview(meshView)
+        self.insertSubview(meshView, at: 0)
+        
+        let l1: Float = 2//Float(meshView.bounds.height) //Float(meshView.bounds.width)
+        let l2: Float = 2// Float(meshView.bounds.width)
+        
+        let tangent: (u: Float, v: Float) = (1,1)
+        meshView.create([
+                        .init(point: (0, 0), location: (0, 0), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
+                        .init(point: (0, 1), location: (0, l2/2), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
+                        .init(point: (0, 2), location: (0, l2), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
+
+                        .init(point: (1, 0), location: (l1/2, 0), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
+            .init(point: (1, 1), location: (l1/2, l2/2), color: UIColor(red: 0.541, green: 0.694, blue: 0.790, alpha: 1.000), tangent: tangent),
+//            .init(point: (1, 1), location: (Float.random(in: 0.3...l1/2), Float.random(in: 0.3...l2/2)), color: UIColor(red: 0.541, green: 0.694, blue: 0.790, alpha: 1.000), tangent: (4,1)),
+                        .init(point: (1, 2), location: (l1/2, l2), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
+
+                        
+                        .init(point: (2, 0), location: (l1, 0), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
+                        .init(point: (2, 1), location: (l1, l2/2), color: UIColor(red: 0.933, green: 0.537, blue: 0.349, alpha: 1.000), tangent: tangent),
+                        .init(point: (2, 2), location: (l1, l2), color: UIColor(red: 0.706, green: 0.435, blue: 0.318, alpha: 1.000), tangent: tangent),
+                    ])
+        
+        
+       
         
     }
 

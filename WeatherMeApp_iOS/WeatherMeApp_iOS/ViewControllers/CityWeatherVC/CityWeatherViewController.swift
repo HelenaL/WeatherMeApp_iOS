@@ -154,13 +154,14 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case Section.top.rawValue:
-            return CGSize(width: collectionView.bounds.size.width - 16, height: 400)
+            return CGSize(width: collectionView.bounds.size.width - 0, height: 400)
         case Section.hourly.rawValue:
-            return CGSize(width: collectionView.bounds.size.width - 16, height: 140)
+            return CGSize(width: collectionView.bounds.size.width - 0, height: 140)
         case Section.daily.rawValue:
-            return CGSize(width: collectionView.bounds.size.width - 16, height: 50)
+            return CGSize(width: collectionView.bounds.size.width - 0, height: 50)
         default:
-            return CGSize(width: collectionView.bounds.size.width - 16, height: 10)
+            return CGSize(width: collectionView.bounds.size.width - 0, height: 10)
+            //return CGSize(width: collectionView.bounds.size.width - 16, height: 10)
         }
     }
     
@@ -184,7 +185,7 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.init(top: 0, left: 8, bottom: 0, right: 8)
+        return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
@@ -210,7 +211,7 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
                               
                 // section
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0) //8
                               
                 // return
                 return section
