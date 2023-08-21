@@ -14,8 +14,10 @@ class CitiesListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var conditionLabel: UILabel!
     @IBOutlet weak var tempRangeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var lineImageView: UIView!
     
     func fillWeatherCell(with city:City, and weather: Weather) {
+        lineImageView.layer.cornerRadius = 1
         cityNameLabel.text = city.name
         
         tempValueLabel.attributedText = String.tempFormattedString(value: weather.currentWeather.temperature.value, unit: weather.currentWeather.temperature.unit, bFontSize: 36, sFontSize: 26, weight: .semibold)
