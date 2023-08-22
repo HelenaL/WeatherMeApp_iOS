@@ -87,6 +87,13 @@ class TopWeatherCell: UICollectionViewCell {
         //view.addSubview(meshView)
         self.insertSubview(meshView, at: 0)
         
+        //cold weather gradient colors
+        let color11 = UIColor(red: (CGFloat(Float.random(in: 120...220))/255.0), green: (CGFloat(Float.random(in: 100...200))/255.0), blue: (CGFloat(Float.random(in: 180...250))/255.0), alpha: 1.000)
+        let color12 = UIColor(red: (CGFloat(Float.random(in: 30...110))/255.0), green: (CGFloat(Float.random(in: 170...250))/255.0), blue: (CGFloat(Float.random(in: 150...250))/255.0), alpha: 1.000)
+        let color21 = UIColor(red: (CGFloat(Float.random(in: 0...50))/255.0), green: (CGFloat(Float.random(in: 150...180))/255.0), blue: (CGFloat(Float.random(in: 200...250))/255.0), alpha: 1.000)
+        let color22 = UIColor(red: (CGFloat(Float.random(in: 0...110))/255.0), green: (CGFloat(Float.random(in: 100...200))/255.0), blue: (CGFloat(Float.random(in: 120...180))/255.0), alpha: 1.000)
+        let color31 = UIColor(red: (CGFloat(Float.random(in: 100...180))/255.0), green: (CGFloat(Float.random(in: 80...150))/255.0), blue: (CGFloat(Float.random(in: 200...250))/255.0), alpha: 1.000)
+        
         let tangent: (u: Float, v: Float) = (0.5,0.5)
         meshView.create([
                         .init(point: (0, 0), location: (0, 0), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
@@ -95,19 +102,18 @@ class TopWeatherCell: UICollectionViewCell {
                         .init(point: (0, 3), location: (0, 3), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
 
                             .init(point: (1, 0), location: (1.6, 0), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
-                        .init(point: (1, 1), location: (Float.random(in: 0.8...1.5), Float.random(in: 0.5...1.6)), color: UIColor(red: 0.541, green: 0.694, blue: 0.790, alpha: 1.000), tangent: tangent),
-                        .init(point: (1, 2), location: (Float.random(in: 1.8...2.4), Float.random(in: 1.7...2)), color: UIColor(red: 0.541, green: 0.541, blue: 0.941, alpha: 1.000), tangent: tangent),
+                        .init(point: (1, 1), location: (Float.random(in: 0.8...1.5), Float.random(in: 0.5...1.6)), color: color11, tangent: tangent),
+                        .init(point: (1, 2), location: (Float.random(in: 1.8...2.4), Float.random(in: 1.7...2)), color: color12, tangent: tangent),
                         .init(point: (1, 3), location: (1.6, 3), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
                         
-
                         
                         .init(point: (2, 0), location: (2.2, 0), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
-                        .init(point: (2, 1), location: (Float.random(in: 2.0...2.4), Float.random(in: 1.4...1.8)), color: UIColor(red: 0.933, green: 0.537, blue: 0.349, alpha: 1.000), tangent: tangent),
-                        .init(point: (2, 2), location: (2.8, 2.5), color: UIColor(red: 0.406, green: 0.735, blue: 0.618, alpha: 1.000), tangent: tangent),
+                        .init(point: (2, 1), location: (Float.random(in: 2.0...2.4), Float.random(in: 1.4...1.8)), color: color21, tangent: tangent),
+                        .init(point: (2, 2), location: (2.8, 2.5), color: color22, tangent: tangent),
                         .init(point: (2, 3), location: (2.2, 3), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
                         
                         .init(point: (3, 0), location: (3, 0), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
-                        .init(point: (3, 1), location: (3, 2), color: UIColor(red: 0.733, green: 0.637, blue: 0.349, alpha: 1.000), tangent: tangent),
+                        .init(point: (3, 1), location: (3, 2), color: color31, tangent: tangent),
                         .init(point: (3, 2), location: (3, 2.7), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
                         .init(point: (3, 3), location: (3, 3), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
                         
