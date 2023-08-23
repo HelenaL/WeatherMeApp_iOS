@@ -22,8 +22,6 @@
 		148FECB529D3EA9500CCE158 /* HourlyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FECB429D3EA9500CCE158 /* HourlyWeatherCell.swift */; };
 		148FECB729D3EAB800CCE158 /* DailyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FECB629D3EAB800CCE158 /* DailyWeatherCell.swift */; };
 		149FED242A8C7CA40098E9A2 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FED232A8C7CA40098E9A2 /* Date+Extension.swift */; };
-		149FED262A8DC7690098E9A2 /* WeatherGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FED252A8DC7690098E9A2 /* WeatherGradientView.swift */; };
-		149FED282A8EC18A0098E9A2 /* SceneGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FED272A8EC18A0098E9A2 /* SceneGradientView.swift */; };
 		149FED322A9317B50098E9A2 /* MeshKit in Frameworks */ = {isa = PBXBuildFile; productRef = 149FED312A9317B50098E9A2 /* MeshKit */; };
 		14A8280E28066BCA0062BE42 /* CitiesListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8280D28066BCA0062BE42 /* CitiesListCollectionViewCell.swift */; };
 		14E162F92A85CFA500CF6814 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E162F82A85CFA500CF6814 /* String+Extension.swift */; };
@@ -53,8 +51,6 @@
 		148FECB429D3EA9500CCE158 /* HourlyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherCell.swift; sourceTree = "<group>"; };
 		148FECB629D3EAB800CCE158 /* DailyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherCell.swift; sourceTree = "<group>"; };
 		149FED232A8C7CA40098E9A2 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		149FED252A8DC7690098E9A2 /* WeatherGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherGradientView.swift; sourceTree = "<group>"; };
-		149FED272A8EC18A0098E9A2 /* SceneGradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneGradientView.swift; sourceTree = "<group>"; };
 		149FED2E2A9317970098E9A2 /* MeshKit-main */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "MeshKit-main"; path = "../../../../Downloads/MeshKit-main"; sourceTree = "<group>"; };
 		14A8280D28066BCA0062BE42 /* CitiesListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListCollectionViewCell.swift; sourceTree = "<group>"; };
 		14A8280F280674BA0062BE42 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
@@ -124,10 +120,7 @@
 				14A8280F280674BA0062BE42 /* .swiftlint.yml */,
 				1437A26A28065935007DA783 /* AppDelegate.swift */,
 				1437A26C28065935007DA783 /* SceneDelegate.swift */,
-				14E162F82A85CFA500CF6814 /* String+Extension.swift */,
-				149FED232A8C7CA40098E9A2 /* Date+Extension.swift */,
-				149FED252A8DC7690098E9A2 /* WeatherGradientView.swift */,
-				149FED272A8EC18A0098E9A2 /* SceneGradientView.swift */,
+				149FED332A95B2620098E9A2 /* Helpers */,
 				146D29732A60FE400060D731 /* Networking */,
 				148FEC9929CFF9C800CCE158 /* CoreData */,
 				148FECAE29D3E7DC00CCE158 /* ViewControllers */,
@@ -177,6 +170,15 @@
 				14E7F4CD29EE5C300036D099 /* HourlyWeatherView.swift */,
 			);
 			path = CityWeatherVC;
+			sourceTree = "<group>";
+		};
+		149FED332A95B2620098E9A2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				14E162F82A85CFA500CF6814 /* String+Extension.swift */,
+				149FED232A8C7CA40098E9A2 /* Date+Extension.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		14E162F52A81A62400CF6814 /* CitiesListVC */ = {
@@ -318,7 +320,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				149FED242A8C7CA40098E9A2 /* Date+Extension.swift in Sources */,
-				149FED282A8EC18A0098E9A2 /* SceneGradientView.swift in Sources */,
 				143C13CD2A70CB880071DF62 /* WeatherDataModel.xcdatamodeld in Sources */,
 				148FECB329D3EA5500CCE158 /* TopWeatherCell.swift in Sources */,
 				1489F0792A6E1BEA003542D8 /* WeatherDataCenter.swift in Sources */,
@@ -326,7 +327,6 @@
 				148FECB529D3EA9500CCE158 /* HourlyWeatherCell.swift in Sources */,
 				148FEC9829CFF9BC00CCE158 /* CoreDataStack.swift in Sources */,
 				148FECB029D3E84900CCE158 /* CityWeatherViewController.swift in Sources */,
-				149FED262A8DC7690098E9A2 /* WeatherGradientView.swift in Sources */,
 				1437A26F28065935007DA783 /* CitiesListVC.swift in Sources */,
 				14A8280E28066BCA0062BE42 /* CitiesListCollectionViewCell.swift in Sources */,
 				1437A26B28065935007DA783 /* AppDelegate.swift in Sources */,

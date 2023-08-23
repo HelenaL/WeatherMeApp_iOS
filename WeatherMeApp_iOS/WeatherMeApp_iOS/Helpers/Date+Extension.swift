@@ -10,18 +10,16 @@ import Foundation
 extension Date {
     public static func utcToLocal(date: Date?, timezone: String, with format: String) -> String? {
         let dateFormatter = DateFormatter()
-        //dateFormatter.dateFormat = "H:mm:ss"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         if let ndate = date {
             dateFormatter.timeZone = TimeZone(abbreviation: timezone)
-            dateFormatter.dateFormat = format//"h:mm a, EE, MMM d"//"h:mm a"
+            dateFormatter.dateFormat = format
         
             return dateFormatter.string(from: ndate)
         }
         return nil
     }
-    
 }
 
 

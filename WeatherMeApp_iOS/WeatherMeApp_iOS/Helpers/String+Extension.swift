@@ -22,13 +22,4 @@ extension String {
 
         return tempString
     }
-    
-//    static public func tempFormattedString(value: Double, unit: UnitTemperature) -> NSAttributedString {
-//        var tStr: AttributedString = AttributedString(String(format: "%.0f", value))
-//        tStr.font = .systemFont(ofSize: 36)
-//
-//        var uStr: AttributedString = AttributedString("unit")
-//        uStr.font = .systemFont(ofSize: 26)
-//        return tStr + uStr
-//    }
 }
