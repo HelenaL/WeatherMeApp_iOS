@@ -14,8 +14,10 @@ class DailyWeatherCell: UICollectionViewCell {
     @IBOutlet weak var nightTempLabel: UILabel!
     @IBOutlet weak var dayTempLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
+    @IBOutlet weak var lineImageView: UIView!
     
     func cellConfigurate (dWeather: DayWeather, timeZone: String) {
+        lineImageView.layer.cornerRadius = 1.3
         weatherImageView.image = UIImage(systemName: dWeather.symbolName)
         nightTempLabel.attributedText = String.tempFormattedString(value: dWeather.lowTemperature.value, unit: dWeather.lowTemperature.unit, bFontSize: 16, sFontSize: 10, weight: .light)
         dayTempLabel.attributedText = String.tempFormattedString(value:  dWeather.highTemperature.value, unit:  dWeather.highTemperature.unit, bFontSize: 22, sFontSize: 16, weight: .light)

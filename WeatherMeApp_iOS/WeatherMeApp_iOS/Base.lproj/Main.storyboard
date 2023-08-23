@@ -245,10 +245,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sr8-hx-cku">
-                                                    <rect key="frame" x="20" y="247" width="120" height="80"/>
+                                                    <rect key="frame" x="20" y="247" width="140" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="80" id="g2b-sG-YYF"/>
-                                                        <constraint firstAttribute="width" constant="120" id="kxg-hn-CbY"/>
+                                                        <constraint firstAttribute="width" constant="140" id="kxg-hn-CbY"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="45"/>
                                                     <nil key="textColor"/>
@@ -398,26 +398,36 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t4x-EX-azo">
+                                                    <rect key="frame" x="7" y="8" width="3" height="64"/>
+                                                    <color key="backgroundColor" systemColor="labelColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="3" id="ryJ-nh-Peg"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="t4x-EX-azo" firstAttribute="leading" secondItem="mep-EZ-rcw" secondAttribute="leading" constant="7" id="1hi-ZY-Vea"/>
+                                                <constraint firstItem="t4x-EX-azo" firstAttribute="top" secondItem="mep-EZ-rcw" secondAttribute="top" constant="8" id="7zv-zv-bPe"/>
                                                 <constraint firstItem="7Fm-ac-fUJ" firstAttribute="leading" secondItem="Wqc-Pt-RAg" secondAttribute="trailing" constant="50" id="8aq-iu-CAt"/>
                                                 <constraint firstItem="zdv-9b-BqX" firstAttribute="leading" secondItem="MRO-wN-0dQ" secondAttribute="trailing" constant="20" id="ALM-fF-axg"/>
                                                 <constraint firstAttribute="bottom" secondItem="Wqc-Pt-RAg" secondAttribute="bottom" constant="10" id="CAg-Fn-PpU"/>
                                                 <constraint firstItem="zdv-9b-BqX" firstAttribute="centerY" secondItem="mep-EZ-rcw" secondAttribute="centerY" id="Dak-Bz-ns4"/>
-                                                <constraint firstItem="Wqc-Pt-RAg" firstAttribute="leading" secondItem="mep-EZ-rcw" secondAttribute="leading" constant="20" id="HJe-Qc-ccr"/>
                                                 <constraint firstItem="Wqc-Pt-RAg" firstAttribute="top" secondItem="mep-EZ-rcw" secondAttribute="top" constant="10" id="RUt-Rn-Htm"/>
                                                 <constraint firstItem="7Fm-ac-fUJ" firstAttribute="top" secondItem="mep-EZ-rcw" secondAttribute="top" constant="10" id="S8L-46-pmG"/>
                                                 <constraint firstAttribute="bottom" secondItem="MRO-wN-0dQ" secondAttribute="bottom" constant="10" id="WoG-ke-RRa"/>
+                                                <constraint firstItem="Wqc-Pt-RAg" firstAttribute="leading" secondItem="t4x-EX-azo" secondAttribute="trailing" constant="10" id="aab-Aq-NiZ"/>
                                                 <constraint firstItem="zdv-9b-BqX" firstAttribute="firstBaseline" secondItem="MRO-wN-0dQ" secondAttribute="firstBaseline" id="dBl-M2-pDz"/>
                                                 <constraint firstAttribute="bottom" secondItem="7Fm-ac-fUJ" secondAttribute="bottom" constant="10" id="di2-Xh-LEt"/>
                                                 <constraint firstAttribute="trailing" secondItem="zdv-9b-BqX" secondAttribute="trailing" constant="20" id="eCR-8m-qd5"/>
+                                                <constraint firstAttribute="bottom" secondItem="t4x-EX-azo" secondAttribute="bottom" constant="8" id="jys-mF-RSI"/>
                                                 <constraint firstAttribute="bottom" secondItem="zdv-9b-BqX" secondAttribute="bottom" constant="10" id="sT2-oJ-kby"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemYellowColor"/>
                                         <size key="customSize" width="414" height="80"/>
                                         <connections>
                                             <outlet property="dayTempLabel" destination="zdv-9b-BqX" id="hUS-eW-ism"/>
+                                            <outlet property="lineImageView" destination="t4x-EX-azo" id="BSU-Vd-3bC"/>
                                             <outlet property="nightTempLabel" destination="MRO-wN-0dQ" id="JbG-PT-tKH"/>
                                             <outlet property="weatherImageView" destination="7Fm-ac-fUJ" id="ns8-tN-NfB"/>
                                             <outlet property="weekDayLabel" destination="Wqc-Pt-RAg" id="nGf-aT-SwM"/>
@@ -529,9 +539,6 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -23,6 +23,7 @@ class TopWeatherCell: UICollectionViewCell {
             topConstraint.constant = isTopButtonHidden.cancel ? 0 : 64
         }
     }
+    
     weak var delegate: TopWeatherCellDelegate?
     var mesh: MeshView?
     
@@ -45,10 +46,6 @@ class TopWeatherCell: UICollectionViewCell {
     @IBAction func addButtonAction(_ sender: Any) {
         self.delegate?.addNewCityToWeatherList()
     }
-    ///TODO: gradient test
-    //@IBOutlet weak var gradientView: WeatherGradientView!
-    
-    
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -77,22 +74,60 @@ class TopWeatherCell: UICollectionViewCell {
         
         feelsLikeLabel.text = "Feels like " + String(format: "%.0f", weather.currentWeather.apparentTemperature.value) + "º"
         
-        if (mesh != nil) {
-            return;
-        }
-        
+        addGradientViewForTemp(value: weather.currentWeather.temperature.value, unit: weather.currentWeather.temperature.unit)
+    }
+    
+    func addGradientViewForTemp(value: Double, unit: UnitTemperature) {
+        guard mesh == nil else { return }
+
+        var temp = convertTempUnitToCelsius(value: value, unit: unit)
         let meshView = MeshView(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
         
         mesh = meshView
-        //view.addSubview(meshView)
         self.insertSubview(meshView, at: 0)
         
-        //cold weather gradient colors
-        let color11 = UIColor(red: (CGFloat(Float.random(in: 120...220))/255.0), green: (CGFloat(Float.random(in: 100...200))/255.0), blue: (CGFloat(Float.random(in: 180...250))/255.0), alpha: 1.000)
-        let color12 = UIColor(red: (CGFloat(Float.random(in: 30...110))/255.0), green: (CGFloat(Float.random(in: 170...250))/255.0), blue: (CGFloat(Float.random(in: 150...250))/255.0), alpha: 1.000)
-        let color21 = UIColor(red: (CGFloat(Float.random(in: 0...50))/255.0), green: (CGFloat(Float.random(in: 150...180))/255.0), blue: (CGFloat(Float.random(in: 200...250))/255.0), alpha: 1.000)
-        let color22 = UIColor(red: (CGFloat(Float.random(in: 0...110))/255.0), green: (CGFloat(Float.random(in: 100...200))/255.0), blue: (CGFloat(Float.random(in: 120...180))/255.0), alpha: 1.000)
-        let color31 = UIColor(red: (CGFloat(Float.random(in: 100...180))/255.0), green: (CGFloat(Float.random(in: 80...150))/255.0), blue: (CGFloat(Float.random(in: 200...250))/255.0), alpha: 1.000)
+        var color11: UIColor!
+        var color12: UIColor!
+        var color21: UIColor!
+        var color22: UIColor!
+        var color31: UIColor!
+        
+        switch temp {
+        case ..<5:
+            //cold weather gradient colors
+            color11 = UIColor(red: (CGFloat(Float.random(in: 120...220))/255.0), green: (CGFloat(Float.random(in: 100...200))/255.0), blue: (CGFloat(Float.random(in: 180...250))/255.0), alpha: 1.000)
+            color12 = UIColor(red: (CGFloat(Float.random(in: 30...110))/255.0), green: (CGFloat(Float.random(in: 170...250))/255.0), blue: (CGFloat(Float.random(in: 150...250))/255.0), alpha: 1.000)
+            color21 = UIColor(red: (CGFloat(Float.random(in: 0...50))/255.0), green: (CGFloat(Float.random(in: 150...180))/255.0), blue: (CGFloat(Float.random(in: 200...250))/255.0), alpha: 1.000)
+            color22 = UIColor(red: (CGFloat(Float.random(in: 0...110))/255.0), green: (CGFloat(Float.random(in: 100...200))/255.0), blue: (CGFloat(Float.random(in: 120...180))/255.0), alpha: 1.000)
+            color31 = UIColor(red: (CGFloat(Float.random(in: 100...180))/255.0), green: (CGFloat(Float.random(in: 80...150))/255.0), blue: (CGFloat(Float.random(in: 200...250))/255.0), alpha: 1.000)
+        case 5..<18:
+            //mid weather gradient colors
+            color11 = UIColor(red: (CGFloat(Float.random(in: 0...50))/255.0), green: (CGFloat(Float.random(in: 150...180))/255.0), blue: (CGFloat(Float.random(in: 200...250))/255.0), alpha: 1.000)
+            color12 = UIColor(red: (CGFloat(Float.random(in: 120...180))/255.0), green: (CGFloat(Float.random(in: 210...255))/255.0), blue: (CGFloat(Float.random(in: 0...70))/255.0), alpha: 1.000)
+            color21 = UIColor(red: (CGFloat(Float.random(in: 0...70))/255.0), green: (CGFloat(Float.random(in: 170...220))/255.0), blue: (CGFloat(Float.random(in: 120...180))/255.0), alpha: 1.000)
+            color22 = UIColor(red: (CGFloat(Float.random(in: 30...110))/255.0), green: (CGFloat(Float.random(in: 170...250))/255.0), blue: (CGFloat(Float.random(in: 150...250))/255.0), alpha: 1.000)
+            color31 = UIColor(red: (CGFloat(Float.random(in: 160...200))/255.0), green: (CGFloat(Float.random(in: 220...255))/255.0), blue: (CGFloat(Float.random(in: 100...150))/255.0), alpha: 1.000)
+        case 18..<28:
+            //warm weather gradient colors
+            color11 = UIColor(red: (CGFloat(Float.random(in: 160...200))/255.0), green: (CGFloat(Float.random(in: 220...255))/255.0), blue: (CGFloat(Float.random(in: 100...150))/255.0), alpha: 1.000)
+            color12 = UIColor(red: (CGFloat(Float.random(in: 230...255))/255.0), green: (CGFloat(Float.random(in: 230...255))/255.0), blue: (CGFloat(Float.random(in: 0...120))/255.0), alpha: 1.000)
+            color21 = UIColor(red: (CGFloat(Float.random(in: 230...250))/255.0), green: (CGFloat(Float.random(in: 130...200))/255.0), blue: (CGFloat(Float.random(in: 0...80))/255.0), alpha: 1.000)
+            color22 = UIColor(red: (CGFloat(Float.random(in: 200...250))/255.0), green: (CGFloat(Float.random(in: 80...150))/255.0), blue: (CGFloat(Float.random(in: 0...50))/255.0), alpha: 1.000)
+            color31 = UIColor(red: (CGFloat(Float.random(in: 230...250))/255.0), green: (CGFloat(Float.random(in: 130...200))/255.0), blue: (CGFloat(Float.random(in: 0...80))/255.0), alpha: 1.000)
+        case 28...:
+            //hot weather gradient colors
+            color11 = UIColor(red: (CGFloat(Float.random(in: 180...230))/255.0), green: (CGFloat(Float.random(in: 120...150))/255.0), blue: (CGFloat(Float.random(in: 0...50))/255.0), alpha: 1.000)
+            color12 = UIColor(red: (CGFloat(Float.random(in: 220...255))/255.0), green: (CGFloat(Float.random(in: 0...50))/255.0), blue: (CGFloat(Float.random(in: 0...70))/255.0), alpha: 1.000)
+            color21 = UIColor(red: (CGFloat(Float.random(in: 200...250))/255.0), green: (CGFloat(Float.random(in: 30...120))/255.0), blue: (CGFloat(Float.random(in: 100...180))/255.0), alpha: 1.000)
+            color22 = UIColor(red: (CGFloat(Float.random(in: 200...250))/255.0), green: (CGFloat(Float.random(in: 80...150))/255.0), blue: (CGFloat(Float.random(in: 0...50))/255.0), alpha: 1.000)
+            color31 = UIColor(red: (CGFloat(Float.random(in: 190...255))/255.0), green: (CGFloat(Float.random(in: 0...50))/255.0), blue: (CGFloat(Float.random(in: 100...150))/255.0), alpha: 1.000)
+        default:
+            color11 = UIColor(red: (CGFloat(Float.random(in: 180...230))/255.0), green: (CGFloat(Float.random(in: 120...150))/255.0), blue: (CGFloat(Float.random(in: 0...50))/255.0), alpha: 1.000)
+            color12 = UIColor(red: (CGFloat(Float.random(in: 200...250))/255.0), green: (CGFloat(Float.random(in: 80...150))/255.0), blue: (CGFloat(Float.random(in: 0...50))/255.0), alpha: 1.000)
+            color21 = UIColor(red: (CGFloat(Float.random(in: 200...250))/255.0), green: (CGFloat(Float.random(in: 30...120))/255.0), blue: (CGFloat(Float.random(in: 100...180))/255.0), alpha: 1.000)
+            color22 = UIColor(red: (CGFloat(Float.random(in: 120...180))/255.0), green: (CGFloat(Float.random(in: 210...255))/255.0), blue: (CGFloat(Float.random(in: 0...70))/255.0), alpha: 1.000)
+            color31 = UIColor(red: (CGFloat(Float.random(in: 190...255))/255.0), green: (CGFloat(Float.random(in: 0...50))/255.0), blue: (CGFloat(Float.random(in: 100...150))/255.0), alpha: 1.000)
+        }
         
         let tangent: (u: Float, v: Float) = (0.5,0.5)
         meshView.create([
@@ -118,7 +153,20 @@ class TopWeatherCell: UICollectionViewCell {
                         .init(point: (3, 3), location: (3, 3), color: UIColor(red: 1, green: 1, blue: 1, alpha: 1.000), tangent: tangent),
                         
                     ], width: 4, height: 4)
-       
+        
+    }
+    
+    func convertTempUnitToCelsius(value: Double, unit: UnitTemperature) -> Double {
+        switch unit {
+        case .celsius:
+            return value
+        case .fahrenheit:
+            return (value - 32.0) * 5.0 / 9.0
+        case .kelvin:
+            return value - 273.15
+        default:
+            return value
+        }
     }
 
 }
