@@ -111,6 +111,8 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
         }
     }
     
+    
+    
 // MARK: - CitySearchResultVC Delegate implementation
     
     func dismissCitySearchResultVC() {

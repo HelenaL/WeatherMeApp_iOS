@@ -53,29 +53,83 @@ class CitiesListVC: UIViewController {
             
         // Make the search bar always visible.
         navigationItem.hidesSearchBarWhenScrolling = false
+//
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { _ in
+            //self.cities = CoreDataStack.shared.getCitiesList()
+            //self.collectionView.reloadData()
+        }
+        
+//        self.collectionView.collectionViewLayout.collectionView?.editingInteractionConfiguration add
+        
+        var layoutConfig = UICollectionLayoutListConfiguration(appearance: .plain)
+        layoutConfig.trailingSwipeActionsConfigurationProvider = { [unowned self] (indexPath) in
+
+//            guard let item = dataSource.itemIdentifier(for: indexPath) else {
+//                return nil
+//            }
+
+            // 2
+            // Create action 1
+            let action1 = UIContextualAction(style: .normal, title: "Action 1") { (action, view, completion) in
+                print("🥵 Delete this city")
+                // 3
+                // Handle swipe action by showing alert message
+                //handleSwipe(for: action, item: item)
+
+                // 4
+                // Trigger the action completion handler
+                completion(true)
+            }
+
+            action1.backgroundColor = .systemRed
+            return UISwipeActionsConfiguration(actions: [action1])
+        }
+
+//        ?laylet ly = collectionView.collectionViewLayou
+
+        
+        //collectionView.collectionViewLayout.confi
+        let listLayout = UICollectionViewCompositionalLayout.list(using: layoutConfig)
+        collectionView.collectionViewLayout = listLayout
+        
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, canPerformPrimaryActionForItemAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+    
     
     @objc func newCityAdded(_ notification: Notification) {
         cities = CoreDataStack.shared.getCitiesList()
         self.collectionView.reloadData()
     }
         
-    func getWeatherForCity(_ city: City, completion: @escaping () -> Void) {
+    func getWeatherForCity(_ city: City,
+                    completionBlock: @escaping (_ weather: Weather, _ city: City) -> (),
+                    errorBlock: @escaping (_ city: City) -> ()) {
+                        
         if needToReload(city) {
             WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: city.lat, longitude: city.long)) { result in
                 switch result {
                 case .success(let weather) :
                     if let key = city.placemarkTitle {
                         self.weathersDict[key] = weather
-                        completion()
+                        completionBlock(weather, city)
                     }
                 case .failure(let error) :
                     print(error)
-                    completion()
+                    errorBlock(city)
                 }
             }
+        } else if let cache = self.weathersDict[city.placemarkTitle ?? ""] {
+            
+            completionBlock(cache, city)
         } else {
-            completion()
+            errorBlock(city)
         }
     }
     
@@ -122,14 +176,22 @@ extension CitiesListVC: UICollectionViewDataSource {
      
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CitiesListCollectionViewCell", for: indexPath) as! CitiesListCollectionViewCell
-        let city = cities[indexPath.row]
-        getWeatherForCity(city) {
-            if let key = city.placemarkTitle {
-                if let weather = self.weathersDict[key] {
-                    cell.fillWeatherCell(with: city, and: weather)
-                }
-            }
+        let cellCity = cities[indexPath.row]
+        
+        getWeatherForCity(cellCity) { weather, city in
+            cell.fillWeatherCell(with: city, and: weather)
+        } errorBlock: { city in
+            cell.timeLabel.text = "something went wrong"
         }
+
+        
+//        getWeatherForCity(city) {
+//            if let key = city.placemarkTitle {
+//                if let weather = self.weathersDict[key] {
+//                    cell.fillWeatherCell(with: city, and: weather)
+//                }
+//            }
+//        }
         
         return cell
     }
