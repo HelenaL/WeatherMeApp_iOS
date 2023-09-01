@@ -34,9 +34,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" contentViewInsetsToSafeArea="NO" id="i8x-lL-axD">
-                                <rect key="frame" x="0.0" y="181" width="414" height="718"/>
-                                <autoresizingMask key="autoresizingMask"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cTe-tu-vYo">
+                                <rect key="frame" x="0.0" y="92" width="414" height="770"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CitiesListTableViewCell" rowHeight="128" id="wSG-P4-PzM" customClass="CitiesListTableViewCell" customModule="WeatherMeApp_iOS" customModuleProvider="target">
@@ -65,7 +64,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sng-rD-FAt" userLabel="Temp Value Label">
-                                                    <rect key="frame" x="294" y="10" width="80" height="50"/>
+                                                    <rect key="frame" x="314" y="10" width="80" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="BM9-ds-ICD"/>
                                                         <constraint firstAttribute="height" constant="50" id="dfu-4o-3jt"/>
@@ -74,7 +73,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="H: -- L: --" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMw-bY-0w3" userLabel="Temp Range Label">
-                                                    <rect key="frame" x="284" y="97" width="90" height="21"/>
+                                                    <rect key="frame" x="304" y="97" width="90" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="Su7-FU-ySW"/>
                                                         <constraint firstAttribute="height" constant="21" id="pNA-2i-rbW"/>
@@ -94,7 +93,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Fd-Pv-SO7" userLabel="Condition Label">
-                                                    <rect key="frame" x="33" y="97" width="241" height="21"/>
+                                                    <rect key="frame" x="33" y="97" width="261" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="fYf-Z3-nJf"/>
                                                     </constraints>
@@ -104,18 +103,18 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="sng-rD-FAt" secondAttribute="trailing" constant="20" id="1aT-2g-SgB"/>
                                                 <constraint firstAttribute="bottom" secondItem="uMw-bY-0w3" secondAttribute="bottom" constant="10" id="7Vn-xS-z8c"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="uMw-bY-0w3" secondAttribute="trailing" constant="20" id="AEh-Pu-bJK"/>
                                                 <constraint firstItem="sng-rD-FAt" firstAttribute="top" secondItem="Bkk-lC-Gxd" secondAttribute="top" id="EO0-1B-uGJ"/>
                                                 <constraint firstItem="8Fd-Pv-SO7" firstAttribute="leading" secondItem="VXP-hZ-mG4" secondAttribute="trailing" constant="10" id="HCI-DX-IUI"/>
                                                 <constraint firstItem="sng-rD-FAt" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bkk-lC-Gxd" secondAttribute="trailing" constant="10" id="HPH-lQ-oqg"/>
                                                 <constraint firstItem="62t-d2-kMW" firstAttribute="leading" secondItem="Bkk-lC-Gxd" secondAttribute="leading" id="Iij-IM-R7p"/>
                                                 <constraint firstAttribute="bottom" secondItem="8Fd-Pv-SO7" secondAttribute="bottom" constant="10" id="Ijl-1S-Hz7"/>
+                                                <constraint firstAttribute="trailing" secondItem="sng-rD-FAt" secondAttribute="trailing" constant="20" id="NB6-CE-RCC"/>
                                                 <constraint firstItem="Bkk-lC-Gxd" firstAttribute="leading" secondItem="VXP-hZ-mG4" secondAttribute="trailing" constant="10" id="ODZ-9b-KDW"/>
-                                                <constraint firstItem="VXP-hZ-mG4" firstAttribute="leading" secondItem="yra-w9-Etx" secondAttribute="leading" constant="20" id="PFm-Wl-bzL"/>
                                                 <constraint firstItem="62t-d2-kMW" firstAttribute="top" secondItem="Bkk-lC-Gxd" secondAttribute="bottom" constant="10" id="PmB-Hq-ssG"/>
+                                                <constraint firstAttribute="trailing" secondItem="uMw-bY-0w3" secondAttribute="trailing" constant="20" id="R6f-Y2-RNG"/>
                                                 <constraint firstItem="uMw-bY-0w3" firstAttribute="leading" secondItem="8Fd-Pv-SO7" secondAttribute="trailing" constant="10" id="T72-Sf-T0W"/>
+                                                <constraint firstItem="VXP-hZ-mG4" firstAttribute="leading" secondItem="yra-w9-Etx" secondAttribute="leading" constant="20" id="n03-Vl-4wC"/>
                                                 <constraint firstItem="sng-rD-FAt" firstAttribute="top" secondItem="yra-w9-Etx" secondAttribute="top" constant="10" id="qwS-sM-hCr"/>
                                                 <constraint firstItem="VXP-hZ-mG4" firstAttribute="top" secondItem="yra-w9-Etx" secondAttribute="top" constant="10" id="rqk-ar-O9E"/>
                                                 <constraint firstAttribute="bottom" secondItem="VXP-hZ-mG4" secondAttribute="bottom" constant="10" id="suB-g1-hFR"/>
@@ -133,22 +132,28 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="LUx-V9-HBn"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="XmZ-wE-9dN"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="87I-bQ-bTn"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="IeT-yr-2bI"/>
                                 </connections>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="cTe-tu-vYo" secondAttribute="bottom" id="EuK-nD-UQk"/>
+                            <constraint firstItem="cTe-tu-vYo" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="KXx-Fd-yY2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cTe-tu-vYo" secondAttribute="trailing" id="Oub-F3-ez5"/>
+                            <constraint firstItem="cTe-tu-vYo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Yzy-2i-BtJ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Uqe-rB-RXW"/>
                     <connections>
-                        <outlet property="tableView" destination="i8x-lL-axD" id="g5C-jx-Y2O"/>
+                        <outlet property="tableView" destination="cTe-tu-vYo" id="TaU-6o-BQi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-178" y="-26"/>
+            <point key="canvasLocation" x="-178.2608695652174" y="-26.116071428571427"/>
         </scene>
         <!--City Weather View Controller-->
         <scene sceneID="OFg-V3-Urh">
