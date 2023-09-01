@@ -60,8 +60,10 @@ class CitiesListVC: UIViewController {
         }
         
 //        self.collectionView.collectionViewLayout.collectionView?.editingInteractionConfiguration add
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        var layoutConfig = UICollectionLayoutListConfiguration(appearance: .plain)
+        var layoutConfig = UICollectionLayoutListConfiguration(appearance: .grouped)
+        layoutConfig.showsSeparators = false
         layoutConfig.trailingSwipeActionsConfigurationProvider = { [unowned self] (indexPath) in
 
 //            guard let item = dataSource.itemIdentifier(for: indexPath) else {
@@ -90,8 +92,41 @@ class CitiesListVC: UIViewController {
         
         //collectionView.collectionViewLayout.confi
         let listLayout = UICollectionViewCompositionalLayout.list(using: layoutConfig)
-        collectionView.collectionViewLayout = listLayout
-        
+        //listLayout.lay
+        //collectionView.collectionViewLayout = listLayout
+        collectionView.collectionViewLayout = createCollectionViewLayout()
+
+    }
+    
+    private func createLayout() -> UICollectionViewLayout {
+        let sectionProvider = { (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            guard let sectionKind = Section(rawValue: sectionIndex) else { return nil }
+            
+            var configuration = UICollectionLayoutListConfiguration(appearance: .plain)
+            configuration.showsSeparators = false
+            configuration.headerMode = .none
+            configuration.trailingSwipeActionsConfigurationProvider = { [unowned self] (indexPath) in
+
+    //            guard let item = dataSource.itemIdentifier(for: indexPath) else {
+    //                return nil
+    //            }
+
+                // 2
+                // Create action 1
+                let action1 = UIContextualAction(style: .normal, title: "Action 1") { (action, view, completion) in
+                    print("🥵 Delete this city")
+                    completion(true)
+                }
+                action1.backgroundColor = .systemRed
+                return UISwipeActionsConfiguration(actions: [action1])
+            }
+           
+            //                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0) //8
+            return NSCollectionLayoutSection.list(using: configuration, layoutEnvironment: layoutEnvironment)
+        }
+
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: sectionProvider)
+        return layout
     }
     
 //    func collectionView(_ collectionView: UICollectionView, canPerformPrimaryActionForItemAt indexPath: IndexPath) -> Bool {
@@ -184,7 +219,6 @@ extension CitiesListVC: UICollectionViewDataSource {
             cell.timeLabel.text = "something went wrong"
         }
 
-        
 //        getWeatherForCity(city) {
 //            if let key = city.placemarkTitle {
 //                if let weather = self.weathersDict[key] {
@@ -208,7 +242,7 @@ extension CitiesListVC: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-        return CGSize(width: collectionView.bounds.size.width - 16, height: 120)
+        return CGSize(width: collectionView.bounds.size.width - 16, height: 128)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -228,4 +262,64 @@ extension CitiesListVC: UICollectionViewDelegateFlowLayout {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: 8, left: 8, bottom: 0, right: 8)
     }
+    
+    func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+        return UICollectionViewCompositionalLayout { [self] (section, _) -> NSCollectionLayoutSection? in
+            if section == 0 {
+                var layoutConfig = UICollectionLayoutListConfiguration(appearance: .plain)
+                layoutConfig.trailingSwipeActionsConfigurationProvider = { [unowned self] (indexPath) in
+
+        //            guard let item = dataSource.itemIdentifier(for: indexPath) else {
+        //                return nil
+        //            }
+
+                    // 2
+                    // Create action 1
+                    let action1 = UIContextualAction(style: .normal, title: "Action 1") { (action, view, completion) in
+                        print("🥵 Delete this city")
+                        // 3
+                        // Handle swipe action by showing alert message
+                        //handleSwipe(for: action, item: item)
+
+                        // 4
+                        // Trigger the action completion handler
+                        completion(true)
+                    }
+
+                    action1.backgroundColor = .systemRed
+                    return UISwipeActionsConfiguration(actions: [action1])
+                }
+
+
+                let item = NSCollectionLayoutItem(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .fractionalHeight(1)
+                    )
+                )
+            
+                // group
+                let group = NSCollectionLayoutGroup.horizontal(
+                    layoutSize: NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1),
+                        heightDimension: .absolute(120)
+                    ),
+                    subitem: item,
+                    count: 1
+                )
+                group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                
+                // section
+                let section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0) //8
+                // return
+                return section
+
+            }
+            return nil
+        }
+    }
+    
+
+    
 }
