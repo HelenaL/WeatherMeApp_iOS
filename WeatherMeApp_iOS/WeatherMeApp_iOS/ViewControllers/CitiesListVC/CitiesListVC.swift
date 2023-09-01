@@ -112,6 +112,14 @@ class CitiesListVC: UIViewController {
         return diff > 600
     }
     
+    func deleteCity(at indexPath: IndexPath) {
+        print("🦞 DELETE CITY")
+//        let listToDelete = fetchedResultsController.object(at: indexPath)
+//        dataController.viewContext.delete(listToDelete)
+//
+//        try? dataController.viewContext.save()
+    }
+    
     // MARK: - Navigation
     // openCityWeather
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -154,115 +162,51 @@ extension CitiesListVC: UITableViewDataSource {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let contextItem = UIContextualAction(style: .destructive, title: "Delete") {  (_, _, completion) in
+            self.deleteCity(at: indexPath)
+            completion(true)
+        }
+
+        let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
+
+        return swipeActions
+    }
     
 }
 
-//// MARK: - Collection View Extensions
+//extension CitiesListVC {
 //
-//extension CitiesListVC: UICollectionViewDataSource {
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        return 1
+//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        tableView.beginUpdates()
 //    }
 //
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return cities.count
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        tableView.endUpdates()
 //    }
 //
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CitiesListCollectionViewCell", for: indexPath) as! CitiesListCollectionViewCell
-//        let cellCity = cities[indexPath.row]
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+//                    didChange anObject: Any,
+//                    at indexPath: IndexPath?,
+//                    for type: NSFetchedResultsChangeType,
+//                    newIndexPath: IndexPath?) {
 //
-//        getWeatherForCity(cellCity) { weather, city in
-//            cell.fillWeatherCell(with: city, and: weather)
-//        } errorBlock: { city in
-//            cell.timeLabel.text = "something went wrong"
+//        if let isEmpty = controller.fetchedObjects?.isEmpty {
+//           showStartLabel(isHidden: !isEmpty)
 //        }
 //
-//        return cell
-//    }
-//}
-//
-//extension CitiesListVC: UICollectionViewDelegate {
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print(indexPath.row + 1)
-//    }
-//}
-//
-//extension CitiesListVC: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        return CGSize(width: collectionView.bounds.size.width - 16, height: 128)
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 8
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 0
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView,
-//                        layout collectionViewLayout: UICollectionViewLayout,
-//                        insetForSectionAt section: Int) -> UIEdgeInsets {
-//        return UIEdgeInsets.init(top: 8, left: 8, bottom: 0, right: 8)
-//    }
-//
-//    func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-//        return UICollectionViewCompositionalLayout { [self] (section, _) -> NSCollectionLayoutSection? in
-//            if section == 0 {
-//                var layoutConfig = UICollectionLayoutListConfiguration(appearance: .plain)
-//                layoutConfig.trailingSwipeActionsConfigurationProvider = { [unowned self] (indexPath) in
-//
-//        //            guard let item = dataSource.itemIdentifier(for: indexPath) else {
-//        //                return nil
-//        //            }
-//
-//                    // Create action 1
-//                    let action1 = UIContextualAction(style: .normal, title: "Action 1") { (action, view, completion) in
-//                        print("🥵 Delete this city")
-//                        completion(true)
-//                    }
-//
-//                    action1.backgroundColor = .systemRed
-//                    return UISwipeActionsConfiguration(actions: [action1])
-//                }
-//
-//
-//                let item = NSCollectionLayoutItem(
-//                    layoutSize: NSCollectionLayoutSize(
-//                        widthDimension: .fractionalWidth(1),
-//                        heightDimension: .fractionalHeight(1)
-//                    )
-//                )
-//
-//                // group
-//                let group = NSCollectionLayoutGroup.horizontal(
-//                    layoutSize: NSCollectionLayoutSize(
-//                        widthDimension: .fractionalWidth(1),
-//                        heightDimension: .absolute(120)
-//                    ),
-//                    subitem: item,
-//                    count: 1
-//                )
-//                group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-//
-//                // section
-//                let section = NSCollectionLayoutSection(group: group)
-//                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0) //8
-//                return section
-//
-//            }
-//            return nil
+//        switch type {
+//        case .insert:
+//            tableView.insertRows(at: [newIndexPath!], with: .fade)
+//        case .delete:
+//            tableView.deleteRows(at: [indexPath!], with: .fade)
+//        case .update:
+//            tableView.reloadRows(at: [indexPath!], with: .automatic)
+//        default:
+//            break
 //        }
 //    }
-    
+//
+//}
 
-    
-//}
+
