@@ -62,20 +62,9 @@ class CityWeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.largeTitleDisplayMode = .never
         collectionView.collectionViewLayout = createCollectionViewLayout()
-
-        // Do any additional setup after loading the view.
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
 }
 
@@ -211,9 +200,8 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
                               
                 // section
                 let section = NSCollectionLayoutSection(group: group)
-                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0) //8
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
                               
-                // return
                 return section
                 
             } else if section == 1 {
@@ -280,7 +268,6 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
                            
                 section.boundarySupplementaryItems = [header]
                 
-                // return
                 return section
             }
             return nil

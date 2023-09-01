@@ -59,10 +59,8 @@ class CitiesListVC: UIViewController {
             //self.collectionView.reloadData()
         }
         
-//        self.collectionView.collectionViewLayout.collectionView?.editingInteractionConfiguration add
-        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        var layoutConfig = UICollectionLayoutListConfiguration(appearance: .grouped)
+        var layoutConfig = UICollectionLayoutListConfiguration(appearance: .plain)
         layoutConfig.showsSeparators = false
         layoutConfig.trailingSwipeActionsConfigurationProvider = { [unowned self] (indexPath) in
 
@@ -87,14 +85,11 @@ class CitiesListVC: UIViewController {
             return UISwipeActionsConfiguration(actions: [action1])
         }
 
-//        ?laylet ly = collectionView.collectionViewLayou
 
         
-        //collectionView.collectionViewLayout.confi
         let listLayout = UICollectionViewCompositionalLayout.list(using: layoutConfig)
-        //listLayout.lay
-        //collectionView.collectionViewLayout = listLayout
-        collectionView.collectionViewLayout = createCollectionViewLayout()
+        collectionView.collectionViewLayout = listLayout
+        //collectionView.collectionViewLayout = createCollectionViewLayout()
 
     }
     
@@ -218,14 +213,6 @@ extension CitiesListVC: UICollectionViewDataSource {
         } errorBlock: { city in
             cell.timeLabel.text = "something went wrong"
         }
-
-//        getWeatherForCity(city) {
-//            if let key = city.placemarkTitle {
-//                if let weather = self.weathersDict[key] {
-//                    cell.fillWeatherCell(with: city, and: weather)
-//                }
-//            }
-//        }
         
         return cell
     }
@@ -273,16 +260,9 @@ extension CitiesListVC: UICollectionViewDelegateFlowLayout {
         //                return nil
         //            }
 
-                    // 2
                     // Create action 1
                     let action1 = UIContextualAction(style: .normal, title: "Action 1") { (action, view, completion) in
                         print("🥵 Delete this city")
-                        // 3
-                        // Handle swipe action by showing alert message
-                        //handleSwipe(for: action, item: item)
-
-                        // 4
-                        // Trigger the action completion handler
                         completion(true)
                     }
 
@@ -312,7 +292,6 @@ extension CitiesListVC: UICollectionViewDelegateFlowLayout {
                 // section
                 let section = NSCollectionLayoutSection(group: group)
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0) //8
-                // return
                 return section
 
             }
