@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1403E2452AA18E0D001A4D17 /* CitiesListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403E2442AA18E0D001A4D17 /* CitiesListTableViewCell.swift */; };
 		143680AB2815F97E0063306F /* CitySearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143680AA2815F97E0063306F /* CitySearchResultVC.swift */; };
 		1437A26B28065935007DA783 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A26A28065935007DA783 /* AppDelegate.swift */; };
 		1437A26D28065935007DA783 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A26C28065935007DA783 /* SceneDelegate.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1403E2442AA18E0D001A4D17 /* CitiesListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListTableViewCell.swift; sourceTree = "<group>"; };
 		143680AA2815F97E0063306F /* CitySearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchResultVC.swift; sourceTree = "<group>"; };
 		143680B12819EE8A0063306F /* WeatherDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeatherDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1437A26728065934007DA783 /* WeatherMeApp_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherMeApp_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -186,6 +188,7 @@
 			children = (
 				1437A26E28065935007DA783 /* CitiesListVC.swift */,
 				14A8280D28066BCA0062BE42 /* CitiesListCollectionViewCell.swift */,
+				1403E2442AA18E0D001A4D17 /* CitiesListTableViewCell.swift */,
 			);
 			path = CitiesListVC;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				14E7F4CE29EE5C300036D099 /* HourlyWeatherView.swift in Sources */,
 				148FECB529D3EA9500CCE158 /* HourlyWeatherCell.swift in Sources */,
 				148FEC9829CFF9BC00CCE158 /* CoreDataStack.swift in Sources */,
+				1403E2452AA18E0D001A4D17 /* CitiesListTableViewCell.swift in Sources */,
 				148FECB029D3E84900CCE158 /* CityWeatherViewController.swift in Sources */,
 				1437A26F28065935007DA783 /* CitiesListVC.swift in Sources */,
 				14A8280E28066BCA0062BE42 /* CitiesListCollectionViewCell.swift in Sources */,
