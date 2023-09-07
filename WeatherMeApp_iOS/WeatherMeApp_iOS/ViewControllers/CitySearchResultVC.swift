@@ -8,10 +8,16 @@
 import UIKit
 import MapKit
 
+protocol CitySearchBarDelegate: AnyObject {
+    func cleanSearchBar()
+    func endEditingTableView()
+}
+
 class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
     
     // MARK: - Properties
-            
+    weak var searchBarDelegate: CitySearchBarDelegate?
+    
     // Create a seach completer object
     var searchCompleter = MKLocalSearchCompleter()
     
@@ -28,24 +34,24 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
         searchCompleter.resultTypes = .address
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchResults.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
-
+        
         let item = searchResults[indexPath.row]
         
         var content = cell.defaultContentConfiguration()
@@ -60,18 +66,18 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
         
     }
     
-// MARK: - Navigation
-
+    // MARK: - Navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "openNewCityWeather",
-//            let nav = segue.destination as? UINavigationController,
-//            let vc = nav.viewControllers.first as? CityWeatherViewController {
-//            vc.cityNAme = "Set City Name"
-//        }
-
+        //        if segue.identifier == "openNewCityWeather",
+        //            let nav = segue.destination as? UINavigationController,
+        //            let vc = nav.viewControllers.first as? CityWeatherViewController {
+        //            vc.cityNAme = "Set City Name"
+        //        }
+        
         if let vc = segue.destination as? CityWeatherViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
-               // vc.isTopButtonHidden = false
+                // vc.isTopButtonHidden = false
                 
                 let result = searchResults[indexPath.row]
                 let searchRequest = MKLocalSearch.Request(completion: result)
@@ -79,15 +85,15 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                 let search = MKLocalSearch(request: searchRequest)
                 search.start { (response, error) in
                     guard let coordinate = response?.mapItems[0].placemark.coordinate else {
-                         return
+                        return
                     }
-
+                    
                     guard let name = response?.mapItems[0].name else {
-                         return
+                        return
                     }
                     
                     guard let placemarkTitle = response?.mapItems[0].placemark.title else {
-                         return
+                        return
                     }
                     
                     guard let timeZone = response?.mapItems[0].timeZone?.abbreviation() else {
@@ -96,7 +102,7 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                     
                     let lat = coordinate.latitude
                     let lon = coordinate.longitude
-
+                    
                     print("Selected City: \(name) \(placemarkTitle) \(lat) \(lon) \(timeZone)")
                     
                     vc.city = (name, placemarkTitle, lat, lon, timeZone)
@@ -104,18 +110,19 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                     
                     //check that the city exist in list of saved city, if exist need to hide add button
                     vc.isTopButtonHidden = (cancel: false, add: CoreDataStack.shared.isContainCity(placemarkTitle: placemarkTitle))
-                
+                    
                 }
-
+                
             }
         }
     }
     
     
     
-// MARK: - CitySearchResultVC Delegate implementation
+    // MARK: - CitySearchResultVC Delegate implementation
     
     func dismissCitySearchResultVC() {
+        self.searchBarDelegate?.cleanSearchBar()
         dismiss(animated: true, completion: nil)
     }
 }
@@ -123,7 +130,12 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
 // MARK: - Search Controller Extensions
 
 extension CitySearchResultVC: UISearchControllerDelegate {
-    
+        func didDismissSearchController(_ searchController: UISearchController) {
+            searchController.searchBar.text = nil
+        }
+    func willPresentSearchController(_ searchController: UISearchController) {
+        self.searchBarDelegate?.endEditingTableView()
+    }
 }
 
 extension CitySearchResultVC: UISearchBarDelegate {

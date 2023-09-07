@@ -282,7 +282,6 @@ extension CityWeatherViewController: TopWeatherCellDelegate {
     }
     
     func addNewCityToWeatherList() {
-        print("ADDD City")
         CoreDataStack.shared.addNewCity(name: city.name, placemarkTitle: city.placemarkTitle, lat: city.lat, long: city.long, timeZone: city.timeZone)
         self.searchDelegate?.dismissCitySearchResultVC()
         dismiss(animated: true, completion: nil)
