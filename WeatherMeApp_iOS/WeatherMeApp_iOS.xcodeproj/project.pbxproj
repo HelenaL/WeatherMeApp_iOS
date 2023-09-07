@@ -33,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		1403E2442AA18E0D001A4D17 /* CitiesListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListTableViewCell.swift; sourceTree = "<group>"; };
+		1403E2462AA9276D001A4D17 /* City+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "City+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		1403E2472AA9276D001A4D17 /* City+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "City+CoreDataClass.swift"; sourceTree = "<group>"; };
 		143680AA2815F97E0063306F /* CitySearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchResultVC.swift; sourceTree = "<group>"; };
 		143680B12819EE8A0063306F /* WeatherDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeatherDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1437A26728065934007DA783 /* WeatherMeApp_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherMeApp_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -43,8 +45,6 @@
 		1437A27328065936007DA783 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1437A27628065936007DA783 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1437A27828065936007DA783 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		143C13C92A70C93F0071DF62 /* City+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "City+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		143C13CA2A70C93F0071DF62 /* City+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "City+CoreDataClass.swift"; sourceTree = "<group>"; };
 		1489F0772A6E1A1E003542D8 /* WeatherMeApp_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeatherMeApp_iOS.entitlements; sourceTree = "<group>"; };
 		1489F0782A6E1BEA003542D8 /* WeatherDataCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataCenter.swift; sourceTree = "<group>"; };
 		148FEC9729CFF9BC00CCE158 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -89,8 +89,8 @@
 		143680B32819EE930063306F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				143C13CA2A70C93F0071DF62 /* City+CoreDataClass.swift */,
-				143C13C92A70C93F0071DF62 /* City+CoreDataProperties.swift */,
+				1403E2472AA9276D001A4D17 /* City+CoreDataClass.swift */,
+				1403E2462AA9276D001A4D17 /* City+CoreDataProperties.swift */,
 				143680B02819EE8A0063306F /* WeatherDataModel.xcdatamodeld */,
 			);
 			path = Model;

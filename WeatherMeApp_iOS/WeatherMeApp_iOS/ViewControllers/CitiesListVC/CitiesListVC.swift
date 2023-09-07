@@ -35,7 +35,11 @@ class CitiesListVC: UIViewController {
             fatalError("This view needs a persistent container.")
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(newCityAdded(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(cityDidSaved(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil) //NSManagedObjectContextDidSave
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange(_:)),
+                                               name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+                                                                         object: CoreDataStack.shared.persistentContainer.viewContext)
         
         cities = CoreDataStack.shared.getCitiesList()
         
@@ -62,12 +66,29 @@ class CitiesListVC: UIViewController {
         
     }
     
+    /// Object did changed, let's look what had changed
+    @objc func managedObjectContextObjectsDidChange(_ notification: NSNotification) {
+        guard let userInfo = notification.userInfo else { return }
+
+        if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, inserts.count > 0 {
+            cities = CoreDataStack.shared.getCitiesList()
+
+            for c in cities {
+                print("cityNAME: \(c.name)")
+            }
+            self.tableView.reloadData()
+        }
+
+        if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
+            cities = CoreDataStack.shared.getCitiesList()
+            self.tableView.reloadData()
+        }
+    }
     
-    
-    @objc func newCityAdded(_ notification: Notification) {
-        cities = CoreDataStack.shared.getCitiesList()
-        //self.collectionView.reloadData()
-        self.tableView.reloadData()
+    @objc func cityDidSaved(_ notification: Notification) {
+//        cities = CoreDataStack.shared.getCitiesList()
+//
+//        self.tableView.reloadData()
     }
         
     func getWeatherForCity(_ city: City,
@@ -113,11 +134,10 @@ class CitiesListVC: UIViewController {
     }
     
     func deleteCity(at indexPath: IndexPath) {
-        print("🦞 DELETE CITY")
-//        let listToDelete = fetchedResultsController.object(at: indexPath)
-//        dataController.viewContext.delete(listToDelete)
-//
-//        try? dataController.viewContext.save()
+        let city = cities[indexPath.row]
+        CoreDataStack.shared.deleteCity(city: city)
+        cities = CoreDataStack.shared.getCitiesList()
+        tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
     // MARK: - Navigation
@@ -172,29 +192,30 @@ extension CitiesListVC: UITableViewDataSource {
 
         return swipeActions
     }
+            
+ 
     
 }
 
-//extension CitiesListVC {
-//
-//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        tableView.beginUpdates()
-//    }
-//
-//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        tableView.endUpdates()
-//    }
-//
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-//                    didChange anObject: Any,
-//                    at indexPath: IndexPath?,
-//                    for type: NSFetchedResultsChangeType,
-//                    newIndexPath: IndexPath?) {
-//
-//        if let isEmpty = controller.fetchedObjects?.isEmpty {
-//           showStartLabel(isHidden: !isEmpty)
-//        }
-//
+extension CitiesListVC {
+    
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+        print("pppppp controllerWillChangeContent")
+    }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+        print("pppppp controllerDidChangeContent")
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+        print("pppppp didChange newIndexPath \(type)")
 //        switch type {
 //        case .insert:
 //            tableView.insertRows(at: [newIndexPath!], with: .fade)
@@ -205,8 +226,10 @@ extension CitiesListVC: UITableViewDataSource {
 //        default:
 //            break
 //        }
-//    }
-//
-//}
+    }
+
+
+    
+}
 
 

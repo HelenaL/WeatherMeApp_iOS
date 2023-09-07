@@ -40,12 +40,14 @@ class CoreDataStack {
 extension CoreDataStack {
     func addNewCity(name: String, placemarkTitle: String, lat: Double, long: Double, timeZone: String) {
         let context = persistentContainer.viewContext
+        
         let city = City(context: context)
         city.name = name
         city.placemarkTitle = placemarkTitle
         city.lat = lat
         city.long = long
         city.timeZone = timeZone
+        city.timestamp = Date.now
         
         do {
             try context.save()
@@ -71,6 +73,7 @@ extension CoreDataStack {
         let context = persistentContainer.viewContext
         let fetchRequest =
             NSFetchRequest<City>(entityName: "City")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
         
         do {
             let cities = try context.fetch(fetchRequest)
