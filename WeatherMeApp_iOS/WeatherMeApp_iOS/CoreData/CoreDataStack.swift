@@ -57,33 +57,33 @@ extension CoreDataStack {
         }
     }
     
-    func deleteCity(city: City) {
-        let context = persistentContainer.viewContext
-        context.delete(city)
-        
-        do {
-            try context.save()
-        }
-        catch let error as NSError {
-            print("Could not save. \(error), \(error.userInfo)")
-        }
-    }
+//    func deleteCity(city: City) {
+//        let context = persistentContainer.viewContext
+//        context.delete(city)
+//        
+//        do {
+//            try context.save()
+//        }
+//        catch let error as NSError {
+//            print("Could not save. \(error), \(error.userInfo)")
+//        }
+//    }
     
-    func getCitiesList() -> [City] {
-        let context = persistentContainer.viewContext
-        let fetchRequest =
-            NSFetchRequest<City>(entityName: "City")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
-        
-        do {
-            let cities = try context.fetch(fetchRequest)
-            return cities
-        } catch let error as NSError {
-          print("Could not fetch. \(error), \(error.userInfo)")
-        }
-        
-        return []
-    }
+//    func getCitiesList() -> [City] {
+//        let context = persistentContainer.viewContext
+//        let fetchRequest =
+//            NSFetchRequest<City>(entityName: "City")
+//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true)]
+//        
+//        do {
+//            let cities = try context.fetch(fetchRequest)
+//            return cities
+//        } catch let error as NSError {
+//          print("Could not fetch. \(error), \(error.userInfo)")
+//        }
+//        
+//        return []
+//    }
     
     func isContainCity(placemarkTitle: String) -> Bool {
         let context = persistentContainer.viewContext
