@@ -23,9 +23,9 @@ class CitiesListTableViewCell: UITableViewCell {
         cityNameLabel.text = city.name
         
         tempValueLabel.attributedText = String.tempFormattedString(value: weather.currentWeather.temperature.value, unit: weather.currentWeather.temperature.unit, bFontSize: 36, sFontSize: 26, weight: .semibold)
-        
-        if let alerts = weather.weatherAlerts {
-            if let alertText = alerts.first?.summary {
+
+        if !weather.weatherAlerts!.isEmpty {
+            if let alertText = weather.weatherAlerts?.first?.summary {
                 conditionLabel.text = "\u{26A0} " + alertText
             }
         } else {
