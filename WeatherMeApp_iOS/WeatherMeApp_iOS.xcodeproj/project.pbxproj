@@ -499,6 +499,8 @@
 				DEVELOPMENT_TEAM = U9A58LLD3M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherMeApp_iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WeatherMe;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -530,6 +532,8 @@
 				DEVELOPMENT_TEAM = U9A58LLD3M;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WeatherMeApp_iOS/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WeatherMe;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
