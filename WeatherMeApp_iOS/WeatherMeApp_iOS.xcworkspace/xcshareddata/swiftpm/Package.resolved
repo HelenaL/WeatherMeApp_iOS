@@ -1,0 +1,13 @@
+{
+  "pins" : [
+    {
+      "identity" : "meshkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/EthanLipnik/MeshKit",
+      "state" : {
+        "revision" : "4401524d8cfb090ad787e053ed6aa0c90070b8bd"
+      }
+    }
+  ],
+  "version" : 2
+}

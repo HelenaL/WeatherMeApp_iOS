@@ -23,11 +23,11 @@
 		148FECB529D3EA9500CCE158 /* HourlyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FECB429D3EA9500CCE158 /* HourlyWeatherCell.swift */; };
 		148FECB729D3EAB800CCE158 /* DailyWeatherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FECB629D3EAB800CCE158 /* DailyWeatherCell.swift */; };
 		149FED242A8C7CA40098E9A2 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149FED232A8C7CA40098E9A2 /* Date+Extension.swift */; };
-		149FED322A9317B50098E9A2 /* MeshKit in Frameworks */ = {isa = PBXBuildFile; productRef = 149FED312A9317B50098E9A2 /* MeshKit */; };
 		14A8280E28066BCA0062BE42 /* CitiesListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14A8280D28066BCA0062BE42 /* CitiesListCollectionViewCell.swift */; };
 		14E162F92A85CFA500CF6814 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E162F82A85CFA500CF6814 /* String+Extension.swift */; };
 		14E7F4CC29EE4E250036D099 /* WeatherHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E7F4CB29EE4E240036D099 /* WeatherHeaderCollectionReusableView.swift */; };
 		14E7F4CE29EE5C300036D099 /* HourlyWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E7F4CD29EE5C300036D099 /* HourlyWeatherView.swift */; };
+		14F141192AC27884000E11E1 /* MeshKit in Frameworks */ = {isa = PBXBuildFile; productRef = 14F141182AC27884000E11E1 /* MeshKit */; };
 		DC2CEBBD3AE99F4B9ACF67E2 /* libPods-WeatherMeApp_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87CA8CEBE1764CC77DA7ACCB /* libPods-WeatherMeApp_iOS.a */; };
 /* End PBXBuildFile section */
 
@@ -53,7 +53,6 @@
 		148FECB429D3EA9500CCE158 /* HourlyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyWeatherCell.swift; sourceTree = "<group>"; };
 		148FECB629D3EAB800CCE158 /* DailyWeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherCell.swift; sourceTree = "<group>"; };
 		149FED232A8C7CA40098E9A2 /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		149FED2E2A9317970098E9A2 /* MeshKit-main */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "MeshKit-main"; path = "../../../../Downloads/MeshKit-main"; sourceTree = "<group>"; };
 		14A8280D28066BCA0062BE42 /* CitiesListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListCollectionViewCell.swift; sourceTree = "<group>"; };
 		14A8280F280674BA0062BE42 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		14E162F82A85CFA500CF6814 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -69,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				149FED322A9317B50098E9A2 /* MeshKit in Frameworks */,
+				14F141192AC27884000E11E1 /* MeshKit in Frameworks */,
 				DC2CEBBD3AE99F4B9ACF67E2 /* libPods-WeatherMeApp_iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,7 +98,6 @@
 		1437A25E28065934007DA783 = {
 			isa = PBXGroup;
 			children = (
-				149FED2E2A9317970098E9A2 /* MeshKit-main */,
 				1437A26928065934007DA783 /* WeatherMeApp_iOS */,
 				1437A26828065934007DA783 /* Products */,
 				04260112E78F5B9ACAF76D6D /* Pods */,
@@ -217,11 +215,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				149FED302A9317B00098E9A2 /* PBXTargetDependency */,
 			);
 			name = WeatherMeApp_iOS;
 			packageProductDependencies = (
-				149FED312A9317B50098E9A2 /* MeshKit */,
+				14F141182AC27884000E11E1 /* MeshKit */,
 			);
 			productName = WeatherMeApp_iOS;
 			productReference = 1437A26728065934007DA783 /* WeatherMeApp_iOS.app */;
@@ -252,6 +249,7 @@
 			);
 			mainGroup = 1437A25E28065934007DA783;
 			packageReferences = (
+				14F141172AC27884000E11E1 /* XCRemoteSwiftPackageReference "MeshKit" */,
 			);
 			productRefGroup = 1437A26828065934007DA783 /* Products */;
 			projectDirPath = "";
@@ -343,13 +341,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		149FED302A9317B00098E9A2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 149FED2F2A9317B00098E9A2 /* MeshKit */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1437A27028065935007DA783 /* Main.storyboard */ = {
@@ -576,13 +567,21 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCSwiftPackageProductDependency section */
-		149FED2F2A9317B00098E9A2 /* MeshKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = MeshKit;
+/* Begin XCRemoteSwiftPackageReference section */
+		14F141172AC27884000E11E1 /* XCRemoteSwiftPackageReference "MeshKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EthanLipnik/MeshKit";
+			requirement = {
+				kind = revision;
+				revision = 4401524d8cfb090ad787e053ed6aa0c90070b8bd;
+			};
 		};
-		149FED312A9317B50098E9A2 /* MeshKit */ = {
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		14F141182AC27884000E11E1 /* MeshKit */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = 14F141172AC27884000E11E1 /* XCRemoteSwiftPackageReference "MeshKit" */;
 			productName = MeshKit;
 		};
 /* End XCSwiftPackageProductDependency section */
