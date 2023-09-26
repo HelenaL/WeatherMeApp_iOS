@@ -12,13 +12,18 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
-        if let ndate = date {
+        if let nDate = date {
             dateFormatter.timeZone = TimeZone(abbreviation: timezone)
             dateFormatter.dateFormat = format
         
-            return dateFormatter.string(from: ndate)
+            return dateFormatter.string(from: nDate)
         }
         return nil
+    }
+    
+    func convertToTimeZone(initTimeZone: TimeZone, timeZone: TimeZone) -> Date {
+         let delta = TimeInterval(timeZone.secondsFromGMT(for: self) - initTimeZone.secondsFromGMT(for: self))
+         return addingTimeInterval(delta)
     }
 }
 

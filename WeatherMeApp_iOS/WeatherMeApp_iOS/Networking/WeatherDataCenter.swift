@@ -21,7 +21,6 @@ class WeatherDataCenter {
                 DispatchQueue.main.async {
                     completion(.success(weather))
                 }
-                
             } catch {
                 DispatchQueue.main.async {
                     completion(.failure(error))

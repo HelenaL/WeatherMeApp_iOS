@@ -37,7 +37,5 @@ class CitiesListCollectionViewCell: UICollectionViewCell {
         if let dayWeather = weather.dailyForecast.first {
             tempRangeLabel.text = "H:" + String(format: "%.0f", dayWeather.highTemperature.value) + "º L:" + String(format: "%.0f", dayWeather.lowTemperature.value) + "º"
         }
-//        tempRangeLabel.text = "H: " + (weather.dailyForecast.forecast.first?.highTemperature.formatted ?? "--") + "L: " + (weather.dailyForecast.forecast.first?.lowTemperature.formatted() ?? "--")
-       // String(format: "%.0f", dayWeather.highTemperature.)
     }
 }

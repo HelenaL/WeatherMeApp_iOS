@@ -16,7 +16,6 @@ class CitiesListVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
-    //var cities: [City] = []
     var weathersDict: [String:Weather] = [:]
     var fetchedResultsController: NSFetchedResultsController<City>!
     
@@ -37,14 +36,6 @@ class CitiesListVC: UIViewController {
         
         setupFetchedResultController()
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(cityDidSaved(_:)), name: Notification.Name.NSManagedObjectContextDidSave, object: nil) //NSManagedObjectContextDidSave
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextObjectsDidChange(_:)),
-//                                               name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
-//                                                                         object: CoreDataStack.shared.persistentContainer.viewContext)
-        
-        //cities = CoreDataStack.shared.getCitiesList()
-        
         // Setup Search Controller
         let resultsTableController =
                 self.storyboard?.instantiateViewController(withIdentifier: "CitySearchResultVC") as? CitySearchResultVC
@@ -61,11 +52,6 @@ class CitiesListVC: UIViewController {
             
         // Make the search bar always visible.
         navigationItem.hidesSearchBarWhenScrolling = true
-//
-//        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil) { _ in
-//            //self.cities = CoreDataStack.shared.getCitiesList()
-//            //self.collectionView.reloadData()
-//        }
         
     }
     
@@ -103,29 +89,7 @@ class CitiesListVC: UIViewController {
         }
 
         tableView.reloadData()
-
     }
-    
-    /// Object did changed, let's look what had changed
-//    @objc func managedObjectContextObjectsDidChange(_ notification: NSNotification) {
-//        guard let userInfo = notification.userInfo else { return }
-//
-//        if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, inserts.count > 0 {
-//            cities = CoreDataStack.shared.getCitiesList()
-//            self.tableView.reloadData()
-//        }
-//
-//        if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
-//            cities = CoreDataStack.shared.getCitiesList()
-//            self.tableView.reloadData()
-//        }
-//    }
-    
-//    @objc func cityDidSaved(_ notification: Notification) {
-////        cities = CoreDataStack.shared.getCitiesList()
-////
-////        self.tableView.reloadData()
-//    }
         
     func getWeatherForCity(_ city: City,
                     completionBlock: @escaping (_ weather: Weather, _ city: City) -> (),
@@ -145,13 +109,13 @@ class CitiesListVC: UIViewController {
                 }
             }
         } else if let cache = self.weathersDict[city.placemarkTitle ?? ""] {
-            
             completionBlock(cache, city)
         } else {
             errorBlock(city)
         }
     }
     
+    //check if weather is need to update (not early then 10 min)
     func needToReload(_ city: City) -> Bool {
         var wDate: Date?
         let nowDate = Date.now
@@ -170,10 +134,6 @@ class CitiesListVC: UIViewController {
     }
     
     func deleteCity(at indexPath: IndexPath) {
-//        let city = cities[indexPath.row]
-//        CoreDataStack.shared.deleteCity(city: city)
-//        cities = CoreDataStack.shared.getCitiesList()
-//        tableView.deleteRows(at: [indexPath], with: .fade)
         let cityToDelete = fetchedResultsController.object(at: indexPath)
         CoreDataStack.shared.persistentContainer.viewContext.delete(cityToDelete)
 
@@ -194,6 +154,7 @@ class CitiesListVC: UIViewController {
 }
 
 // MARK: - Table View Extensions
+
 extension CitiesListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print(indexPath.row + 1)
@@ -233,20 +194,18 @@ extension CitiesListVC: UITableViewDataSource {
         return swipeActions
     }
             
- 
-    
 }
+
+// MARK: - Fetched Results Controller
 
 extension CitiesListVC: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
-        print("pppppp controllerWillChangeContent")
     }
 
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
-        print("pppppp controllerDidChangeContent")
     }
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
@@ -254,7 +213,7 @@ extension CitiesListVC: NSFetchedResultsControllerDelegate {
                     at indexPath: IndexPath?,
                     for type: NSFetchedResultsChangeType,
                     newIndexPath: IndexPath?) {
-        print("pppppp didChange newIndexPath \(type)")
+        print("didChange newIndexPath \(type)")
         switch type {
         case .insert:
             tableView.insertRows(at: [newIndexPath!], with: .fade)
@@ -268,6 +227,8 @@ extension CitiesListVC: NSFetchedResultsControllerDelegate {
     }
     
 }
+
+// MARK: - CitySearchBar Delegate
 
 extension CitiesListVC: CitySearchBarDelegate {
     func cleanSearchBar() {

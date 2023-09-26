@@ -10,6 +10,7 @@ import WeatherKit
 import UIKit
 
 extension String {
+    //create string with temperature: large figures and small units
     static public func tempFormattedString(value: Double, unit: UnitTemperature, bFontSize: Double, sFontSize: Double, weight: UIFont.Weight) -> NSMutableAttributedString {
         var tempString: NSMutableAttributedString = NSMutableAttributedString()
         let tStr = String(format: "%.0f", value)

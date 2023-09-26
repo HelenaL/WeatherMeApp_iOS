@@ -65,7 +65,6 @@ class CityWeatherViewController: UIViewController {
         navigationItem.largeTitleDisplayMode = .never
         collectionView.collectionViewLayout = createCollectionViewLayout()
     }
-    
 }
 
 // MARK: - Collection View Extensions
@@ -103,7 +102,6 @@ extension CityWeatherViewController: UICollectionViewDataSource {
             if let w = weather {
                 cell.cellConfigurate(weather: w, timezone: city.timeZone, cityName: city.name)
             }
-            
             return cell
         case Section.hourly.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HourlyWeatherCell", for: indexPath) as! HourlyWeatherCell
@@ -150,7 +148,6 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: collectionView.bounds.size.width - 0, height: 50)
         default:
             return CGSize(width: collectionView.bounds.size.width - 0, height: 10)
-            //return CGSize(width: collectionView.bounds.size.width - 16, height: 10)
         }
     }
     
@@ -275,6 +272,8 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+// MARK: - TopWeatherCell Delegate
 
 extension CityWeatherViewController: TopWeatherCellDelegate {
     func cancelAction() {
