@@ -1,3 +1,8 @@
 disabled_rules:
   - force_cast
   - trailing_whitespace
+  - large_tuple
+  - line_length
+  - function_body_length
+  - unused_optional_binding
+

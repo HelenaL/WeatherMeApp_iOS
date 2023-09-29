@@ -21,11 +21,11 @@ class HourlyWeatherCell: UICollectionViewCell {
     }
     
     func currentHourString(date: Date, timeZone: String) -> String {
-        let zn = TimeZone(abbreviation: timeZone)!
-        let targetDate = date.convertToTimeZone(initTimeZone: TimeZone.current, timeZone: zn)
+        let tZone = TimeZone(abbreviation: timeZone)!
+        let targetDate = date.convertToTimeZone(initTimeZone: TimeZone.current, timeZone: tZone)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h a"
-        dateFormatter.timeZone = zn
+        dateFormatter.timeZone = tZone
 
         return dateFormatter.string(from: targetDate)
     }

@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension City {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<City> {

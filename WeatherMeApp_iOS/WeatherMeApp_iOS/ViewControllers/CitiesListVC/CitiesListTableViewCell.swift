@@ -18,11 +18,15 @@ class CitiesListTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var lineImageView: UIView!
     
-    func fillWeatherCell(with city:City, and weather: Weather) {
+    func fillWeatherCell(with city: City, and weather: Weather) {
         lineImageView.layer.cornerRadius = 1.3
         cityNameLabel.text = city.name
         
-        tempValueLabel.attributedText = String.tempFormattedString(value: weather.currentWeather.temperature.value, unit: weather.currentWeather.temperature.unit, bFontSize: 36, sFontSize: 26, weight: .semibold)
+        tempValueLabel.attributedText = String.tempFormattedString(value: weather.currentWeather.temperature.value, 
+                                                                   unit: weather.currentWeather.temperature.unit,
+                                                                   bFontSize: 36,
+                                                                   sFontSize: 26,
+                                                                   weight: .semibold)
 
         if let alerts = weather.weatherAlerts, !alerts.isEmpty {
             if let alertText = alerts.first?.summary {
@@ -32,8 +36,8 @@ class CitiesListTableViewCell: UITableViewCell {
             conditionLabel.text = weather.currentWeather.condition.description
         }
 
-        if let tz = city.timeZone {
-            timeLabel.text = Date.utcToLocal(date: weather.currentWeather.date, timezone: tz, with: "h:mm a")
+        if let tZone = city.timeZone {
+            timeLabel.text = Date.utcToLocal(date: weather.currentWeather.date, timezone: tZone, with: "h:mm a")
         }
         
         if let dayWeather = weather.dailyForecast.first {

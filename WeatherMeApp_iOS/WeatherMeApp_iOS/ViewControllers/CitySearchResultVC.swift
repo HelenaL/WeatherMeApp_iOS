@@ -63,14 +63,14 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? CityWeatherViewController {
+        if let controller = segue.destination as? CityWeatherViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 
                 let result = searchResults[indexPath.row]
                 let searchRequest = MKLocalSearch.Request(completion: result)
                 
                 let search = MKLocalSearch(request: searchRequest)
-                search.start { (response, error) in
+                search.start { (response, _) in
                     guard let coordinate = response?.mapItems[0].placemark.coordinate else {
                         return
                     }
@@ -92,16 +92,15 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                     
                     print("Selected City: \(name) \(placemarkTitle) \(lat) \(lon) \(timeZone)")
                     
-                    vc.city = (name, placemarkTitle, lat, lon, timeZone)
-                    vc.searchDelegate = self
+                    controller.city = (name, placemarkTitle, lat, lon, timeZone)
+                    controller.searchDelegate = self
                     
-                    //Check that the city exist in list of saved city, if exist need to hide add button
-                    vc.isTopButtonHidden = (cancel: false, add: CoreDataStack.shared.isContainCity(placemarkTitle: placemarkTitle))
+                    // Check that the city exist in list of saved city, if exist need to hide add button
+                    controller.isTopButtonHidden = (cancel: false, add: CoreDataStack.shared.isContainCity(placemarkTitle: placemarkTitle))
                 }
             }
         }
     }
-    
     
 // MARK: - CitySearchResultVC Delegate
     

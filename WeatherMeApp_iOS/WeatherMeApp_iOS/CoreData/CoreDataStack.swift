@@ -13,7 +13,7 @@ class CoreDataStack {
     
     var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "WeatherDataModel")
-        container.loadPersistentStores { description, error in
+        container.loadPersistentStores { _, error in
             if let error = error {
                 fatalError("Unable to load persistent stores: \(error)")
             }
@@ -49,8 +49,7 @@ extension CoreDataStack {
         
         do {
             try context.save()
-        }
-        catch let error as NSError {
+        } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }

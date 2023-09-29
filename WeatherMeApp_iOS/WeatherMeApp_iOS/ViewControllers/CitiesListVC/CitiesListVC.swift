@@ -16,7 +16,7 @@ class CitiesListVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
-    var weathersDict: [String:Weather] = [:]
+    var weathersDict: [String: Weather] = [:]
     var fetchedResultsController: NSFetchedResultsController<City>!
     
     // MARK: - VC Life Cycle
@@ -92,18 +92,17 @@ class CitiesListVC: UIViewController {
     }
         
     func getWeatherForCity(_ city: City,
-                    completionBlock: @escaping (_ weather: Weather, _ city: City) -> (),
-                    errorBlock: @escaping (_ city: City) -> ()) {
-                        
+                           completionBlock: @escaping (_ weather: Weather, _ city: City) -> Void,
+                           errorBlock: @escaping (_ city: City) -> Void) {
         if needToReload(city) {
             WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: city.lat, longitude: city.long)) { result in
                 switch result {
-                case .success(let weather) :
+                case .success(let weather): 
                     if let key = city.placemarkTitle {
                         self.weathersDict[key] = weather
                         completionBlock(weather, city)
                     }
-                case .failure(let error) :
+                case .failure(let error): 
                     print(error)
                     errorBlock(city)
                 }
@@ -115,7 +114,7 @@ class CitiesListVC: UIViewController {
         }
     }
     
-    //check if weather is need to update (not early then 10 min)
+    // check if weather is need to update (not early then 10 min)
     func needToReload(_ city: City) -> Bool {
         var wDate: Date?
         let nowDate = Date.now
@@ -124,8 +123,8 @@ class CitiesListVC: UIViewController {
         if let key = city.placemarkTitle {
             wDate = self.weathersDict[key]?.currentWeather.date
         }
-        if let wd = wDate {
-            diff = Int(nowDate.timeIntervalSince1970 - wd.timeIntervalSince1970)
+        if let wDate = wDate {
+            diff = Int(nowDate.timeIntervalSince1970 - wDate.timeIntervalSince1970)
         } else {
             return true
         }
@@ -143,11 +142,11 @@ class CitiesListVC: UIViewController {
     // MARK: - Navigation
     // openCityWeather
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? CityWeatherViewController {
+        if let controller = segue.destination as? CityWeatherViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let city = fetchedResultsController.object(at: indexPath)
-                vc.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long, city.timeZone ?? "EST")
-                vc.isTopButtonHidden = (cancel: true, add: true)
+                controller.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long, city.timeZone ?? "EST")
+                controller.isTopButtonHidden = (cancel: true, add: true)
             }
         }
     }
@@ -176,7 +175,7 @@ extension CitiesListVC: UITableViewDataSource {
         
         getWeatherForCity(cellCity) { weather, city in
             cell.fillWeatherCell(with: city, and: weather)
-        } errorBlock: { city in
+        } errorBlock: { _ in
             cell.timeLabel.text = "something went wrong"
         }
         
@@ -239,5 +238,3 @@ extension CitiesListVC: CitySearchBarDelegate {
         tableView.isEditing = false
     }
 }
-
-

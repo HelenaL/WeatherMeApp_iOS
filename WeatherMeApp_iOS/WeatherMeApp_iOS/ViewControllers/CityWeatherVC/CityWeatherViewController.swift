@@ -22,29 +22,28 @@ class CityWeatherViewController: UIViewController {
     var hourlyForecast: [HourWeather] = []
     var dailyForecast: [DayWeather] = []
     
-    
     var city: (name: String, placemarkTitle: String, lat: Double, long: Double, timeZone: String) = ("MyCity", "placemarkTitle", 40.86, -74.12, "EST") {
         didSet {
             WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: city.lat, longitude: city.long)) { result in
                 print(result)
                 switch result {
-                case .success(let weather) :
+                case .success(let weather): 
                     self.weather = weather
                     self.parse(weather: weather)
-                case .failure(let error) :
+                case .failure(let error): 
                     print(error)
                 }
             }
             
-            if (collectionView != nil) {
+            if collectionView != nil {
                 collectionView.reloadData()
             }
         }
     }
     
     func parse(weather: Weather) {
-        for i in 0...25 {
-            let item = weather.hourlyForecast[i]
+        for idx in 0...25 {
+            let item = weather.hourlyForecast[idx]
             hourlyForecast.append(item)
         }
         
@@ -52,7 +51,7 @@ class CityWeatherViewController: UIViewController {
             dailyForecast.append(item)
         }
         
-        if (collectionView != nil) {
+        if collectionView != nil {
             collectionView.reloadData()
         }
     }
@@ -99,8 +98,8 @@ extension CityWeatherViewController: UICollectionViewDataSource {
             cell.delegate = self
             cell.isTopButtonHidden = isTopButtonHidden
             
-            if let w = weather {
-                cell.cellConfigurate(weather: w, timezone: city.timeZone, cityName: city.name)
+            if let weather = weather {
+                cell.cellConfigurate(weather: weather, timezone: city.timeZone, cityName: city.name)
             }
             return cell
         case Section.hourly.rawValue:
@@ -119,15 +118,17 @@ extension CityWeatherViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         if section == Section.daily.rawValue {
-             return CGSizeMake(self.view.bounds.width, 36)
+             return CGSize(width: self.view.bounds.width, height: 36)
         } else {
-            return CGSizeZero
+            return CGSize.zero
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
 
-        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "WeatherHeaderCollectionReusableView", for: indexPath) as? WeatherHeaderCollectionReusableView {
+        if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, 
+                                                                               withReuseIdentifier: "WeatherHeaderCollectionReusableView",
+                                                                               for: indexPath) as? WeatherHeaderCollectionReusableView {
             sectionHeader.sectionLabel.text = "10-DAY FORECAST"
             return sectionHeader
         }
@@ -175,7 +176,7 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
-        return UICollectionViewCompositionalLayout { [self] (section, _) -> NSCollectionLayoutSection? in
+        return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
             if section == 0 {
                 let item = NSCollectionLayoutItem(
                     layoutSize: NSCollectionLayoutSize(

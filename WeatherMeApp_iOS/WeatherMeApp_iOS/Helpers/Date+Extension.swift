@@ -26,5 +26,3 @@ extension Date {
          return addingTimeInterval(delta)
     }
 }
-
-

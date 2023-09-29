@@ -1,7 +1,0 @@
-platform :ios, '15.1'
-inhibit_all_warnings!
-
-target 'WeatherMeApp_iOS' 
-
-pod 'SwiftLint'
-
