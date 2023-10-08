@@ -16,6 +16,8 @@
 		1437A27428065936007DA783 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1437A27328065936007DA783 /* Assets.xcassets */; };
 		1437A27728065936007DA783 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1437A27528065936007DA783 /* LaunchScreen.storyboard */; };
 		143C13CD2A70CB880071DF62 /* WeatherDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 143680B02819EE8A0063306F /* WeatherDataModel.xcdatamodeld */; };
+		1446B2462AC67ECC00B5A758 /* UserLocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1446B2452AC67ECC00B5A758 /* UserLocationInfo.swift */; };
+		1446B2482AC67F0400B5A758 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1446B2472AC67F0400B5A758 /* LocationManager.swift */; };
 		1489F0792A6E1BEA003542D8 /* WeatherDataCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1489F0782A6E1BEA003542D8 /* WeatherDataCenter.swift */; };
 		148FEC9829CFF9BC00CCE158 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FEC9729CFF9BC00CCE158 /* CoreDataStack.swift */; };
 		148FECB029D3E84900CCE158 /* CityWeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148FECAF29D3E84900CCE158 /* CityWeatherViewController.swift */; };
@@ -44,6 +46,8 @@
 		1437A27328065936007DA783 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1437A27628065936007DA783 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1437A27828065936007DA783 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1446B2452AC67ECC00B5A758 /* UserLocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationInfo.swift; sourceTree = "<group>"; };
+		1446B2472AC67F0400B5A758 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		1489F0772A6E1A1E003542D8 /* WeatherMeApp_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WeatherMeApp_iOS.entitlements; sourceTree = "<group>"; };
 		1489F0782A6E1BEA003542D8 /* WeatherDataCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataCenter.swift; sourceTree = "<group>"; };
 		148FEC9729CFF9BC00CCE158 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
@@ -106,6 +110,7 @@
 				14A8280F280674BA0062BE42 /* .swiftlint.yml */,
 				1437A26A28065935007DA783 /* AppDelegate.swift */,
 				1437A26C28065935007DA783 /* SceneDelegate.swift */,
+				1446B2492AC67F0C00B5A758 /* LocationManager */,
 				149FED332A95B2620098E9A2 /* Helpers */,
 				146D29732A60FE400060D731 /* Networking */,
 				148FEC9929CFF9C800CCE158 /* CoreData */,
@@ -117,6 +122,15 @@
 				143680B32819EE930063306F /* Model */,
 			);
 			path = WeatherMeApp_iOS;
+			sourceTree = "<group>";
+		};
+		1446B2492AC67F0C00B5A758 /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				1446B2452AC67ECC00B5A758 /* UserLocationInfo.swift */,
+				1446B2472AC67F0400B5A758 /* LocationManager.swift */,
+			);
+			path = LocationManager;
 			sourceTree = "<group>";
 		};
 		146D29732A60FE400060D731 /* Networking */ = {
@@ -287,6 +301,7 @@
 				149FED242A8C7CA40098E9A2 /* Date+Extension.swift in Sources */,
 				143C13CD2A70CB880071DF62 /* WeatherDataModel.xcdatamodeld in Sources */,
 				148FECB329D3EA5500CCE158 /* TopWeatherCell.swift in Sources */,
+				1446B2462AC67ECC00B5A758 /* UserLocationInfo.swift in Sources */,
 				1489F0792A6E1BEA003542D8 /* WeatherDataCenter.swift in Sources */,
 				14E7F4CE29EE5C300036D099 /* HourlyWeatherView.swift in Sources */,
 				148FECB529D3EA9500CCE158 /* HourlyWeatherCell.swift in Sources */,
@@ -300,6 +315,7 @@
 				148FECB729D3EAB800CCE158 /* DailyWeatherCell.swift in Sources */,
 				1437A26D28065935007DA783 /* SceneDelegate.swift in Sources */,
 				14E162F92A85CFA500CF6814 /* String+Extension.swift in Sources */,
+				1446B2482AC67F0400B5A758 /* LocationManager.swift in Sources */,
 				14E7F4CC29EE4E250036D099 /* WeatherHeaderCollectionReusableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,6 +471,7 @@
 				INFOPLIST_FILE = WeatherMeApp_iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WeatherMe;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location for getting correct weather.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -487,6 +504,7 @@
 				INFOPLIST_FILE = WeatherMeApp_iOS/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = WeatherMe;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.weather";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location for getting correct weather.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
