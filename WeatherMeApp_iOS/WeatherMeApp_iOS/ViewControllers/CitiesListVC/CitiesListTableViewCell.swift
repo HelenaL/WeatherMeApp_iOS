@@ -22,8 +22,9 @@ class CitiesListTableViewCell: UITableViewCell {
         lineImageView.layer.cornerRadius = 1.3
         cityNameLabel.text = city.name
         
-        tempValueLabel.attributedText = String.tempFormattedString(value: weather.currentWeather.temperature.value, 
-                                                                   unit: weather.currentWeather.temperature.unit,
+        let convertedCurrentTemperature = UnitConverter.convertTemperature(temperature: weather.currentWeather.temperature)
+        tempValueLabel.attributedText = String.tempFormattedString(value: convertedCurrentTemperature.value,
+                                                                   unit: convertedCurrentTemperature.unit,
                                                                    bFontSize: 36,
                                                                    sFontSize: 26,
                                                                    weight: .semibold)
@@ -41,7 +42,10 @@ class CitiesListTableViewCell: UITableViewCell {
         }
         
         if let dayWeather = weather.dailyForecast.first {
-            tempRangeLabel.text = "H:" + String(format: "%.0f", dayWeather.highTemperature.value) + "º L:" + String(format: "%.0f", dayWeather.lowTemperature.value) + "º"
+            let convertedHighTemperature = UnitConverter.convertTemperature(temperature: dayWeather.highTemperature)
+            let convertedLowTemperature = UnitConverter.convertTemperature(temperature: dayWeather.lowTemperature)
+            
+            tempRangeLabel.text = "H:" + String(format: "%.0f", convertedHighTemperature.value) + "º L:" + String(format: "%.0f", convertedLowTemperature.value) + "º"
         }
 
     }

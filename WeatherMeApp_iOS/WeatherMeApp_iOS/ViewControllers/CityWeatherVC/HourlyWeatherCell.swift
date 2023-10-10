@@ -15,7 +15,8 @@ class HourlyWeatherCell: UICollectionViewCell {
     @IBOutlet weak var weatherImageView: UIImageView!
     
     func cellConfigurate (hWeather: HourWeather, timeZone: String) {
-        tempLabel.text = String(format: "%.0f", hWeather.temperature.value) + "º"
+        let convertedTemperature = UnitConverter.convertTemperature(temperature: hWeather.temperature)
+        tempLabel.text = String(format: "%.0f", convertedTemperature.value) + "º"
         weatherImageView.image = UIImage(systemName: hWeather.symbolName)
         hourLabel.text = currentHourString(date: hWeather.date, timeZone: timeZone)
     }

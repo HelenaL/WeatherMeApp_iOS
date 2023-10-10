@@ -17,7 +17,7 @@ class LocationManager: NSObject {
     var locationStatus: CLAuthorizationStatus?
     var lastLocation: CLLocation?
     
-    var onLocationChange: ((CLLocation?) -> ())?
+    var onLocationChange: ((CLLocation?) -> Void)?
     
     var statusString: String {
         guard let status = locationStatus else {
@@ -45,7 +45,6 @@ class LocationManager: NSObject {
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.startUpdatingLocation()
     }
-    
 }
 
 extension LocationManager: CLLocationManagerDelegate {
@@ -61,5 +60,4 @@ extension LocationManager: CLLocationManagerDelegate {
         print(#function, location)
         onLocationChange?(location)
     }
-
 }

@@ -108,7 +108,7 @@ extension CityWeatherViewController: UICollectionViewDataSource {
             return cell
         case Section.daily.rawValue:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DailyWeatherCell", for: indexPath) as! DailyWeatherCell
-            cell.cellConfigurate(dWeather: dailyForecast[indexPath.row], timeZone: city.timeZone)
+            cell.cellConfigurate(dayWeather: dailyForecast[indexPath.row], timeZone: city.timeZone)
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopWeatherCell", for: indexPath) as! TopWeatherCell

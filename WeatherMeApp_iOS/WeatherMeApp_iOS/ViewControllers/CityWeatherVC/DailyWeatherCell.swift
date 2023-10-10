@@ -16,12 +16,14 @@ class DailyWeatherCell: UICollectionViewCell {
     @IBOutlet weak var weatherImageView: UIImageView!
     @IBOutlet weak var lineImageView: UIView!
     
-    func cellConfigurate (dWeather: DayWeather, timeZone: String) {
+    func cellConfigurate (dayWeather: DayWeather, timeZone: String) {
         lineImageView.layer.cornerRadius = 1.3
-        weatherImageView.image = UIImage(systemName: dWeather.symbolName)
-        nightTempLabel.attributedText = String.tempFormattedString(value: dWeather.lowTemperature.value, unit: dWeather.lowTemperature.unit, bFontSize: 16, sFontSize: 10, weight: .light)
-        dayTempLabel.attributedText = String.tempFormattedString(value: dWeather.highTemperature.value, unit: dWeather.highTemperature.unit, bFontSize: 22, sFontSize: 16, weight: .light)
-        weekDayLabel.text = currentDayString(date: dWeather.date, timeZone: timeZone)
+        weatherImageView.image = UIImage(systemName: dayWeather.symbolName)
+        let convertedHighTemperature = UnitConverter.convertTemperature(temperature: dayWeather.highTemperature)
+        let convertedLowTemperature = UnitConverter.convertTemperature(temperature: dayWeather.lowTemperature)
+        nightTempLabel.attributedText = String.tempFormattedString(value: convertedLowTemperature.value, unit: convertedLowTemperature.unit, bFontSize: 16, sFontSize: 10, weight: .light)
+        dayTempLabel.attributedText = String.tempFormattedString(value: convertedHighTemperature.value, unit: convertedHighTemperature.unit, bFontSize: 22, sFontSize: 16, weight: .light)
+        weekDayLabel.text = currentDayString(date: dayWeather.date, timeZone: timeZone)
     }
     
     func currentDayString(date: Date, timeZone: String) -> String {
