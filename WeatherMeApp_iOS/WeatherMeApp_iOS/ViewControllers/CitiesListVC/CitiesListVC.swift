@@ -27,6 +27,7 @@ class CitiesListVC: UIViewController {
     
     private let locationManager = LocationManager()
     var userLocation: UserLocationInfo?
+    var userLocationPlacemark: MKPlacemark?
     
     // MARK: - VC Life Cycle
 
@@ -103,10 +104,12 @@ class CitiesListVC: UIViewController {
     }
         
     func getWeatherForCity(_ city: City,
+                           latitude: Double,
+                           longitude: Double,
                            completionBlock: @escaping (_ weather: Weather, _ city: City) -> Void,
                            errorBlock: @escaping (_ city: City) -> Void) {
-        if needToReload(city) {
-            WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: city.lat, longitude: city.long)) { result in
+        if needToReload(city.placemarkTitle ?? "") {
+            WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: latitude, longitude: longitude)) { result in
                 switch result {
                 case .success(let weather): 
                     if let key = city.placemarkTitle {
@@ -126,14 +129,13 @@ class CitiesListVC: UIViewController {
     }
     
     // check if weather is need to update (not early then 10 min)
-    func needToReload(_ city: City) -> Bool {
+    func needToReload(_ cityPlacemarkTitle: String) -> Bool {
         var wDate: Date?
         let nowDate = Date.now
         var diff = 0
         
-        if let key = city.placemarkTitle {
-            wDate = self.weathersDict[key]?.currentWeather.date
-        }
+        wDate = self.weathersDict[cityPlacemarkTitle]?.currentWeather.date
+
         if let wDate = wDate {
             diff = Int(nowDate.timeIntervalSince1970 - wDate.timeIntervalSince1970)
         } else {
@@ -160,7 +162,16 @@ class CitiesListVC: UIViewController {
                 return
             }
             
-            print("LOCATION: \(location)")
+            location.placemark { placemark, error in
+                guard let placemark = placemark else {
+                    print("Error:", error ?? "nil")
+                    return
+                }
+                
+                sSelf.userLocationPlacemark = MKPlacemark(placemark: placemark)
+                    
+            }
+            
             // request weather info
             // sSelf.networkingClient.getAllWeatherByUserLocationCoordinates(coordinates: location.coordinate, completion: sSelf.handleUserDataResponse)
             
@@ -169,13 +180,14 @@ class CitiesListVC: UIViewController {
     
     // MARK: - Navigation
     // openCityWeather
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? CityWeatherViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let city = fetchedResultsController.object(at: IndexPath(row: indexPath.row, section: 0))
                 controller.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long, city.timeZone ?? "EST")
                 controller.isTopButtonHidden = (cancel: true, add: true)
-            }
+            }            
         }
     }
 }
@@ -191,7 +203,8 @@ extension CitiesListVC: UITableViewDelegate {
 extension CitiesListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == Section.currentLocationWeather.rawValue {
-            return 0
+            return userLocationPlacemark != nil ? 1 : 0
+            //return 0
         } else {
             return fetchedResultsController.sections?[0].numberOfObjects ?? 0
         }
@@ -203,21 +216,21 @@ extension CitiesListVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == Section.currentLocationWeather.rawValue {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "CitiesListTableViewCell", for: indexPath) as! CitiesListTableViewCell
-////            let cellCity = fetchedResultsController.object(at: indexPath)
-////            
-////            getWeatherForCity(cellCity) { weather, city in
-////                cell.fillWeatherCell(with: city, and: weather)
-////            } errorBlock: { _ in
-////                cell.timeLabel.text = "something went wrong"
-////            }
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CitiesListTableViewCell", for: indexPath) as! CitiesListTableViewCell
+            let cellCity = fetchedResultsController.object(at: IndexPath(row: 0, section: 0))
+            
+            getWeatherForCity(cellCity, latitude: cellCity.lat, longitude: cellCity.long) { weather, city in
+                cell.fillWeatherCell(cityName: city.name, cityTimezone: city.timeZone, weather: weather, isLocal: true)
+            } errorBlock: { _ in
+                cell.timeLabel.text = "something went wrong"
+            }
+            return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CitiesListTableViewCell", for: indexPath) as! CitiesListTableViewCell
             let cellCity = fetchedResultsController.object(at: IndexPath(row: indexPath.row, section: 0))
             
-            getWeatherForCity(cellCity) { weather, city in
-                cell.fillWeatherCell(with: city, and: weather)
+            getWeatherForCity(cellCity, latitude: cellCity.lat, longitude: cellCity.long) { weather, city in
+                cell.fillWeatherCell(cityName: city.name, cityTimezone: city.timeZone, weather: weather)
             } errorBlock: { _ in
                 cell.timeLabel.text = "something went wrong"
             }

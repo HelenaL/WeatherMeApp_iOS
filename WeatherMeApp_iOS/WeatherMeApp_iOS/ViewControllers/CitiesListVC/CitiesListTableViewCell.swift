@@ -18,9 +18,9 @@ class CitiesListTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var lineImageView: UIView!
     
-    func fillWeatherCell(with city: City, and weather: Weather) {
+    func fillWeatherCell(cityName: String?, cityTimezone: String?, weather: Weather, isLocal: Bool = false) {
         lineImageView.layer.cornerRadius = 1.3
-        cityNameLabel.text = city.name
+        cityNameLabel.text = isLocal ? "My Location" : cityName
         
         let convertedCurrentTemperature = UnitConverter.convertTemperature(temperature: weather.currentWeather.temperature)
         tempValueLabel.attributedText = String.tempFormattedString(value: convertedCurrentTemperature.value,
@@ -37,8 +37,10 @@ class CitiesListTableViewCell: UITableViewCell {
             conditionLabel.text = weather.currentWeather.condition.description
         }
 
-        if let tZone = city.timeZone {
+        if let tZone = cityTimezone, isLocal == false {
             timeLabel.text = Date.utcToLocal(date: weather.currentWeather.date, timezone: tZone, with: "h:mm a")
+        } else if isLocal {
+            timeLabel.text = cityName
         }
         
         if let dayWeather = weather.dailyForecast.first {
