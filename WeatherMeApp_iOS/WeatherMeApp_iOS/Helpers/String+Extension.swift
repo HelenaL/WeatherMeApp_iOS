@@ -23,4 +23,8 @@ extension String {
 
         return tempString
     }
+    
+    static public func formattedPlacemarkTitle(_ title: String) -> String {
+        return title.components(separatedBy: ",").first ?? title
+    }
 }

@@ -18,6 +18,7 @@ class LocationManager: NSObject {
     var lastLocation: CLLocation?
     
     var onLocationChange: ((CLLocation?) -> Void)?
+    var onAuthStatusChange: ((CLAuthorizationStatus?) -> Void)?
     
     var statusString: String {
         guard let status = locationStatus else {
@@ -38,7 +39,7 @@ class LocationManager: NSObject {
         super.init()
         
         self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
     }
     
     func startLocationManagerIfNeeded() {
@@ -53,6 +54,7 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         self.locationStatus = status
         print(#function, statusString)
+        onAuthStatusChange?(status)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -62,4 +64,3 @@ extension LocationManager: CLLocationManagerDelegate {
         onLocationChange?(location)
     }
 }
-
