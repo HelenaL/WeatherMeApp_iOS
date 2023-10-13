@@ -46,22 +46,6 @@ class LocationManager: NSObject {
         self.locationManager.startUpdatingLocation()
     }
     
-//    func getPlacemarkTitleForLocation(location: CLLocation) -> CLPlacemark? {
-//        location.placemark { placemark, error in
-//            guard let placemark = placemark else {
-//                print("Error:", error ?? "nil")
-//                return
-//            }
-//            
-////            if let subLocality = placemark.subLocality {
-////                
-////            }
-////            
-////            print("\(placemark.name) subLocality \(placemark.subLocality) locality \(placemark.locality) timeZone \(placemark.timeZone) isoCountryCode \(placemark.isoCountryCode)")
-////            print(placemark)
-//        }
-//       return ""
-//    }
 }
 
 extension LocationManager: CLLocationManagerDelegate {

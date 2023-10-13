@@ -187,7 +187,7 @@ class CitiesListVC: UIViewController {
                 let city = fetchedResultsController.object(at: IndexPath(row: indexPath.row, section: 0))
                 controller.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long, city.timeZone ?? "EST")
                 controller.isTopButtonHidden = (cancel: true, add: true)
-            }            
+            }
         }
     }
 }
@@ -203,8 +203,11 @@ extension CitiesListVC: UITableViewDelegate {
 extension CitiesListVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == Section.currentLocationWeather.rawValue {
-            return userLocationPlacemark != nil ? 1 : 0
-            //return 0
+            if locationManager.locationStatus == .authorizedAlways || locationManager.locationStatus == .authorizedWhenInUse {
+                return 1
+            } else {
+                return 0
+            }
         } else {
             return fetchedResultsController.sections?[0].numberOfObjects ?? 0
         }
