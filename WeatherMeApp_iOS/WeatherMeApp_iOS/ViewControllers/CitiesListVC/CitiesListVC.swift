@@ -71,7 +71,7 @@ class CitiesListVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        setupFetchedResultController()
+        // setupFetchedResultController()
 
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: false)
@@ -81,7 +81,7 @@ class CitiesListVC: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        fetchedResultsController = nil
+        // fetchedResultsController = nil
     }
     
     fileprivate func setupFetchedResultController() {
@@ -192,8 +192,8 @@ class CitiesListVC: UIViewController {
                     return
                 }
                 
-                // request weather info
-                //TODO: crash on reloadSections
+                // request weather info for placemark
+                
                 sSelf.getWeatherForPlacemark(MKPlacemark(placemark: placemark)) { weather, placemark in
                     sSelf.userPlacemarkWeather = weather
                     sSelf.userLocationPlacemark = placemark
@@ -204,7 +204,7 @@ class CitiesListVC: UIViewController {
             }
         }
         
-        //if user change Authorization Status need to reload tableview to hide my location cell
+        // if user change Authorization Status need to reload tableview to hide my location cell
         
         locationManager.onAuthStatusChange = {[weak self] (status) in
             guard let sSelf = self, let status = status else {
