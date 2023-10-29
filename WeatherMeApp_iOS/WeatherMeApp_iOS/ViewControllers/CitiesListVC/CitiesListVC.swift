@@ -223,7 +223,7 @@ class CitiesListVC: UIViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 if indexPath.section == Section.currentLocationWeather.rawValue {
                     guard let placemark = userLocationPlacemark else { return }
-                    controller.city = (String.formattedPlacemarkTitle(placemark.title ?? ""), placemark.title ?? "", placemark.coordinate.latitude, placemark.coordinate.longitude, TimeZone.current.abbreviation() ?? "EST")
+                    controller.city = (String.formattedPlacemarkTitle(placemark.locality ?? ""), placemark.title ?? "", placemark.coordinate.latitude, placemark.coordinate.longitude, TimeZone.current.abbreviation() ?? "EST")
                 } else {
                     let city = fetchedResultsController.object(at: IndexPath(row: indexPath.row, section: 0))
                     controller.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long, city.timeZone ?? "EST")
@@ -263,7 +263,7 @@ extension CitiesListVC: UITableViewDataSource {
         if indexPath.section == Section.currentLocationWeather.rawValue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CitiesListTableViewCell", for: indexPath) as! CitiesListTableViewCell
             if let placemark = userLocationPlacemark, let weather = userPlacemarkWeather {
-                cell.fillWeatherCell(cityName: String.formattedPlacemarkTitle(placemark.title!), cityTimezone: placemark.timeZone?.identifier, weather: weather, isLocal: true)
+                cell.fillWeatherCell(cityName: String.formattedPlacemarkTitle(placemark.locality ?? ""), cityTimezone: placemark.timeZone?.identifier, weather: weather, isLocal: true)
             }
             return cell
         } else {
