@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1403E2452AA18E0D001A4D17 /* CitiesListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1403E2442AA18E0D001A4D17 /* CitiesListTableViewCell.swift */; };
+		1419BFEA2AEF0B4C00945A2B /* GradientGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1419BFE92AEF0B4C00945A2B /* GradientGenerator.swift */; };
 		143680AB2815F97E0063306F /* CitySearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143680AA2815F97E0063306F /* CitySearchResultVC.swift */; };
 		1437A26B28065935007DA783 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A26A28065935007DA783 /* AppDelegate.swift */; };
 		1437A26D28065935007DA783 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1437A26C28065935007DA783 /* SceneDelegate.swift */; };
@@ -36,6 +37,7 @@
 		1403E2442AA18E0D001A4D17 /* CitiesListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesListTableViewCell.swift; sourceTree = "<group>"; };
 		1403E2462AA9276D001A4D17 /* City+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "City+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		1403E2472AA9276D001A4D17 /* City+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "City+CoreDataClass.swift"; sourceTree = "<group>"; };
+		1419BFE92AEF0B4C00945A2B /* GradientGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientGenerator.swift; sourceTree = "<group>"; };
 		143680AA2815F97E0063306F /* CitySearchResultVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchResultVC.swift; sourceTree = "<group>"; };
 		143680B12819EE8A0063306F /* WeatherDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WeatherDataModel.xcdatamodel; sourceTree = "<group>"; };
 		1437A26728065934007DA783 /* WeatherMeApp_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherMeApp_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +63,6 @@
 		14A8280F280674BA0062BE42 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = SOURCE_ROOT; };
 		14E162F82A85CFA500CF6814 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		14E7F4CB29EE4E240036D099 /* WeatherHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
-		87CA8CEBE1764CC77DA7ACCB /* libPods-WeatherMeApp_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WeatherMeApp_iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +187,7 @@
 				14E162F82A85CFA500CF6814 /* String+Extension.swift */,
 				149FED232A8C7CA40098E9A2 /* Date+Extension.swift */,
 				1446B24A2AD4EA8D00B5A758 /* UnitConverter.swift */,
+				1419BFE92AEF0B4C00945A2B /* GradientGenerator.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -202,7 +204,6 @@
 		23606373FF63D0513F6E9D63 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				87CA8CEBE1764CC77DA7ACCB /* libPods-WeatherMeApp_iOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -317,6 +318,7 @@
 				1446B24D2AD64B7500B5A758 /* CLLocation+Extension.swift in Sources */,
 				148FECB029D3E84900CCE158 /* CityWeatherViewController.swift in Sources */,
 				1437A26F28065935007DA783 /* CitiesListVC.swift in Sources */,
+				1419BFEA2AEF0B4C00945A2B /* GradientGenerator.swift in Sources */,
 				1437A26B28065935007DA783 /* AppDelegate.swift in Sources */,
 				143680AB2815F97E0063306F /* CitySearchResultVC.swift in Sources */,
 				148FECB729D3EAB800CCE158 /* DailyWeatherCell.swift in Sources */,
