@@ -8,7 +8,7 @@
 import Foundation
 
 extension Date {
-    public static func utcToLocal(date: Date?, timezone: String, with format: String) -> String? {
+    static func utcToLocal(date: Date?, timezone: String, with format: String) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
@@ -24,5 +24,25 @@ extension Date {
     func convertToTimeZone(initTimeZone: TimeZone, timeZone: TimeZone) -> Date {
          let delta = TimeInterval(timeZone.secondsFromGMT(for: self) - initTimeZone.secondsFromGMT(for: self))
          return addingTimeInterval(delta)
+    }
+    
+    func currentDayString(timeZone: String) -> String {
+        let tZone = TimeZone(abbreviation: timeZone)!
+        let targetDate = self.convertToTimeZone(initTimeZone: TimeZone.current, timeZone: tZone)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EE"
+        dateFormatter.timeZone = tZone
+
+        return dateFormatter.string(from: targetDate)
+    }
+    
+    func currentHourString(timeZone: String) -> String {
+        let tZone = TimeZone(abbreviation: timeZone)!
+        let targetDate = self.convertToTimeZone(initTimeZone: TimeZone.current, timeZone: tZone)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "h a"
+        dateFormatter.timeZone = tZone
+
+        return dateFormatter.string(from: targetDate)
     }
 }
