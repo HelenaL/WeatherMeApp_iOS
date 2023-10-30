@@ -15,12 +15,12 @@ class LocationManager: NSObject {
     private let locationManager = CLLocationManager()
     
     var locationStatus: CLAuthorizationStatus?
-    var lastLocation: CLLocation?
     
     var onLocationChange: ((CLLocation?) -> Void)?
     var onAuthStatusChange: ((CLAuthorizationStatus?) -> Void)?
     
-    var statusString: String {
+    private var lastLocation: CLLocation?
+    private var statusString: String {
         guard let status = locationStatus else {
             return "unknown"
         }

@@ -10,9 +10,13 @@ import WeatherKit
 
 class HourlyWeatherCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
     @IBOutlet weak var hourLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var weatherImageView: UIImageView!
+    
+    // MARK: - Cell config
     
     func cellConfigurate(hWeather: HourWeather, timeZone: String) {
         let convertedTemperature = UnitConverter.convertTemperature(temperature: hWeather.temperature)

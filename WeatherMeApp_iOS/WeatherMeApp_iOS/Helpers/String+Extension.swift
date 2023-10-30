@@ -10,8 +10,13 @@ import WeatherKit
 import UIKit
 
 extension String {
+    
+    func formattedPlacemarkTitle() -> String {
+        return self.components(separatedBy: ",").first ?? self
+    }
+    
     // create string with temperature: large figures and small units
-    static public func tempFormattedString(value: Double, unit: UnitTemperature, bFontSize: Double, sFontSize: Double, weight: UIFont.Weight) -> NSMutableAttributedString {
+    static public func temperatureFormattedString(value: Double, unit: UnitTemperature, bFontSize: Double, sFontSize: Double, weight: UIFont.Weight) -> NSAttributedString {
         let tempString: NSMutableAttributedString = NSMutableAttributedString()
         let tStr = String(format: "%.0f", value)
         let uStr: String  = unit.symbol
@@ -24,7 +29,4 @@ extension String {
         return tempString
     }
     
-    static public func formattedPlacemarkTitle(_ title: String) -> String {
-        return title.components(separatedBy: ",").first ?? title
-    }
 }

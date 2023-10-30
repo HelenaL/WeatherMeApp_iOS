@@ -57,7 +57,6 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
     }
     
     // MARK: - Navigation
@@ -89,9 +88,7 @@ class CitySearchResultVC: UITableViewController, CitySearchResultVCDelegate {
                     
                     let lat = coordinate.latitude
                     let lon = coordinate.longitude
-                    
-                    print("Selected City: \(name) \(placemarkTitle) \(lat) \(lon) \(timeZone)")
-                    
+                                        
                     controller.city = (name, placemarkTitle, lat, lon, timeZone)
                     controller.searchDelegate = self
                     

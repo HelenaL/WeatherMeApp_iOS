@@ -15,9 +15,13 @@ protocol CitySearchResultVCDelegate: AnyObject {
 
 class CityWeatherViewController: UIViewController {
 
+    // MARK: - Properties
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     weak var searchDelegate: CitySearchResultVCDelegate?
+    var isTopButtonHidden: (cancel: Bool, add: Bool) = (cancel: true, add: true)
+    
     var weather: Weather?
     var hourlyForecast: [HourWeather] = []
     var dailyForecast: [DayWeather] = []
@@ -25,9 +29,8 @@ class CityWeatherViewController: UIViewController {
     var city: (name: String, placemarkTitle: String, lat: Double, long: Double, timeZone: String) = ("MyCity", "placemarkTitle", 40.86, -74.12, "EST") {
         didSet {
             WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: city.lat, longitude: city.long)) { result in
-                print(result)
                 switch result {
-                case .success(let weather): 
+                case .success(let weather):
                     self.weather = weather
                     self.parse(weather: weather)
                 case .failure(let error): 
@@ -56,7 +59,7 @@ class CityWeatherViewController: UIViewController {
         }
     }
     
-    var isTopButtonHidden: (cancel: Bool, add: Bool) = (cancel: true, add: true)
+    // MARK: - VC Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()

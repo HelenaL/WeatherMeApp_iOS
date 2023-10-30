@@ -19,9 +19,7 @@ class UnitConverter {
         let string = formatter.string(from: measurement)
         
         for unit in allUnits where string.contains(unit.symbol) {
-           // if string.contains(unit.symbol) {
             return unit
-           // }
         }
         return baseUnit
     }

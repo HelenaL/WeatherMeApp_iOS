@@ -16,6 +16,8 @@ protocol TopWeatherCellDelegate: AnyObject {
 
 class TopWeatherCell: UICollectionViewCell {
     
+    // MARK: - Properties
+    
     var isTopButtonHidden: (cancel: Bool, add: Bool) = (cancel: true, add: true) {
         didSet {
             cancelButton.isHidden = isTopButtonHidden.cancel
@@ -39,6 +41,8 @@ class TopWeatherCell: UICollectionViewCell {
     @IBOutlet weak var lineImageView: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
     
+    // MARK: - Button actions
+    
     @IBAction func cancelButtonAction(_ sender: Any) {
         self.delegate?.cancelAction()
     }
@@ -47,6 +51,8 @@ class TopWeatherCell: UICollectionViewCell {
         self.delegate?.addNewCityToWeatherList()
     }
 
+    // MARK: - Cell config
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         mesh?.frame = self.bounds
@@ -55,11 +61,11 @@ class TopWeatherCell: UICollectionViewCell {
     func cellConfigurate(weather: Weather, timezone: String, cityName: String) {
         lineImageView.layer.cornerRadius = 2
         
-        dateLabel.text = Date.utcToLocal(date: weather.currentWeather.date, timezone: timezone, with: "h:mm a, EE, MMM d")
+        dateLabel.text = weather.currentWeather.date.utcToLocal(timezone: timezone, with: "h:mm a, EE, MMM d")
         cityNameLabel.text = cityName
         
         let convertedCurrentTemperature = UnitConverter.convertTemperature(temperature: weather.currentWeather.temperature)
-        tempLabel.attributedText = String.tempFormattedString(value: convertedCurrentTemperature.value,
+        tempLabel.attributedText = String.temperatureFormattedString(value: convertedCurrentTemperature.value,
                                                               unit: convertedCurrentTemperature.unit,
                                                               bFontSize: 60,
                                                               sFontSize: 25,
@@ -85,9 +91,10 @@ class TopWeatherCell: UICollectionViewCell {
         
         // generate mesh gradient only when mesh view doesn't exist
         guard mesh == nil else { return }
+        
         mesh = GradientGenerator().generateGradientViewForTemp(value: weather.currentWeather.temperature.value, unit: weather.currentWeather.temperature.unit, size: self.bounds.size)
         self.insertSubview(mesh!, at: 0)
-
+        
     }
 
 }

@@ -138,7 +138,6 @@
 			children = (
 				1446B2452AC67ECC00B5A758 /* UserLocationInfo.swift */,
 				1446B2472AC67F0400B5A758 /* LocationManager.swift */,
-				1446B24C2AD64B7500B5A758 /* CLLocation+Extension.swift */,
 			);
 			path = LocationManager;
 			sourceTree = "<group>";
@@ -184,6 +183,7 @@
 		149FED332A95B2620098E9A2 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				1446B24C2AD64B7500B5A758 /* CLLocation+Extension.swift */,
 				14E162F82A85CFA500CF6814 /* String+Extension.swift */,
 				149FED232A8C7CA40098E9A2 /* Date+Extension.swift */,
 				1446B24A2AD4EA8D00B5A758 /* UnitConverter.swift */,

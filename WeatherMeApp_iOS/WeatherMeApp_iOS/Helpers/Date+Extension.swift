@@ -8,17 +8,14 @@
 import Foundation
 
 extension Date {
-    static func utcToLocal(date: Date?, timezone: String, with format: String) -> String? {
+    func utcToLocal(timezone: String, with format: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
-        if let nDate = date {
-            dateFormatter.timeZone = TimeZone(abbreviation: timezone)
-            dateFormatter.dateFormat = format
-        
-            return dateFormatter.string(from: nDate)
-        }
-        return nil
+        dateFormatter.timeZone = TimeZone(abbreviation: timezone)
+        dateFormatter.dateFormat = format
+    
+        return dateFormatter.string(from: self)
     }
     
     func convertToTimeZone(initTimeZone: TimeZone, timeZone: TimeZone) -> Date {

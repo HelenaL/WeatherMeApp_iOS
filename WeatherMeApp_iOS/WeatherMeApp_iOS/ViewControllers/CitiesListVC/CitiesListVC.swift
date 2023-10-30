@@ -19,14 +19,14 @@ class CitiesListVC: UIViewController {
     }
 
     // MARK: - Properties
+    
     @IBOutlet weak var tableView: UITableView!
     
     var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
-    var weathersDict: [String: Weather] = [:]
+    var weathersCacheDict: [String: Weather] = [:]
     var fetchedResultsController: NSFetchedResultsController<City>!
     
     private let locationManager = LocationManager()
-    var userLocation: UserLocationInfo?
     var userLocationPlacemark: MKPlacemark?
     var userPlacemarkWeather: Weather?
     
@@ -43,7 +43,6 @@ class CitiesListVC: UIViewController {
         
         // Setup Core Data
         guard container != nil else {
-           // return
             fatalError("This view needs a persistent container.")
         }
         
@@ -65,23 +64,15 @@ class CitiesListVC: UIViewController {
             
         // Make the search bar always visible.
         navigationItem.hidesSearchBarWhenScrolling = true
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        // setupFetchedResultController()
-
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: false)
             tableView.reloadRows(at: [indexPath], with: .fade)
         }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        // fetchedResultsController = nil
     }
     
     fileprivate func setupFetchedResultController() {
@@ -114,7 +105,7 @@ class CitiesListVC: UIViewController {
                 switch result {
                 case .success(let weather): 
                     if let key = city.placemarkTitle {
-                        self.weathersDict[key] = weather
+                        self.weathersCacheDict[key] = weather
                         completionBlock(weather, city)
                     }
                 case .failure(let error): 
@@ -122,7 +113,7 @@ class CitiesListVC: UIViewController {
                     errorBlock(city)
                 }
             }
-        } else if let cache = self.weathersDict[city.placemarkTitle ?? ""] {
+        } else if let cache = self.weathersCacheDict[city.placemarkTitle ?? ""] {
             completionBlock(cache, city)
         } else {
             errorBlock(city)
@@ -137,7 +128,7 @@ class CitiesListVC: UIViewController {
                 switch result {
                 case .success(let weather):
                     if let key = locationPlacemark.title {
-                        self.weathersDict[key] = weather
+                        self.weathersCacheDict[key] = weather
                         completionBlock(weather, locationPlacemark)
                     }
                 case .failure(let error):
@@ -145,7 +136,7 @@ class CitiesListVC: UIViewController {
                     errorBlock(locationPlacemark)
                 }
             }
-        } else if let cache = self.weathersDict[locationPlacemark.title ?? ""] {
+        } else if let cache = self.weathersCacheDict[locationPlacemark.title ?? ""] {
             completionBlock(cache, locationPlacemark)
         } else {
             errorBlock(locationPlacemark)
@@ -158,7 +149,7 @@ class CitiesListVC: UIViewController {
         let nowDate = Date.now
         var diff = 0
         
-        wDate = self.weathersDict[cityPlacemarkTitle]?.currentWeather.date
+        wDate = self.weathersCacheDict[cityPlacemarkTitle]?.currentWeather.date
 
         if let wDate = wDate {
             diff = Int(nowDate.timeIntervalSince1970 - wDate.timeIntervalSince1970)
@@ -193,7 +184,6 @@ class CitiesListVC: UIViewController {
                 }
                 
                 // request weather info for placemark
-                
                 sSelf.getWeatherForPlacemark(MKPlacemark(placemark: placemark)) { weather, placemark in
                     sSelf.userPlacemarkWeather = weather
                     sSelf.userLocationPlacemark = placemark
@@ -205,9 +195,8 @@ class CitiesListVC: UIViewController {
         }
         
         // if user change Authorization Status need to reload tableview to hide my location cell
-        
-        locationManager.onAuthStatusChange = {[weak self] (status) in
-            guard let sSelf = self, let status = status else {
+        locationManager.onAuthStatusChange = {[weak self] (_) in
+            guard let sSelf = self else {
                 return
             }
             
@@ -216,14 +205,14 @@ class CitiesListVC: UIViewController {
     }
     
     // MARK: - Navigation
-    // openCityWeather
     
+    // openCityWeather
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? CityWeatherViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 if indexPath.section == Section.currentLocationWeather.rawValue {
                     guard let placemark = userLocationPlacemark else { return }
-                    controller.city = (String.formattedPlacemarkTitle(placemark.locality ?? ""), placemark.title ?? "", placemark.coordinate.latitude, placemark.coordinate.longitude, TimeZone.current.abbreviation() ?? "EST")
+                    controller.city = (placemark.locality?.formattedPlacemarkTitle() ?? "", placemark.title ?? "", placemark.coordinate.latitude, placemark.coordinate.longitude, TimeZone.current.abbreviation() ?? "EST")
                 } else {
                     let city = fetchedResultsController.object(at: IndexPath(row: indexPath.row, section: 0))
                     controller.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long, city.timeZone ?? "EST")
@@ -238,7 +227,7 @@ class CitiesListVC: UIViewController {
 
 extension CitiesListVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row + 1)
+        
     }
 }
 
@@ -263,7 +252,7 @@ extension CitiesListVC: UITableViewDataSource {
         if indexPath.section == Section.currentLocationWeather.rawValue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CitiesListTableViewCell", for: indexPath) as! CitiesListTableViewCell
             if let placemark = userLocationPlacemark, let weather = userPlacemarkWeather {
-                cell.fillWeatherCell(cityName: String.formattedPlacemarkTitle(placemark.locality ?? ""), cityTimezone: placemark.timeZone?.identifier, weather: weather, isLocal: true)
+                cell.fillWeatherCell(cityName: placemark.locality?.formattedPlacemarkTitle() ?? "", cityTimezone: placemark.timeZone?.identifier, weather: weather, isLocal: true)
             }
             return cell
         } else {
