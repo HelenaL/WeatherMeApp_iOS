@@ -3,6 +3,7 @@
 
 The simple weather iOS application using the new Apple WeatherKit API.
 
+
 <div style="display: flex; justify-content: center;">
   <img src="https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/d66cc69b-100d-46f5-97b7-16e25c88b7d3" width="28%" alt="example 1" style="margin-right: 100px;"/>
   <img src="https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/79db6b9d-a387-4d3a-8370-732a5c94fcac" width="28%" alt="example 2" style="margin-right: 100px;"/>
@@ -10,20 +11,29 @@ The simple weather iOS application using the new Apple WeatherKit API.
 </div>
 
 
-# App Description
-
 # Project Details
 In this project, the following technologies are used:
 * WeatherKit - API for getting weather broadcast (key is not required)
 * CoreData(+NSFetchedResultsController) - for storing the list of the user's cities
 * CLLocationManager - for detecting user location, which is needed to show local weather (if a user allows to use their location)
-* MashKit - used in the project (as a package dependency) to create a gradient view for city weather 
+* [MeshKit](https://github.com/EthanLipnik/MeshKit) - used in the project (as a package dependency) to create a gradient view for city weather 
 
 # User Interface
 
 <strong> List of City Weather </strong>
 
+This screen shows a list of saved cities and weather for them. The search bar allows a user to find and add new cities. The top cell shows the weather for the user's location if it's allowed, otherwise, the cell My Location weather is hidden. On top of that, a user can delete any saved city by swiping a cell. 
+
 <strong> Weather for City </strong>
 
+This screen depicts detailed weather for the chosen city in three blocks:
+* Current weather
+* Hourly weather forecast 
+* 10-day weather forecast 
+
+Сurrent weather includes information about temperature and weather conditions (or possible weather alerts). There is a mesh gradient render on the background which is generated according to the current temperature range.
+
 <strong> City Search </strong>
+
+When a user starts typing the name of a city in Search bar, City Search Controller with search results is shown modally. Then a user can choose the desired city to add to the saved list of cities.
 
