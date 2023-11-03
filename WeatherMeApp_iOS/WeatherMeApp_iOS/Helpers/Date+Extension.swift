@@ -10,7 +10,6 @@ import Foundation
 extension Date {
     func utcToLocal(timezone: String, with format: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         dateFormatter.timeZone = TimeZone(abbreviation: timezone)
         dateFormatter.dateFormat = format

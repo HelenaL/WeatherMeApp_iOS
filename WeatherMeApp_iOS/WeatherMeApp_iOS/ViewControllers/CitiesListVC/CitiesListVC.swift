@@ -27,7 +27,7 @@ class CitiesListVC: UIViewController {
     var fetchedResultsController: NSFetchedResultsController<City>!
     
     private let locationManager = LocationManager()
-    var userLocationPlacemark: MKPlacemark?
+    var userLocationPlacemark: CLPlacemark?
     var userPlacemarkWeather: Weather?
     
     // MARK: - VC Life Cycle
@@ -184,7 +184,7 @@ class CitiesListVC: UIViewController {
                 }
                 
                 // request weather info for placemark
-                sSelf.getWeatherForPlacemark(MKPlacemark(placemark: placemark)) { weather, placemark in
+                sSelf.getWeatherForPlacemark(MKPlacemark(placemark: placemark)) { weather, _ in
                     sSelf.userPlacemarkWeather = weather
                     sSelf.userLocationPlacemark = placemark
                     sSelf.tableView.reloadSections([Section.currentLocationWeather.rawValue], with: .none)
@@ -212,7 +212,7 @@ class CitiesListVC: UIViewController {
             if let indexPath = tableView.indexPathForSelectedRow {
                 if indexPath.section == Section.currentLocationWeather.rawValue {
                     guard let placemark = userLocationPlacemark else { return }
-                    controller.city = (placemark.locality?.formattedPlacemarkTitle() ?? "", placemark.title ?? "", placemark.coordinate.latitude, placemark.coordinate.longitude, TimeZone.current.abbreviation() ?? "EST")
+                    controller.city = (placemark.locality?.formattedPlacemarkTitle() ?? "", placemark.name ?? "", placemark.location?.coordinate.latitude ?? 0, placemark.location?.coordinate.longitude ?? 0, placemark.timeZone?.abbreviation() ?? "EST")
                 } else {
                     let city = fetchedResultsController.object(at: IndexPath(row: indexPath.row, section: 0))
                     controller.city = (city.name ?? "", city.placemarkTitle ?? "", city.lat, city.long, city.timeZone ?? "EST")
