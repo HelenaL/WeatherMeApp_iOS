@@ -14,13 +14,28 @@ class WeatherDataCenter {
     let weatherService = WeatherService()
     var weather: Weather?
     
-    func getWeatherForLocation(location: CLLocation, completion: @escaping (_ result: Result<Weather, Error>) -> Void) {
+    func getWeatherForLocation(location: CLLocation, completion: @escaping (_ result: Result<ParsedWeather, Error>) -> Void) {
         
         Task {
             do {
-                let weather = try await weatherService.weather(for: location)
+                let hourlyStartDate = Date.now
+                let hourlyEndDate = Date(timeIntervalSinceNow: 60*60*6)
+                
+                let weather2: (currentWeather: CurrentWeather,
+                               hourlyForecast: Forecast<HourWeather>,
+                               weatherAlerts: [WeatherAlert]?,
+                               dailyForecast: Forecast<DayWeather>) = try await weatherService.weather(for: location, including: 
+                                    .current,
+                                .hourly(startDate: hourlyStartDate, endDate: hourlyEndDate),
+                                .alerts, 
+                                .daily)
+                
+               let parsed = ParsedWeather(currentWeather: weather2.currentWeather,
+                                           hourlyForecast: weather2.hourlyForecast,
+                                           dailyForecast: weather2.dailyForecast,
+                                           weatherAlerts: weather2.weatherAlerts)
                 DispatchQueue.main.async {
-                    completion(.success(weather))
+                    completion(.success(parsed))
                 }
             } catch {
                 DispatchQueue.main.async {

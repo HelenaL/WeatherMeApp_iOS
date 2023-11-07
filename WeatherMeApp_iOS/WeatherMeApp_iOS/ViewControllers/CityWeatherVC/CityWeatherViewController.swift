@@ -22,7 +22,7 @@ class CityWeatherViewController: UIViewController {
     weak var searchDelegate: CitySearchResultVCDelegate?
     var isTopButtonHidden: (cancel: Bool, add: Bool) = (cancel: true, add: true)
     
-    var weather: Weather?
+    var weather: ParsedWeather?
     var hourlyForecast: [HourWeather] = []
     var dailyForecast: [DayWeather] = []
     
@@ -44,8 +44,8 @@ class CityWeatherViewController: UIViewController {
         }
     }
     
-    func parse(weather: Weather) {
-        for idx in 0...25 {
+    func parse(weather: ParsedWeather) {
+        for idx in 0..<weather.hourlyForecast.count {
             let item = weather.hourlyForecast[idx]
             hourlyForecast.append(item)
         }

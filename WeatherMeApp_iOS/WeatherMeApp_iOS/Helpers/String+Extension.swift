@@ -11,11 +11,20 @@ import UIKit
 
 extension String {
     
+    /// To format placemark title.
+    /// - Returns: Formatted string of shorten placemark title.
+    
     func formattedPlacemarkTitle() -> String {
         return self.components(separatedBy: ",").first ?? self
     }
     
-    // create string with temperature: large figures and small units
+    /// To format string with temperature value when figures and unit symbol have different font size.
+    /// - Parameter value: Numeric value of temperature.
+    /// - Parameter unit: Unit for temperature.
+    /// - Parameter bFontSize: Font size for temperature value.
+    /// - Parameter sFontSize: Font size for.
+    /// - Returns: Formatted string with temperature value ( figures and unit symbol have different font size).
+
     static public func temperatureFormattedString(value: Double, unit: UnitTemperature, bFontSize: Double, sFontSize: Double, weight: UIFont.Weight) -> NSAttributedString {
         let tempString: NSMutableAttributedString = NSMutableAttributedString()
         let tStr = String(format: "%.0f", value)

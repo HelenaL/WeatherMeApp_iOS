@@ -11,8 +11,14 @@ import UIKit
 
 class GradientGenerator {
     
-    func generateGradientViewForTemp(value: Double, unit: UnitTemperature, size: CGSize) -> MeshView {
-        let temp = convertTempUnitToCelsius(value: value, unit: unit)
+    /// Generate mesh gradient view with different colors based on temperature value.
+    /// - Parameter temperatureValue: A numeric temperature value.
+    /// - Parameter temperatureUnit: Temperature Unit.
+    /// - Parameter size: Size  of view with gradient.
+    /// - Returns: Gradient view.
+    
+    func generateMeshGradientView(for temperatureValue: Double, temperatureUnit: UnitTemperature, size: CGSize) -> MeshView {
+        let temp = convertTempUnitToCelsius(value: temperatureValue, temperatureUnit: temperatureUnit)
         let meshView = MeshView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                 
         var color11: UIColor!
@@ -85,8 +91,13 @@ class GradientGenerator {
         return meshView
     }
     
-    private func convertTempUnitToCelsius(value: Double, unit: UnitTemperature) -> Double {
-        switch unit {
+    /// Convert temperature value to Celsius .
+    /// - Parameter value: A numeric temperature value.
+    /// - Parameter temperatureUnit: Temperature Unit.
+    /// - Returns: A converted measurement.
+    
+    private func convertTempUnitToCelsius(value: Double, temperatureUnit: UnitTemperature) -> Double {
+        switch temperatureUnit {
         case .celsius:
             return value
         case .fahrenheit:
@@ -97,4 +108,5 @@ class GradientGenerator {
             return value
         }
     }
+    
 }

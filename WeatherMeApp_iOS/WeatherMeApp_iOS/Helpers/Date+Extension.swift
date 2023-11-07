@@ -8,37 +8,44 @@
 import Foundation
 
 extension Date {
-    func utcToLocal(timezone: String, with format: String) -> String {
+    
+    /// To format date for hourly forecast with format  "h a" (ex. 6 PM, 2 AM, ets.).
+    /// - Parameter timeZone: Time zone for current location.
+    /// - Parameter format: The date format string used by the receiver.
+    /// - Returns: A string representation of a specified date.
+    
+    func utcToLocal(timeZone: String, with format: String) -> String {
         let dateFormatter = DateFormatter()
         
-        dateFormatter.timeZone = TimeZone(abbreviation: timezone)
+        dateFormatter.timeZone = TimeZone(abbreviation: timeZone)
         dateFormatter.dateFormat = format
     
         return dateFormatter.string(from: self)
     }
     
-    func convertToTimeZone(initTimeZone: TimeZone, timeZone: TimeZone) -> Date {
-         let delta = TimeInterval(timeZone.secondsFromGMT(for: self) - initTimeZone.secondsFromGMT(for: self))
-         return addingTimeInterval(delta)
-    }
+    /// To format date for daily forecast with format  "EE" (ex. Mon, Tue, ets.).
+    /// - Parameter timeZone: Time zone for current location.
+    /// - Returns: A string representation of a specified date.
     
     func currentDayString(timeZone: String) -> String {
         let tZone = TimeZone(abbreviation: timeZone)!
-        let targetDate = self.convertToTimeZone(initTimeZone: TimeZone.current, timeZone: tZone)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EE"
         dateFormatter.timeZone = tZone
 
-        return dateFormatter.string(from: targetDate)
+        return dateFormatter.string(from: self)
     }
     
+    /// To format date for hourly forecast with format  "h a" (ex. 6 PM, 2 AM, ets.).
+    /// - Parameter timeZone: Time zone for current location.
+    /// - Returns: A string representation of a specified date.
+
     func currentHourString(timeZone: String) -> String {
         let tZone = TimeZone(abbreviation: timeZone)!
-        let targetDate = self.convertToTimeZone(initTimeZone: TimeZone.current, timeZone: tZone)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "h a"
         dateFormatter.timeZone = tZone
 
-        return dateFormatter.string(from: targetDate)
+        return dateFormatter.string(from: self)
     }
 }

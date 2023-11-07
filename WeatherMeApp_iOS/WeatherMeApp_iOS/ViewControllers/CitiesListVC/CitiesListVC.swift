@@ -23,12 +23,12 @@ class CitiesListVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
-    var weathersCacheDict: [String: Weather] = [:]
+    var weathersCacheDict: [String: ParsedWeather] = [:]
     var fetchedResultsController: NSFetchedResultsController<City>!
     
     private let locationManager = LocationManager()
     var userLocationPlacemark: CLPlacemark?
-    var userPlacemarkWeather: Weather?
+    var userPlacemarkWeather: ParsedWeather?
     
     // MARK: - VC Life Cycle
 
@@ -98,7 +98,7 @@ class CitiesListVC: UIViewController {
     func getWeatherForCity(_ city: City,
                            latitude: Double,
                            longitude: Double,
-                           completionBlock: @escaping (_ weather: Weather, _ city: City) -> Void,
+                           completionBlock: @escaping (_ weather: ParsedWeather, _ city: City) -> Void,
                            errorBlock: @escaping (_ city: City) -> Void) {
         if needToReload(city.placemarkTitle ?? "") {
             WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: latitude, longitude: longitude)) { result in
@@ -121,7 +121,7 @@ class CitiesListVC: UIViewController {
     }
     
     func getWeatherForPlacemark(_ locationPlacemark: MKPlacemark,
-                                completionBlock: @escaping (_ weather: Weather, _ placemark: MKPlacemark) -> Void,
+                                completionBlock: @escaping (_ weather: ParsedWeather, _ placemark: MKPlacemark) -> Void,
                                 errorBlock: @escaping (_ placemark: MKPlacemark) -> Void) {
         if needToReload(locationPlacemark.title ?? "") {
             WeatherDataCenter.shared.getWeatherForLocation(location: CLLocation(latitude: locationPlacemark.coordinate.latitude, longitude: locationPlacemark.coordinate.longitude)) { result in

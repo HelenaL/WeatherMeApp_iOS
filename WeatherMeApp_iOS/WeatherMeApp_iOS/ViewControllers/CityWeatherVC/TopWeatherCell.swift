@@ -58,10 +58,10 @@ class TopWeatherCell: UICollectionViewCell {
         mesh?.frame = self.bounds
     }
     
-    func cellConfigurate(weather: Weather, timezone: String, cityName: String) {
+    func cellConfigurate(weather: ParsedWeather, timezone: String, cityName: String) {
         lineImageView.layer.cornerRadius = 2
         
-        dateLabel.text = weather.currentWeather.date.utcToLocal(timezone: timezone, with: "h:mm a, EE, MMM d")
+        dateLabel.text = weather.currentWeather.date.utcToLocal(timeZone: timezone, with: "h:mm a, EE, MMM d")
         cityNameLabel.text = cityName
         
         let convertedCurrentTemperature = UnitConverter.convertTemperature(temperature: weather.currentWeather.temperature)
@@ -92,9 +92,8 @@ class TopWeatherCell: UICollectionViewCell {
         // generate mesh gradient only when mesh view doesn't exist
         guard mesh == nil else { return }
         
-        mesh = GradientGenerator().generateGradientViewForTemp(value: weather.currentWeather.temperature.value, unit: weather.currentWeather.temperature.unit, size: self.bounds.size)
+        mesh = GradientGenerator().generateMeshGradientView(for: weather.currentWeather.temperature.value, temperatureUnit: weather.currentWeather.temperature.unit, size: self.bounds.size)
         self.insertSubview(mesh!, at: 0)
-        
     }
 
 }

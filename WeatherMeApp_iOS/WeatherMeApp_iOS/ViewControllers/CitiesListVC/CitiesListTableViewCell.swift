@@ -22,7 +22,7 @@ class CitiesListTableViewCell: UITableViewCell {
     
     // MARK: - Cell config
     
-    func fillWeatherCell(cityName: String?, cityTimezone: String?, weather: Weather, isLocal: Bool = false) {
+    func fillWeatherCell(cityName: String?, cityTimezone: String?, weather: ParsedWeather, isLocal: Bool = false) {
         lineImageView.layer.cornerRadius = 1.3
         cityNameLabel.text = isLocal ? "My Location" : cityName
         
@@ -32,7 +32,7 @@ class CitiesListTableViewCell: UITableViewCell {
                                                                    bFontSize: 36,
                                                                    sFontSize: 26,
                                                                    weight: .semibold)
-
+        
         if let alerts = weather.weatherAlerts, !alerts.isEmpty {
             if let alertText = alerts.first?.summary {
                 conditionLabel.text = "\u{26A0} " + alertText
@@ -42,7 +42,7 @@ class CitiesListTableViewCell: UITableViewCell {
         }
 
         if let tZone = cityTimezone, isLocal == false {
-            timeLabel.text = weather.currentWeather.date.utcToLocal(timezone: tZone, with: "h:mm a")
+            timeLabel.text = weather.currentWeather.date.utcToLocal(timeZone: tZone, with: "h:mm a")
         } else if isLocal {
             timeLabel.text = cityName
         }
