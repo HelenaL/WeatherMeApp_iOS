@@ -43,6 +43,8 @@ class CityWeatherViewController: UIViewController {
             }
         }
     }
+    /// Parse hourly and daily weather forecast in separate arrays 
+    /// - Parameter weather: Weather forecast
     
     func parse(weather: ParsedWeather) {
         for idx in 0..<weather.hourlyForecast.count {
@@ -102,7 +104,7 @@ extension CityWeatherViewController: UICollectionViewDataSource {
             cell.isTopButtonHidden = isTopButtonHidden
             
             if let weather = weather {
-                cell.cellConfigurate(weather: weather, timezone: city.timeZone, cityName: city.name)
+                cell.cellConfigurate(weather: weather, timeZone: city.timeZone, cityName: city.name)
             }
             return cell
         case Section.hourly.rawValue:
@@ -178,7 +180,14 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
         return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
+    /// Create compositional layout for Collection View
+    ///
+    /// Compositional layout with horizontal layout for hourly weather forecast section
+    /// and vertical layout for daily weather forecast section.
+    ///
+    /// - Returns: Compositional layout
+   
+    private func createCollectionViewLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { (section, _) -> NSCollectionLayoutSection? in
             if section == 0 {
                 let item = NSCollectionLayoutItem(
@@ -280,9 +289,14 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - TopWeatherCell Delegate
 
 extension CityWeatherViewController: TopWeatherCellDelegate {
+    
+    /// Action for cancel button
+    
     func cancelAction() {
         dismiss(animated: true, completion: nil)
     }
+    
+    /// Action for button to add a new city
     
     func addNewCityToWeatherList() {
         CoreDataStack.shared.addNewCity(name: city.name, placemarkTitle: city.placemarkTitle, lat: city.lat, long: city.long, timeZone: city.timeZone)

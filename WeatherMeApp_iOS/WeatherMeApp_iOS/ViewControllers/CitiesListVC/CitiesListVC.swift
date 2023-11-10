@@ -94,7 +94,14 @@ class CitiesListVC: UIViewController {
 
         tableView.reloadData()
     }
-        
+    
+    /// Getting  the weather forecast for a city.
+    /// - Parameter city: Stored city .
+    /// - Parameter latitude: Latitude of a city location.
+    /// - Parameter longitude: Longitude of a city location.
+    /// - Parameter completionBlock: A closure to call when the weather forecast has been got.
+    /// - Parameter errorBlock: A closure to call when error occured.
+    
     func getWeatherForCity(_ city: City,
                            latitude: Double,
                            longitude: Double,
@@ -120,6 +127,11 @@ class CitiesListVC: UIViewController {
         }
     }
     
+    /// Getting  the weather forecast for a city placemark of current user location.
+    /// - Parameter locationPlacemark: A city placemark of current user location.
+    /// - Parameter completionBlock: A closure to call when the weather forecast has been got.
+    /// - Parameter errorBlock: A closure to call when error occured.
+    
     func getWeatherForPlacemark(_ locationPlacemark: MKPlacemark,
                                 completionBlock: @escaping (_ weather: ParsedWeather, _ placemark: MKPlacemark) -> Void,
                                 errorBlock: @escaping (_ placemark: MKPlacemark) -> Void) {
@@ -143,8 +155,15 @@ class CitiesListVC: UIViewController {
         }
     }
     
-    // check if weather is need to update (not early then 10 min)
-    func needToReload(_ cityPlacemarkTitle: String) -> Bool {
+    /// Returns a Boolean value that indicates whether the city weather forecast need to reload .
+    ///
+    /// There is a dictionary where key is a placemark title for a city and value is the last date of getting weather forecast.
+    /// If the difference between the last date of updating and current date more then 10 min, it means weather forecast needs ro be updated.
+    ///
+    /// - Parameter cityPlacemarkTitle: String with the placemark title for a city.
+    /// - Returns: true if the city forecast should to be reloaded, otherwise false.
+    
+    private func needToReload(_ cityPlacemarkTitle: String) -> Bool {
         var wDate: Date?
         let nowDate = Date.now
         var diff = 0
@@ -160,7 +179,10 @@ class CitiesListVC: UIViewController {
         return diff > 600
     }
     
-    func deleteCity(at indexPath: IndexPath) {
+    /// Delete the city from CoreData
+    /// - Parameter indexPath: Chosen indexPath for deleting city
+    
+    private func deleteCity(at indexPath: IndexPath) {
         let deleteIndexPath = IndexPath(row: indexPath.row, section: 0)
         let cityToDelete = fetchedResultsController.object(at: deleteIndexPath)
         CoreDataStack.shared.persistentContainer.viewContext.delete(cityToDelete)
@@ -252,7 +274,7 @@ extension CitiesListVC: UITableViewDataSource {
         if indexPath.section == Section.currentLocationWeather.rawValue {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CitiesListTableViewCell", for: indexPath) as! CitiesListTableViewCell
             if let placemark = userLocationPlacemark, let weather = userPlacemarkWeather {
-                cell.fillWeatherCell(cityName: placemark.locality?.formattedPlacemarkTitle() ?? "", cityTimezone: placemark.timeZone?.identifier, weather: weather, isLocal: true)
+                cell.fillWeatherCell(cityName: placemark.locality?.formattedPlacemarkTitle() ?? "", cityTimeZone: placemark.timeZone?.identifier, weather: weather, isLocal: true)
             }
             return cell
         } else {
@@ -260,7 +282,7 @@ extension CitiesListVC: UITableViewDataSource {
             let cellCity = fetchedResultsController.object(at: IndexPath(row: indexPath.row, section: 0))
             
             getWeatherForCity(cellCity, latitude: cellCity.lat, longitude: cellCity.long) { weather, city in
-                cell.fillWeatherCell(cityName: city.name, cityTimezone: city.timeZone, weather: weather)
+                cell.fillWeatherCell(cityName: city.name, cityTimeZone: city.timeZone, weather: weather)
             } errorBlock: { _ in
                 cell.timeLabel.text = "something went wrong"
             }

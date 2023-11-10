@@ -58,10 +58,15 @@ class TopWeatherCell: UICollectionViewCell {
         mesh?.frame = self.bounds
     }
     
-    func cellConfigurate(weather: ParsedWeather, timezone: String, cityName: String) {
+    /// Fill a cell with the weather forecast that should be displayed.
+    /// - Parameter weather: Weather forecast.
+    /// - Parameter timeZone: Time zone of a city.    
+    /// - Parameter cityName: String with a city name.
+    
+    func cellConfigurate(weather: ParsedWeather, timeZone: String, cityName: String) {
         lineImageView.layer.cornerRadius = 2
         
-        dateLabel.text = weather.currentWeather.date.utcToLocal(timeZone: timezone, with: "h:mm a, EE, MMM d")
+        dateLabel.text = weather.currentWeather.date.utcToLocal(timeZone: timeZone, with: "h:mm a, EE, MMM d")
         cityNameLabel.text = cityName
         
         let convertedCurrentTemperature = UnitConverter.convertTemperature(temperature: weather.currentWeather.temperature)

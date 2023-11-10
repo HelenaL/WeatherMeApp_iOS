@@ -22,7 +22,13 @@ class CitiesListTableViewCell: UITableViewCell {
     
     // MARK: - Cell config
     
-    func fillWeatherCell(cityName: String?, cityTimezone: String?, weather: ParsedWeather, isLocal: Bool = false) {
+    /// Fill a cell with the weather forecast that should be displayed.
+    /// - Parameter cityName: String with a city name.
+    /// - Parameter cityTimeZone: Time zone of a city.
+    /// - Parameter weather: Weather forecast.
+    /// - Parameter isLocal: true if forecast for current user location, false if forecast for stored city.
+    
+    func fillWeatherCell(cityName: String?, cityTimeZone: String?, weather: ParsedWeather, isLocal: Bool = false) {
         lineImageView.layer.cornerRadius = 1.3
         cityNameLabel.text = isLocal ? "My Location" : cityName
         
@@ -41,7 +47,7 @@ class CitiesListTableViewCell: UITableViewCell {
             conditionLabel.text = weather.currentWeather.condition.description
         }
 
-        if let tZone = cityTimezone, isLocal == false {
+        if let tZone = cityTimeZone, isLocal == false {
             timeLabel.text = weather.currentWeather.date.utcToLocal(timeZone: tZone, with: "h:mm a")
         } else if isLocal {
             timeLabel.text = cityName

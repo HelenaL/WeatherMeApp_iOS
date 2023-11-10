@@ -14,6 +14,10 @@ class WeatherDataCenter {
     let weatherService = WeatherService()
     var weather: Weather?
     
+    /// Getting when the weather forecast for current user location.
+    /// - Parameter location: Current user location.
+    /// - Parameter completion:  A closure to call when the weather forecast has been got.
+    
     func getWeatherForLocation(location: CLLocation, completion: @escaping (_ result: Result<ParsedWeather, Error>) -> Void) {
         
         Task {

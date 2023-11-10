@@ -20,6 +20,10 @@ class DailyWeatherCell: UICollectionViewCell {
     
     // MARK: - Cell config
     
+    /// Fill a cell with the weather forecast that should be displayed.
+    /// - Parameter dayWeather: Daily weather forecast.
+    /// - Parameter timeZone: Time zone of a city.
+    
     func cellConfigurate(dayWeather: DayWeather, timeZone: String) {
         lineImageView.layer.cornerRadius = 1.3
         weatherImageView.image = UIImage(systemName: dayWeather.symbolName)

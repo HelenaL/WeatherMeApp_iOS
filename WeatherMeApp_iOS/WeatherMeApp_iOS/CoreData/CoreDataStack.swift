@@ -36,6 +36,14 @@ class CoreDataStack {
 }
 
 extension CoreDataStack {
+    
+    /// Adding a new city for storing in CoreData.
+    /// - Parameter name: String with displayed name of a city.
+    /// - Parameter placemarkTitle: String with the placemark title for a city.
+    /// - Parameter lat: Latitude of a city location.
+    /// - Parameter long: Longitude of a city location.
+    /// - Parameter timeZone: Time zone for a city.
+    
     func addNewCity(name: String, placemarkTitle: String, lat: Double, long: Double, timeZone: String) {
         let context = persistentContainer.viewContext
         
@@ -53,7 +61,11 @@ extension CoreDataStack {
             print("Could not save. \(error), \(error.userInfo)")
         }
     }
-
+    
+    /// Returns a Boolean value that indicates whether the city with placemarkTitle is already stored in CoreData.
+    /// - Parameter placemarkTitle: String with the placemark title for a city.
+    /// - Returns: true if the city is already stored in CoreData, otherwise false.
+    
     func isContainCity(placemarkTitle: String) -> Bool {
         let context = persistentContainer.viewContext
         let fetchRequest =

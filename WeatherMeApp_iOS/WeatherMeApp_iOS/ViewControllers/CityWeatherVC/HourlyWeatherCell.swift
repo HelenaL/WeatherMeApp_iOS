@@ -18,6 +18,10 @@ class HourlyWeatherCell: UICollectionViewCell {
     
     // MARK: - Cell config
     
+    /// Fill a cell with the weather forecast that should be displayed.
+    /// - Parameter hWeather: Hourly weather forecast.
+    /// - Parameter timeZone: Time zone of a city.
+    
     func cellConfigurate(hWeather: HourWeather, timeZone: String) {
         let convertedTemperature = UnitConverter.convertTemperature(temperature: hWeather.temperature)
         tempLabel.text = String(format: "%.0f", convertedTemperature.value) + "º"
