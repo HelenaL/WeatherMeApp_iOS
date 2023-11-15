@@ -28,9 +28,15 @@ class CitiesListTableViewCell: UITableViewCell {
     /// - Parameter weather: Weather forecast.
     /// - Parameter isLocal: true if forecast for current user location, false if forecast for stored city.
     
-    func fillWeatherCell(cityName: String?, cityTimeZone: String?, weather: ParsedWeather, isLocal: Bool = false) {
+    func fillWeatherCell(cityName: String?, cityTimeZone: String?, weather: ParsedWeather?, isLocal: Bool = false) {
         lineImageView.layer.cornerRadius = 1.3
         cityNameLabel.text = isLocal ? "My Location" : cityName
+        
+        guard let weather = weather else {
+            timeLabel.text = ""
+            tempRangeLabel.text = "H: -- L: --"
+            return
+        }
         
         let convertedCurrentTemperature = UnitConverter.convertTemperature(temperature: weather.currentWeather.temperature)
         tempValueLabel.attributedText = String.temperatureFormattedString(value: convertedCurrentTemperature.value,
@@ -38,6 +44,8 @@ class CitiesListTableViewCell: UITableViewCell {
                                                                    bFontSize: 36,
                                                                    sFontSize: 26,
                                                                    weight: .semibold)
+        
+
         
         if let alerts = weather.weatherAlerts, !alerts.isEmpty {
             if let alertText = alerts.first?.summary {

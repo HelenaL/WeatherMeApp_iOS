@@ -283,10 +283,11 @@ extension CitiesListVC: UITableViewDataSource {
             
             getWeatherForCity(cellCity, latitude: cellCity.lat, longitude: cellCity.long) { weather, city in
                 cell.fillWeatherCell(cityName: city.name, cityTimeZone: city.timeZone, weather: weather)
-            } errorBlock: { _ in
+            } errorBlock: { city in
+                cell.fillWeatherCell(cityName: city.name, cityTimeZone: nil, weather: nil, isLocal: false)
                 cell.timeLabel.text = "something went wrong"
             }
-            
+        
             return cell
         }
     }
