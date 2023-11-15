@@ -1,13 +1,13 @@
 # WeatherMeApp_iOS 
-![48_ios_apple_icon](https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/660c768d-268c-4ca0-aca4-42440c92215d) ![48_swift_icon-3](https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/b0be5a98-dde8-46eb-a707-cf7f0c80b83c)
+![48_ios_apple_icon](https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/936236cb-445f-4430-ac97-3c367f1bacf4) ![48_swift_icon-3](https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/3d35e284-a9e7-4851-9601-9439c26c41f3)
 
 The simple weather iOS application using the new Apple WeatherKit API.
 
 
 <div style="display: flex; justify-content: center;">
-  <img src="https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/48f9edb6-66dd-4ccd-b2b2-ec797fbc270c" width="28%" alt="example 1" style="margin-right: 100px;"/>
-  <img src="https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/fa64e6e8-46dc-433d-ae49-897a307bda6d" width="28%" alt="example 2" style="margin-right: 100px;"/>
-  <img src="https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/ebd07fbf-7d56-4487-9447-a29f09a2b9fd" width="28%" alt="example 3" style="margin-right: 100px;"/>
+  <img src="https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/ae9dbf0a-adc1-4005-a944-1114349e6fee" width="28%" alt="example 1" style="margin-right: 100px;"/>
+  <img src="https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/c8d86139-c0e7-4f40-8163-ade150ec194e" width="28%" alt="example 2" style="margin-right: 100px;"/>
+  <img src="https://github.com/HelenaL/WeatherMeApp_iOS/assets/5014495/91059275-ce49-4454-a692-17dbc1cfe8d6" width="28%" alt="example 3" style="margin-right: 100px;"/>
 </div>
 
 
