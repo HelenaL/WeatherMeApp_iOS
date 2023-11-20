@@ -179,9 +179,7 @@ extension CityWeatherViewController: UICollectionViewDelegateFlowLayout {
                         insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: 0)
     }
-    
-    /// - TODO: Sticky header view changing size on scrolling
-    
+        
     /// Create compositional layout for Collection View
     ///
     /// Compositional layout with horizontal layout for hourly weather forecast section
