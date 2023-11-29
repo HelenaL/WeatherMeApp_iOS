@@ -37,6 +37,15 @@ class CitiesListVC: UIViewController {
         
         self.startLocationUpdates()
         
+        NetworkMonitor.shared.startMonitoring()
+        NetworkMonitor.shared.onNetworkStatusChange = { [weak self] (status) in
+            if status == .satisfied {
+                print("CONNECTION EXIST")
+            } else {
+                print("NO CONNECTION")
+            }
+        }
+        
         // Setup VC title
         navigationItem.largeTitleDisplayMode = .always
         navigationItem.title = "Weather"
@@ -61,7 +70,7 @@ class CitiesListVC: UIViewController {
         
         // Place the search bar in the navigation bar.
         navigationItem.searchController = searchController
-            
+
         // Make the search bar always visible.
         navigationItem.hidesSearchBarWhenScrolling = true
     }
