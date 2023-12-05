@@ -21,6 +21,7 @@ class CitiesListVC: UIViewController {
     // MARK: - Properties
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var networkStatusView: CitieListHeaderView!
     
     var container: NSPersistentContainer = CoreDataStack.shared.persistentContainer
     var weathersCacheDict: [String: ParsedWeather] = [:]
@@ -34,15 +35,28 @@ class CitiesListVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableView.sectionHeaderTopPadding = 0
         self.startLocationUpdates()
         
         NetworkMonitor.shared.startMonitoring()
         NetworkMonitor.shared.onNetworkStatusChange = { [weak self] (status) in
+            guard let sSelf = self else { return }
+            
             if status == .satisfied {
-                print("CONNECTION EXIST")
-            } else {
-                print("NO CONNECTION")
+                print("🙈 HIDE - CONNECTION EXIST")
+                DispatchQueue.main.async {
+                    // TODO: animation hide if needed
+                    sSelf.networkStatusView.showNetworkStatus(needToShow: false)
+                    
+                }
+                
+            } else if status == .unsatisfied {
+                print("🐵 SHOW NO CONNECTION")
+                DispatchQueue.main.async {
+                    // TODO: animation show if needed
+                    sSelf.networkStatusView.showNetworkStatus(needToShow: true)
+                }
+
             }
         }
         
@@ -277,6 +291,28 @@ extension CitiesListVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return (fetchedResultsController.sections?.count ?? 0) + 1
+    }
+    
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        if section == Section.currentLocationWeather.rawValue {
+//            let view = UIView()
+//            let label = UILabel(frame: CGRect(x: 20, y: 20, width: 200, height: 20))
+//            label.text = "TEST TEXT"
+//            label.textColor = .green
+//            view.backgroundColor = .blue
+//            view.addSubview(label)
+//
+//            return view
+//        }
+//        return nil
+//    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == Section.currentLocationWeather.rawValue {
+            return 40
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

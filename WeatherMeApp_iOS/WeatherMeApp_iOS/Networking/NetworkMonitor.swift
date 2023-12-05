@@ -21,17 +21,11 @@ class NetworkMonitor {
     
     func startMonitoring() {
         networkMonitor.pathUpdateHandler = { [weak self] path in
-            self?.status = path.status
-            self?.isReachableOnCellular = path.isExpensive
-            self?.onNetworkStatusChange?(path.status)
-            
-            if path.status == .satisfied {
-                print("We're connected!")
-                
-                // post connected notification
-            } else {
-                print("No connection.")
-                // post disconnected notification
+            guard let sSelf = self else { return }
+            if path.status != sSelf.status && [NWPath.Status.satisfied, NWPath.Status.unsatisfied].contains(path.status) {
+                sSelf.status = path.status
+                sSelf.isReachableOnCellular = path.isExpensive
+                sSelf.onNetworkStatusChange?(sSelf.status)
             }
         }
 
