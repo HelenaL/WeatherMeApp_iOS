@@ -32,7 +32,7 @@ class CitiesListVC: UIViewController {
     var userPlacemarkWeather: ParsedWeather?
     
     // MARK: - VC Life Cycle
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.sectionHeaderTopPadding = 0
@@ -42,21 +42,28 @@ class CitiesListVC: UIViewController {
         NetworkMonitor.shared.onNetworkStatusChange = { [weak self] (status) in
             guard let sSelf = self else { return }
             
+            // TODO: fix bug - there is networkStatusView when app just launch
+            
             if status == .satisfied {
                 print("🙈 HIDE - CONNECTION EXIST")
                 DispatchQueue.main.async {
-                    // TODO: animation hide if needed
-                    sSelf.networkStatusView.showNetworkStatus(needToShow: false)
-                    
+                    // TODO: reload new weather forecast if needed
+                    sSelf.networkStatusView.showNetworkStatus(needToShow: false) {
+                        sSelf.showNetworkStatusView(0)
+                    }
                 }
                 
             } else if status == .unsatisfied {
                 print("🐵 SHOW NO CONNECTION")
                 DispatchQueue.main.async {
-                    // TODO: animation show if needed
-                    sSelf.networkStatusView.showNetworkStatus(needToShow: true)
+                    if let date = NetworkMonitor.shared.lastOnlineTime {
+                        sSelf.networkStatusView.dateLabel.text = "Last online: " + date.formatLocalTime(format: "h:mm a")
+                    }
+                    
+                    sSelf.networkStatusView.showNetworkStatus(needToShow: true) {
+                        sSelf.showNetworkStatusView(44)
+                    }
                 }
-
             }
         }
         
@@ -211,6 +218,18 @@ class CitiesListVC: UIViewController {
         CoreDataStack.shared.persistentContainer.viewContext.delete(cityToDelete)
 
         try? CoreDataStack.shared.persistentContainer.viewContext.save()
+    }
+    
+    /// Show Network Status View
+    /// - Parameter size: size of Network Status View
+    
+    // MARK: - Network Status
+    
+    func showNetworkStatusView(_ size: Double) {
+        tableView.beginUpdates()
+        self.networkStatusView.frame.size.height = size
+        self.tableView.tableHeaderView = self.networkStatusView
+        tableView.endUpdates()
     }
     
     // MARK: - User Location check

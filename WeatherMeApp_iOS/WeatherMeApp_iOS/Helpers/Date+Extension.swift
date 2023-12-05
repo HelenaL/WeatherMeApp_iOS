@@ -9,7 +9,7 @@ import Foundation
 
 extension Date {
     
-    /// To format date for hourly forecast with format  "h a" (ex. 6 PM, 2 AM, ets.).
+    /// To format date of forecast.
     /// - Parameter timeZone: Time zone for current location.
     /// - Parameter format: The date format string used by the receiver.
     /// - Returns: A string representation of a specified date.
@@ -46,6 +46,17 @@ extension Date {
         dateFormatter.dateFormat = "h a"
         dateFormatter.timeZone = tZone
 
+        return dateFormatter.string(from: self)
+    }
+    
+    /// To format local time.
+    /// - Parameter format: The date format string used by the receiver.
+    /// - Returns: A string representation of a specified date.
+   
+    func formatLocalTime(format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        
         return dateFormatter.string(from: self)
     }
 }

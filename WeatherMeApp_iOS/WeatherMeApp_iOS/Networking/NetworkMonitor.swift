@@ -16,6 +16,7 @@ class NetworkMonitor {
     var isReachable: Bool { status == .satisfied }
     var isReachableOnCellular: Bool = true
     var onNetworkStatusChange: ((NWPath.Status) -> Void)?
+    var lastOnlineTime: Date?
     
     /// Start monitoring network status
     
@@ -24,6 +25,7 @@ class NetworkMonitor {
             guard let sSelf = self else { return }
             if path.status != sSelf.status && [NWPath.Status.satisfied, NWPath.Status.unsatisfied].contains(path.status) {
                 sSelf.status = path.status
+                sSelf.lastOnlineTime = Date.now
                 sSelf.isReachableOnCellular = path.isExpensive
                 sSelf.onNetworkStatusChange?(sSelf.status)
             }
