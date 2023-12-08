@@ -104,9 +104,9 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="750" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sng-rD-FAt" userLabel="Temp Value Label">
-                                                    <rect key="frame" x="314" y="10" width="80" height="50"/>
+                                                    <rect key="frame" x="304" y="10" width="90" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="80" id="BM9-ds-ICD"/>
+                                                        <constraint firstAttribute="width" constant="90" id="BM9-ds-ICD"/>
                                                         <constraint firstAttribute="height" constant="50" id="dfu-4o-3jt"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="40"/>
