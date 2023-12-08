@@ -35,26 +35,29 @@ class CitiesListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.sectionHeaderTopPadding = 0
-        self.startLocationUpdates()
         
+        // Setup TableView Header
+        self.tableView.sectionHeaderTopPadding = 0
+        self.networkStatusView.frame.size.height = 0
+        
+        // Setup VC title
+        navigationItem.largeTitleDisplayMode = .always
+        navigationItem.title = "Weather"
+        
+        self.startLocationUpdates()
+                
         NetworkMonitor.shared.startMonitoring()
         NetworkMonitor.shared.onNetworkStatusChange = { [weak self] (status) in
             guard let sSelf = self else { return }
             
-            // TODO: fix bug - there is networkStatusView when app just launch
-            
             if status == .satisfied {
-                print("🙈 HIDE - CONNECTION EXIST")
                 DispatchQueue.main.async {
-                    // TODO: reload new weather forecast if needed
                     sSelf.networkStatusView.showNetworkStatus(needToShow: false) {
                         sSelf.showNetworkStatusView(0)
+                        sSelf.tableView.reloadData()
                     }
                 }
-                
             } else if status == .unsatisfied {
-                print("🐵 SHOW NO CONNECTION")
                 DispatchQueue.main.async {
                     if let date = NetworkMonitor.shared.lastOnlineTime {
                         sSelf.networkStatusView.dateLabel.text = "Last online: " + date.formatLocalTime(format: "h:mm a")
@@ -67,33 +70,13 @@ class CitiesListVC: UIViewController {
             }
         }
         
-        // Setup VC title
-        navigationItem.largeTitleDisplayMode = .always
-        navigationItem.title = "Weather"
-        
         // Setup Core Data
         guard container != nil else {
             fatalError("This view needs a persistent container.")
         }
         
         setupFetchedResultController()
-                
-        // Setup Search Controller
-        let resultsTableController =
-                self.storyboard?.instantiateViewController(withIdentifier: "CitySearchResultVC") as? CitySearchResultVC
-        resultsTableController?.searchBarDelegate = self
-        
-        let searchController = UISearchController(searchResultsController: resultsTableController)
-        searchController.delegate = resultsTableController
-        searchController.searchResultsUpdater = resultsTableController
-        searchController.searchBar.delegate = resultsTableController // Monitor when the search button is tapped.
-        searchController.obscuresBackgroundDuringPresentation = true
-        
-        // Place the search bar in the navigation bar.
-        navigationItem.searchController = searchController
-
-        // Make the search bar always visible.
-        navigationItem.hidesSearchBarWhenScrolling = true
+        setupSearchController()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,6 +106,25 @@ class CitiesListVC: UIViewController {
         }
 
         tableView.reloadData()
+    }
+    
+    fileprivate func setupSearchController() {
+        // Setup Search Controller
+        let resultsTableController =
+        self.storyboard?.instantiateViewController(withIdentifier: "CitySearchResultVC") as? CitySearchResultVC
+        resultsTableController?.searchBarDelegate = self
+        
+        let searchController = UISearchController(searchResultsController: resultsTableController)
+        searchController.delegate = resultsTableController
+        searchController.searchResultsUpdater = resultsTableController
+        searchController.searchBar.delegate = resultsTableController // Monitor when the search button is tapped.
+        searchController.obscuresBackgroundDuringPresentation = true
+        
+        // Place the search bar in the navigation bar.
+        navigationItem.searchController = searchController
+        
+        // Make the search bar always visible.
+        navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     /// Getting  the weather forecast for a city.
@@ -220,10 +222,10 @@ class CitiesListVC: UIViewController {
         try? CoreDataStack.shared.persistentContainer.viewContext.save()
     }
     
+    // MARK: - Network Status
+    
     /// Show Network Status View
     /// - Parameter size: size of Network Status View
-    
-    // MARK: - Network Status
     
     func showNetworkStatusView(_ size: Double) {
         tableView.beginUpdates()
@@ -237,9 +239,7 @@ class CitiesListVC: UIViewController {
     func startLocationUpdates() {
         locationManager.startLocationManagerIfNeeded()
         locationManager.onLocationChange = {[weak self] (result) in
-            guard let sSelf = self, let location = result else {
-                return
-            }
+            guard let sSelf = self, let location = result else { return }
             
             location.placemark { placemark, error in
                 guard let placemark = placemark else {
@@ -260,9 +260,7 @@ class CitiesListVC: UIViewController {
         
         // if user change Authorization Status need to reload tableview to hide my location cell
         locationManager.onAuthStatusChange = {[weak self] (_) in
-            guard let sSelf = self else {
-                return
-            }
+            guard let sSelf = self else { return }
             
             sSelf.tableView.reloadData()
         }
@@ -311,20 +309,6 @@ extension CitiesListVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return (fetchedResultsController.sections?.count ?? 0) + 1
     }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        if section == Section.currentLocationWeather.rawValue {
-//            let view = UIView()
-//            let label = UILabel(frame: CGRect(x: 20, y: 20, width: 200, height: 20))
-//            label.text = "TEST TEXT"
-//            label.textColor = .green
-//            view.backgroundColor = .blue
-//            view.addSubview(label)
-//
-//            return view
-//        }
-//        return nil
-//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == Section.currentLocationWeather.rawValue {
@@ -407,7 +391,6 @@ extension CitiesListVC: NSFetchedResultsControllerDelegate {
             break
         }
     }
-    
 }
 
 // MARK: - CitySearchBar Delegate

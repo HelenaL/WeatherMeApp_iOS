@@ -12,7 +12,7 @@ class NetworkMonitor {
     static let shared = NetworkMonitor()
     
     private let networkMonitor = NWPathMonitor()
-    private var status: NWPath.Status = .requiresConnection
+    private var status: NWPath.Status = .satisfied
     var isReachable: Bool { status == .satisfied }
     var isReachableOnCellular: Bool = true
     var onNetworkStatusChange: ((NWPath.Status) -> Void)?
